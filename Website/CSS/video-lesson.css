@@ -1,0 +1,17 @@
+.answer {
+    width: 80%;
+    height: 100px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.answer i {
+    margin-right: 20px;
+    margin-left: 20px;
+}
