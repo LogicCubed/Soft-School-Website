@@ -7,6 +7,15 @@
     font-family: 'Poppins', sans-serif;
 }
 
+header {
+    width: 100%;
+    background-color: #fba8a3;
+    color: #333;
+    text-align: left;
+    padding: 20px 0;
+    font-size: 24px;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -16,7 +25,29 @@ body {
     background: linear-gradient(90deg, #71c9e2, #163361);
 }
 
+footer {
+    width: 100%;
+    background-color: #fba8a3;
+    color: #333;
+    text-align: left;
+    padding: 20px 0;
+    font-size: 24px;
+}
+
 a {
     color: inherit;
     text-decoration: none;
+}
+
+.back-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background: transparent;
+    border: transparent;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 25px;
 }

@@ -1,17 +1,46 @@
+.video-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 650px;
+}
+
 .answer {
-    width: 80%;
-    height: 100px;
+    width: 50%;
+    height: 75px;
     background: #ffffff;
     border-radius: 15px;
+    border: 5px solid #fba8a3;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     margin: 10px 0;
     cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
 .answer i {
     margin-right: 20px;
     margin-left: 20px;
+    color: #fba8a3;
+}
+
+.answer:hover {
+    transform: scale(1.05);
+}
+
+.submit {
+    width: 100px;
+    padding: 10px;
+    background-color: rgb(96, 244, 96);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.submit:hover {
+    transform: scale(1.05);
 }

@@ -10,27 +10,37 @@
     <link rel="stylesheet" href="../css/video-lesson.css">
 </head>
 <body>
-    <iframe
-        width="645"
-        height="315"
-        src="https://www.youtube.com/embed/lDKdOQbRIIs?si=BpWZdcVrV5ndqjv7"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-    </iframe>
-    <div class="answer">
-        <p><i class='bx bx-circle'></i>ANSWER 1</p>
+    <button class="back-button" onclick="goBack()">
+        <i class='bx bxs-left-arrow'></i></i> Back
+    </button>
+    <div class="video-container">
+        <iframe
+            width="450"
+            height="315"
+            src="../Assets/Videos/samplelesson1.mp4"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+        </iframe>
     </div>
-    <div class="answer">
-        <p><i class='bx bx-circle'></i>ANSWER 2</p>
-    </div>
-    <div class="answer">
-        <p><i class='bx bx-circle'></i>ANSWER 3</p>
-    </div>
-    <div class="answer">
-        <p><i class='bx bx-circle'></i>ANSWER 4</p>
-    </div>
+    <button class="answer">
+        <i class='bx bx-circle'></i> Run Away
+    </button>
+    <button class="answer">
+        <i class='bx bx-circle'></i> Ask if they are okay
+    </button>
+    <button class="answer">
+        <i class='bx bx-circle'></i> Get a Teacher
+    </button>
+    <button class="answer">
+        <i class='bx bx-circle'></i> Ask to play with them
+    </button>
+    <button class="submit">
+        <i class='bx bxs-check-circle'></i> Submit
+    </button>
+    <script src="../js/global.js"></script>
+    <script src="../JS/video-lessons.js"></script>
 </body>
 </html>
