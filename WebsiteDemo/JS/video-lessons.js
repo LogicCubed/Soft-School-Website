@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     let allAnswers = document.querySelectorAll(".answer");
+    let submitButton = document.querySelector(".submit");
 
     allAnswers.forEach(answer => {
         answer.addEventListener("click", function () {
@@ -12,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let selectedIcon = this.querySelector("i");
             selectedIcon.classList.replace("bx-circle", "bxs-circle");
+
+            submitButton.style.display = "block";
         });
     });
 });
