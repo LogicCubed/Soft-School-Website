@@ -97,11 +97,24 @@ const main = async () => {
                 order: 1,
                 question: 'Your friend Alex says: I\'m really stressed about the group project. I feel like I\'m doing all the work and no one else is helping.'
             },
+            {
+                id: 2,
+                lessonId: 1, // Listening
+                type: "SELECT",
+                order: 2,
+                question: 'Your friend, Josh, says, "I have so much homework, and I can’t keep up with all the assignments. I’m really stressed out."'
+            },
+            {
+                id: 3,
+                lessonId: 1, // Listening
+                type: "SELECT",
+                order: 3,
+                question: "Your classmate, Taylor, says, \"I\’m really upset because I didn\’t get the grade I wanted on the test. I studied so hard and thought I did well.\""
+            },
         ])
 
         await db.insert(schema.challengeOptions).values([
             {
-                id: 1,
                 challengeId: 1,
                 //imageSrc: "/frustrated.svg",
                 correct: true,
@@ -109,7 +122,6 @@ const main = async () => {
                 //audioSrc: "come up with a name here lol.mp3",
             },
             {
-                id: 2,
                 challengeId: 1,
                 //imageSrc: "/frustrated.svg",
                 correct: false,
@@ -117,14 +129,49 @@ const main = async () => {
                 //audioSrc: "come up with a name here lol.mp3",
             },
             {
-                id: 3,
                 challengeId: 1,
                 //imageSrc: "/frustrated.svg",
                 correct: false,
                 text: "You\'re probably just overreacting. It\'s not a big deal.",
                 //audioSrc: "come up with a name here lol.mp3",
             },
-        ])
+        ]);
+
+        await db.insert(schema.challengeOptions).values([
+            {
+                challengeId: 2,
+                correct: false,
+                text: "Well, you should just do the homework faster and not worry so much about it.",
+            },
+            {
+                challengeId: 2,
+                correct: true,
+                text: "It sounds like you’re feeling overwhelmed. Want to talk about how we can break it down together?",
+            },
+            {
+                challengeId: 2,
+                correct: false,
+                text: "Everyone has a lot of homework. You should just try to handle it better like everyone else does.",
+            },
+        ]);
+
+        await db.insert(schema.challengeOptions).values([
+            {
+                challengeId: 3,
+                correct: false,
+                text: "Maybe you didn’t study enough. You should have worked harder next time.",
+            },
+            {
+                challengeId: 3,
+                correct: true,
+                text: "It\’s tough to get a grade you didn\’t expect. How about we go over the test together and see where things went wrong?",
+            },
+            {
+                challengeId: 3,
+                correct: false,
+                text: "Grades don’t really matter that much. Just forget about it and move on.",
+            },
+        ]);
         
         console.log("Seeding finished");
     } catch (error) {
