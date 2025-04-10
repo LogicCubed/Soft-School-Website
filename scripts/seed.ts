@@ -24,25 +24,25 @@ const main = async () => {
                 id: 1,
                 title: "Conflict Resolution",
                 imageSrc: "/conflictresolution.svg",
-                //audioSrc: "conflictresolution.mp3",
+                audioSrc: "conflictresolution.mp3",
             },
             {
                 id: 2,
                 title: "Problem Solving",
                 imageSrc: "/problemsolving.svg",
-                //audioSrc: "problemsolving.mp3",
+                audioSrc: "problemsolving.mp3",
             },
             {
                 id: 3,
                 title: "Teamwork",
                 imageSrc: "/teamwork.svg",
-                //audioSrc: "teamwork.mp3",
+                audioSrc: "teamwork.mp3",
             },
             {
                 id: 4,
                 title: "Speaking",
                 imageSrc: "/speaking.svg",
-                //audioSrc: "speaking.mp3",
+                audioSrc: "speaking.mp3",
             }
         ]);
 

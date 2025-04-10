@@ -5,7 +5,7 @@ export const courses = pgTable("courses", {
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
     imageSrc: text("image_src").notNull(),
-    //audioSrc: text("audio_src"),
+    audioSrc: text("audio_src"),
 });
 
 export const coursesRelations = relations(courses, ({ many }) => ({
@@ -70,7 +70,7 @@ export const challengeOptions = pgTable("challenge_options", {
     text: text("question").notNull(),
     correct: boolean("correct").notNull(),
     //imageSrc: text("image_src"),
-    //audioSrc: text("audio_src"),
+    audioSrc: text("audio_src"),
 });
 
 export const challengeOptionsRelations = relations(challengeOptions, ({ one }) => ({
