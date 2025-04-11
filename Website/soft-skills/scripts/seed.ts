@@ -172,6 +172,30 @@ const main = async () => {
                 text: "Grades don’t really matter that much. Just forget about it and move on.",
             },
         ]);
+
+        await db.insert(schema.challenges).values([
+            {
+                id: 4,
+                lessonId: 2, // Feelings
+                type: "SELECT",
+                order: 1,
+                question: 'Your friend Alex says: I\'m really stressed about the group project. I feel like I\'m doing all the work and no one else is helping.'
+            },
+            {
+                id: 5,
+                lessonId: 2, // Feelings
+                type: "SELECT",
+                order: 2,
+                question: 'Your friend, Josh, says, "I have so much homework, and I can’t keep up with all the assignments. I’m really stressed out."'
+            },
+            {
+                id: 6,
+                lessonId: 2, // Feelings
+                type: "SELECT",
+                order: 3,
+                question: "Your classmate, Taylor, says, \"I\’m really upset because I didn\’t get the grade I wanted on the test. I studied so hard and thought I did well.\""
+            },
+        ])
         
         console.log("Seeding finished");
     } catch (error) {

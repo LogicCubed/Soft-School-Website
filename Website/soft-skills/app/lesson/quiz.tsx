@@ -2,12 +2,16 @@
 
 import { challengeOptions, challenges } from "@/db/schema";
 import { Header } from "./header";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { QuestionBubble } from "./question-bubble";
 import { Challenge } from "./challenge";
 import { Footer } from "./footer";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
-import { toast } from "sonner";
+import { useAudio, useWindowSize } from "react-use";
+import Image from "next/image";
+import { ResultCard } from "./result-card";
+import { useRouter } from "next/navigation";
+import Confetti from "react-Confetti";
 
 type Props ={
     initialPercentage: number;
@@ -23,9 +27,33 @@ export const Quiz = ({
     initialLessonId,
     initialLessonChallenges,
 }: Props) => {
+    const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+    useEffect(() => {
+        setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    }, []);
+
+    const { width, height } = windowSize;
+
+    const router = useRouter();
+
+    const [
+        correctAudio,
+        _c,
+        correctControls,
+    ]  = useAudio({ src: "/correct.wav" });
+    const [
+        incorrectAudio,
+        _i,
+        incorrectControls,
+    ]  = useAudio({ src: "/incorrect.wav" });
+
     const [pending, startTransition] = useTransition();
 
-    const [percentage, setPercentage] = useState(initialPercentage);
+    const [lessonId] = useState(initialLessonId);
+    const [percentage, setPercentage] = useState(() => {
+        return initialPercentage === 100 ? 0 : initialPercentage;
+    });
     const [challenges] = useState(initialLessonChallenges);
 
     const [activeIndex, setActiveIndex] = useState(() => {
@@ -61,6 +89,7 @@ export const Quiz = ({
         if (status === "correct") {
             setStatus("none");
             setSelectedOption(undefined);
+            onNext();
             return;
         };
 
@@ -74,15 +103,60 @@ export const Quiz = ({
             startTransition(() => {
                 upsertChallengeProgress(challenge.id)
                     .then((response) => {
+                        correctControls.play();
                         setStatus("correct");
                         setPercentage((prev) => prev + 100 / challenges.length);
                     })
             });
         } else {
             startTransition(() => {
+                incorrectControls.play();
                 setStatus("wrong");
             })
         }
+    };
+
+    if (!challenge) {
+        return (
+            <>
+                <Confetti
+                    width={width}
+                    height={height}
+                    recycle={false}
+                    numberOfPieces={500}
+                    tweenDuration={10000}
+                />
+                <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
+                    <Image
+                        src="/finish.svg"
+                        alt="Finish"
+                        className="hidden lg:block"
+                        height={100}
+                        width={100}
+                    />
+                    <Image
+                        src="/finish.svg"
+                        alt="Finish"
+                        className="block lg:hidden"
+                        height={50}
+                        width={50}
+                    />
+                    <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
+                        Great Job! <br/> You&apos;ve completed this lesson!
+                    </h1>
+                    <div className="flex items-center gap-x-4 w-full">
+                        <ResultCard
+                            value={challenges.length * 10}
+                        />
+                    </div>
+                </div>
+                <Footer
+                    lessonId={lessonId}
+                    status="completed"
+                    onCheck={() => router.push("/learn")}
+                />
+            </>
+        );
     };
 
     const title = challenge.type === "ASSIST"
@@ -91,6 +165,8 @@ export const Quiz = ({
 
     return (
         <>
+            {incorrectAudio}
+            {correctAudio}
             <Header
             percentage={percentage}
             />
