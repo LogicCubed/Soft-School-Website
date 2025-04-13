@@ -1,5 +1,6 @@
 "use server";
 
+import { TEST_ITEM_COST } from "@/constants";
 import db from "@/db/drizzle";
 import { getCourseById, getUserProgress } from "@/db/queries";
 import { challenges, userProgress } from "@/db/schema";
@@ -22,10 +23,9 @@ export const upsertUserProgress = async (courseId: number) => {
         throw new Error("Course not found");
     }
 
-    // TODO: Enable once units and lessons are added
-    //if (!course.units.length || !course.units[0].lessons.length) {
-    //    throw new Error("Course is empty");
-    //}
+    if (!course.units.length || !course.units[0].lessons.length) {
+        throw new Error("Course is empty");
+    }
 
     const existingUserProgress = await getUserProgress();
 
@@ -52,3 +52,23 @@ export const upsertUserProgress = async (courseId: number) => {
     revalidatePath("/learn");
     redirect("/learn");
 };
+
+export const onTestItemPurchase = async () => {
+    const currentUserProgress = await getUserProgress();
+
+    if (!currentUserProgress) {
+        throw new Error("User progress not found");
+    }
+
+    if (currentUserProgress.points < TEST_ITEM_COST) {
+        throw new Error("Not enough points");
+    }
+
+    await db.update(userProgress).set({
+        points: currentUserProgress.points - TEST_ITEM_COST,
+    }).where(eq(userProgress.userId, currentUserProgress.userId));
+
+    revalidatePath("/shop");
+    revalidatePath("/learn");
+    revalidatePath("/leaderboard");
+}

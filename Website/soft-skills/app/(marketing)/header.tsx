@@ -10,7 +10,7 @@ export const Header = () => {
                 <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
                     <Image src="/logo.png" height={40} width={40} alt="Logo"/>
                     <h1 className="text-2xl font-extrabold text-sky-600 tracking-wide">
-                        Soft Skills
+                        Soft School
                     </h1>
                 </div>
                 <ClerkLoading>
