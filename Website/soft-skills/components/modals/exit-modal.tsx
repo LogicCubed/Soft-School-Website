@@ -50,7 +50,7 @@ export const ExitModal = () => {
                     <div className="flex flex-col gap-y-4 w-full">
                         <Button
                             variant="primary"
-                            className="w-full"
+                            className="w-full cursor-pointer"
                             size="lg"
                             onClick={close}
                         >
@@ -58,7 +58,7 @@ export const ExitModal = () => {
                         </Button>
                         <Button
                             variant="dangerOutline"
-                            className="w-full"
+                            className="w-full cursor-pointer"
                             size="lg"
                             onClick={() => {
                                 close();

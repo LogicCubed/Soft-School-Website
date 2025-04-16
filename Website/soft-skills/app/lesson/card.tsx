@@ -46,12 +46,6 @@ export const Card = ({
                 type === "ASSIST" && "lg:p-3 w-full"
             )}
         >
-            {/*audio*/}
-            {/*imageSrc && (
-                <div className="relative aspect-square mb-4 max-h-[80px] lg:max-h-[150px] w-full">
-                    <Image src={imageSrc} fill alt={text}/>
-                </div>
-            )*/}
             <div className={cn("flex items-center justify-between",
                 type === "ASSIST" && "flex-row-reverse",
             )}>

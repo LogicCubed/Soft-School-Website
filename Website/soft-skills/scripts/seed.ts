@@ -114,16 +114,19 @@ const main = async () => {
                 challengeId: 1,
                 correct: true,
                 text: "That sounds really frustrating. Do you want help talking to the group?",
+                explanation: "That is a good way to initiate a solution!",
             },
             {
                 challengeId: 1,
                 correct: false,
                 text: "You always complain about everything.",
+                explanation: "This is not very helpful to Alex.",
             },
             {
                 challengeId: 1,
                 correct: false,
                 text: "You\'re probably just overreacting. It\'s not a big deal.",
+                explanation: "You are minimizing Alex's feelings.",
             },
         ]);
 
@@ -132,16 +135,19 @@ const main = async () => {
                 challengeId: 2,
                 correct: false,
                 text: "Well, you should just do the homework faster and not worry so much about it.",
+                explanation: "This does not offer a proper solution.",
             },
             {
                 challengeId: 2,
                 correct: true,
                 text: "It sounds like you’re feeling overwhelmed. Want to talk about how we can break it down together?",
+                explanation: "This invites Josh to talk more about their problems so you can help him further.",
             },
             {
                 challengeId: 2,
                 correct: false,
                 text: "Everyone has a lot of homework. You should just try to handle it better like everyone else does.",
+                explanation: "This invalidates Josh's feelings.",
             },
         ]);
 
@@ -150,16 +156,19 @@ const main = async () => {
                 challengeId: 3,
                 correct: false,
                 text: "Maybe you didn’t study enough. You should have worked harder next time.",
+                explanation: "This does not offer Taylor a proper solution.",
             },
             {
                 challengeId: 3,
                 correct: true,
                 text: "It\’s tough to get a grade you didn\’t expect. How about we go over the test together and see where things went wrong?",
+                explanation: "This empathizes with Taylor, and allows you to help identify her problem",
             },
             {
                 challengeId: 3,
                 correct: false,
                 text: "Grades don’t really matter that much. Just forget about it and move on.",
+                explanation: "This does not acknowledge Taylor's problem.",
             },
         ]);
 
