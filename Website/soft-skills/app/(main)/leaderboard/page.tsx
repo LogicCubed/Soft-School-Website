@@ -1,36 +1,21 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
-import { StickyWrapper } from "@/components/sticky-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { UserProgress } from "@/components/user-progress";
-import { getTopThenUsers, getUserProgress } from "@/db/queries";
+import { getTopTenUsers, getUserProgress } from "@/db/queries";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 const LeaderboardPage = async () => {
     const userProgressData = getUserProgress();
-    const leaderboardData = getTopThenUsers();
+    const leaderboardData = getTopTenUsers();
 
     const [
-        userProgress,
         leaderboard,
     ] = await Promise.all([
-        userProgressData,
         leaderboardData,
     ]);
 
-    if (!userProgress || !userProgress.activeCourse) {
-        redirect("/courses");
-    }
-
     return (
         <div className="flex flex-row-reverse gap-[48px] px-6">
-            <StickyWrapper>
-                <UserProgress
-                    activeCourse={userProgress.activeCourse}
-                    points={userProgress.points}
-                />
-            </StickyWrapper>
             <FeedWrapper>
                 <div className="w-full flex flex-col items-center">
                     <Image

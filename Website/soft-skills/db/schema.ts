@@ -5,7 +5,6 @@ export const courses = pgTable("courses", {
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
     imageSrc: text("image_src").notNull(),
-    //audioSrc: text("audio_src"),
 });
 
 export const coursesRelations = relations(courses, ({ many }) => ({
@@ -45,7 +44,7 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
 }));
 
 // USE FOR FUTURE CHALLENGES
-export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST"]);
+export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "VIDEO"]);
 
 export const challenges = pgTable("challenges", {
     id: serial("id").primaryKey(),
@@ -69,8 +68,6 @@ export const challengeOptions = pgTable("challenge_options", {
     challengeId: integer("challenge_id").references(() => challenges.id, { onDelete: "cascade" }).notNull(),
     text: text("question").notNull(),
     correct: boolean("correct").notNull(),
-    //imageSrc: text("image_src"),
-    //audioSrc: text("audio_src"),
 });
 
 export const challengeOptionsRelations = relations(challengeOptions, ({ one }) => ({
@@ -97,7 +94,7 @@ export const challengeProgressRelations = relations(challengeProgress, ({ one })
 export const userProgress = pgTable("user_progress", {
     userId: text("user_id").primaryKey(),
     userName: text("user_name").notNull().default("User"),
-    userImageSrc: text("user_image_src").notNull().default("/logo.svg"),
+    userImageSrc: text("user_image_src").notNull().default("/softy-assets/softyhappy.svg"),
     activeCourseId: integer("active_course_id").references(() => courses.id, { onDelete: "cascade" }),
     points: integer("points").notNull().default(0),
 })

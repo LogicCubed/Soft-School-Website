@@ -24,7 +24,7 @@ export const Items = ({
         <ul className="w-full">
             <div className="flex items-center w-full p-4 gap-x-4 border-t-2">
                 <Image
-                    src="/logo.png"
+                    src="/softy-assets/softyhappy.svg"
                     alt="Test Item"
                     height={60}
                     width={60}

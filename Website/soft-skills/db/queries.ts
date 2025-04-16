@@ -213,7 +213,7 @@ export const getLessonPercentage = cache(async () => {
     return percentage;
 })
 
-export const getTopThenUsers = cache(async () => {
+export const getTopTenUsers = cache(async () => {
     const { userId } = await auth();
 
     if (!userId) {

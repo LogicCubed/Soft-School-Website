@@ -5,8 +5,6 @@ import { useAudio, useKey } from "react-use";
 
 type Props = {
     id: number;
-    /*imageSrc: string | null;*/
-    /*audioSrc: string | null;*/
     text: string;
     shortcut: string;
     selected?: boolean;
@@ -18,8 +16,6 @@ type Props = {
 
 export const Card = ({
     id,
-    /*imageSrc,*/
-    /*audioSrc,*/
     text,
     shortcut,
     selected,
@@ -28,13 +24,11 @@ export const Card = ({
     status,
     type,
 }: Props) => {
-    /*const [audio, _, controls] = useAudio({ src: audioSrc || ""});*/
     const handleClick = useCallback(() => {
         if (disabled) return;
 
-        /*controls.play();*/
         onClick();
-    }, [disabled, onClick, /*controls*/]);
+    }, [disabled, onClick]);
 
     useKey(shortcut, handleClick, {}, [handleClick]);
     

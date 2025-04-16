@@ -31,9 +31,9 @@ export const ExitModal = () => {
         <Dialog open={isOpen} onOpenChange={close}>
             <DialogContent className="max-w-md">
                 <DialogHeader>
-                    <div className="flex items-center w-full justify-center mb-5">
+                    <div className="flex items-center w-full justify-center">
                         <Image
-                            src="/sad.svg"
+                            src="/softy-assets/softysad.svg"
                             alt="Logo"
                             height={80}
                             width={80}

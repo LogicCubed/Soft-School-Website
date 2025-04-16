@@ -41,12 +41,12 @@ export const Quiz = ({
         correctAudio,
         _c,
         correctControls,
-    ]  = useAudio({ src: "/correct.wav" });
+    ]  = useAudio({ src: "/sounds/correct.wav" });
     const [
         incorrectAudio,
         _i,
         incorrectControls,
-    ]  = useAudio({ src: "/incorrect.wav" });
+    ]  = useAudio({ src: "/sounds/incorrect.wav" });
 
     const [pending, startTransition] = useTransition();
 

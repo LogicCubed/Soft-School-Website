@@ -8,14 +8,14 @@ export const QuestionBubble = ({ question }: Props) => {
     return (
         <div className="flex items-center gpa-x-4 mb-6">
             <Image
-                src="/logo.png"
+                src="/softy-assets/softyhappy.svg"
                 alt="logo"
                 height={60}
                 width={60}
                 className="hidden lg:block"
             />
             <Image
-                src="/logo.png"
+                src="/softy-assets/softyhappy.svg"
                 alt="logo"
                 height={40}
                 width={40}

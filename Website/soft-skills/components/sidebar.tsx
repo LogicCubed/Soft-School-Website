@@ -22,7 +22,7 @@ export const Sidebar = ({ className }: Props ) => {
             )}>
                 <Link href="/learn">
                     <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
-                        <Image src="/logo.png" height={40} width={40} alt="Logo"/>
+                        <Image src="/softy-assets/softyhappy.svg" height={40} width={40} alt="Logo"/>
                         <h1 className="text-2xl font-extrabold text-sky-600 tracking-wide">
                             Soft School
                         </h1>
@@ -43,6 +43,11 @@ export const Sidebar = ({ className }: Props ) => {
                         label="Shop"
                         href="/shop"
                         iconSrc="/shop.svg"
+                    />
+                    <SidebarItem
+                        label="AI Helper"
+                        href="/aihelper"
+                        iconSrc="/ai.svg"
                     />
                     <SidebarItem
                         label="Profile"

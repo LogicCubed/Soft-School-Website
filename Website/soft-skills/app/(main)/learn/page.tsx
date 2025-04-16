@@ -8,6 +8,9 @@ import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } fro
 import { Header } from "./header";
 import { Unit } from "./unit";
 import { lessons, units as unitsSchema } from "@/db/schema";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Gamepad2 } from "lucide-react";
 
 const LearnPage = async () => {
     const userProgressData = getUserProgress();
@@ -40,7 +43,28 @@ const LearnPage = async () => {
             <StickyWrapper>
                 <UserProgress
                     activeCourse={userProgress.activeCourse}
+                    points={userProgress.points}
                 />
+                <div className="w-full rounded-xl bg-sky-500 p-5 text-white flex items-center justify-between">
+                    <div className="space-y-2.5">
+                        <h3 className="text-2xl font-bold">
+                            Games
+                        </h3>
+                        <p className="text-lg">
+                            Try out some Games!
+                        </p>
+                    </div>
+                    <Link href="/lesson">
+                            <Button
+                                size="lg"
+                                variant="secondary"
+                                className="hidden xl:flex border-2 border-b-4 active:border-b-2 cursor-pointer"
+                            >
+                                <Gamepad2 className="mr-2"/>
+                                PLAY
+                            </Button>
+                    </Link>
+                </div>
             </StickyWrapper>
             <FeedWrapper>
                 <Header title={userProgress.activeCourse.title} />

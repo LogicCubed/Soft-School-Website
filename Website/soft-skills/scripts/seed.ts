@@ -24,25 +24,21 @@ const main = async () => {
                 id: 1,
                 title: "Conflict Resolution",
                 imageSrc: "/conflictresolution.svg",
-                //audioSrc: "conflictresolution.mp3",
             },
             {
                 id: 2,
                 title: "Problem Solving",
                 imageSrc: "/problemsolving.svg",
-                //audioSrc: "problemsolving.mp3",
             },
             {
                 id: 3,
                 title: "Teamwork",
                 imageSrc: "/teamwork.svg",
-                //audioSrc: "teamwork.mp3",
             },
             {
                 id: 4,
                 title: "Speaking",
                 imageSrc: "/speaking.svg",
-                //audioSrc: "speaking.mp3",
             }
         ]);
 
@@ -116,24 +112,18 @@ const main = async () => {
         await db.insert(schema.challengeOptions).values([
             {
                 challengeId: 1,
-                //imageSrc: "/frustrated.svg",
                 correct: true,
                 text: "That sounds really frustrating. Do you want help talking to the group?",
-                //audioSrc: "come up with a name here lol.mp3",
             },
             {
                 challengeId: 1,
-                //imageSrc: "/frustrated.svg",
                 correct: false,
                 text: "You always complain about everything.",
-                //audioSrc: "come up with a name here lol.mp3",
             },
             {
                 challengeId: 1,
-                //imageSrc: "/frustrated.svg",
                 correct: false,
                 text: "You\'re probably just overreacting. It\'s not a big deal.",
-                //audioSrc: "come up with a name here lol.mp3",
             },
         ]);
 
