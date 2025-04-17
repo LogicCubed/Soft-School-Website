@@ -49,7 +49,7 @@ export const Footer = ({
                 )}
                 <Button
                     disabled={disabled}
-                    className="ml-auto"
+                    className="ml-auto cursor-pointer"
                     onClick={onCheck}
                     size={isMobile ? "sm" : "lg"}
                     variant={status === "wrong" ? "danger" : "secondary"}

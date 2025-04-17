@@ -22,7 +22,7 @@ const AIHelperPage = async () => {
                 <iframe
                         src="https://www.chatbase.co/chatbot-iframe/PdZDVMZeCwItf-I0gWh4j"
                         width="80%"
-                        height="125%"
+                        height="175%"
                         className="rounded-xl mx-auto"
                 />
             </FeedWrapper>
