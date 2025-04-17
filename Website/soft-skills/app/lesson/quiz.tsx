@@ -12,6 +12,7 @@ import Image from "next/image";
 import { ResultCard } from "./result-card";
 import { useRouter } from "next/navigation";
 import Confetti from "react-Confetti";
+import { getVideoUrl } from "@/db/queries";
 
 type Props ={
     initialPercentage: number;
@@ -19,6 +20,7 @@ type Props ={
     initialLessonChallenges: (typeof challenges.$inferSelect & {
         completed: boolean;
         challengeOptions: typeof challengeOptions.$inferSelect[];
+        videoUrl?: string;
     })[];
 }
 
@@ -65,6 +67,7 @@ export const Quiz = ({
     const [status, setStatus] = useState<"correct" | "wrong" | "none">("none");
 
     const challenge = challenges[activeIndex];
+    const videoUrl = challenge?.videoUrl;
     const options = challenge?.challengeOptions ?? [];
 
     const onNext = () => {
@@ -180,6 +183,25 @@ export const Quiz = ({
                             {challenge.type === "ASSIST" && (
                                 <QuestionBubble question={challenge.question}/>
                             )}
+
+                            {challenge.type === "VIDEO" ? (
+                                <div>
+                                    <video
+                                        controls
+                                        className="w-full rounded-xl mb-4"
+                                        src={challenge.videoUrl || undefined}
+                                    >
+                                    </video>
+                                        <Challenge
+                                        options={options}
+                                        onSelect={onSelect}
+                                        status={status}
+                                        selectedOption={selectedOption}
+                                        disabled={pending}
+                                        type={challenge.type}
+                                    />
+                                </div>
+                            ) : (
                             <Challenge
                                 options={options}
                                 onSelect={onSelect}
@@ -188,6 +210,7 @@ export const Quiz = ({
                                 disabled={pending}
                                 type={challenge.type}
                             />
+                            )}
                         </div>
                     </div>
                 </div>

@@ -38,8 +38,8 @@ export const Card = ({
             <Image
                 src={imageSrc}
                 alt={title}
-                height={70}
-                width={93.33}
+                height={150}
+                width={150}
                 className="rounded-lg drop-shadow-md border object-cover border-transparent"
             />
             <p className="text-neutral-700 text-center font-bold mt-3">

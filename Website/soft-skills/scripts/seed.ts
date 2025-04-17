@@ -107,6 +107,14 @@ const main = async () => {
                 order: 3,
                 question: "Your classmate, Taylor, says, \"I\’m really upset because I didn\’t get the grade I wanted on the test. I studied so hard and thought I did well.\""
             },
+            {
+                id: 4,
+                lessonId: 1,
+                type: "VIDEO",
+                question: "",
+                order: 4,
+                videoUrl: "/videos/samplevideo.mp4"
+            },
         ])
 
         await db.insert(schema.challengeOptions).values([
@@ -172,23 +180,44 @@ const main = async () => {
             },
         ]);
 
+        await db.insert(schema.challengeOptions).values([
+            {
+                challengeId: 4,
+                correct: false,
+                text: "ANSWER 1",
+                explanation: "Explanation 1",
+            },
+            {
+                challengeId: 4,
+                correct: false,
+                text: "ANSWER 2",
+                explanation: "Explanation 2",
+            },
+            {
+                challengeId: 4,
+                correct: true,
+                text: "ANSWER 3",
+                explanation: "Explanation 3",
+            },
+        ]);
+
         await db.insert(schema.challenges).values([
             {
-                id: 4,
+                id: 5,
                 lessonId: 2, // Feelings
                 type: "SELECT",
                 order: 1,
                 question: 'Your friend Alex says: I\'m really stressed about the group project. I feel like I\'m doing all the work and no one else is helping.'
             },
             {
-                id: 5,
+                id: 6,
                 lessonId: 2, // Feelings
                 type: "SELECT",
                 order: 2,
                 question: 'Your friend, Josh, says, "I have so much homework, and I can’t keep up with all the assignments. I’m really stressed out."'
             },
             {
-                id: 6,
+                id: 7,
                 lessonId: 2, // Feelings
                 type: "SELECT",
                 order: 3,

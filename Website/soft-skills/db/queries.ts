@@ -231,3 +231,15 @@ export const getTopTenUsers = cache(async () => {
 
     return data;
 });
+
+export const getVideoUrl = async (challengeId: number) => {
+    const challenge = await db.select()
+        .from(challenges)
+        .where(eq(challenges.id, challengeId))
+        .execute();
+
+    if (challenge.length > 0) {
+        return challenge[0].videoUrl;
+    }
+    return null;
+};

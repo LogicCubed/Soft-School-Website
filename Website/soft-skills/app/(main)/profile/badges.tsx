@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Progress } from "@/components/ui/progress";
 
 type Props = {
     icon: string;
@@ -22,11 +23,15 @@ export const Badges = ({
                     width={60}
                 />
             </div>
-            <div className="flex flex-col items-start ml-4">
+            <div className="flex flex-col items-start ml-4 flex-grow w-full">
                 <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
                     Wildfire
                 </h1>
-                <p className="text-muted-foreground text-center text-lg mb-6">
+                <Progress
+                    className="w-full max-w-[calc(100%-80px)]"
+                    value={20}
+                />
+                <p className="text-muted-foreground text-center text-lg mb-6 mt-6">
                     Reach a 5 Day Streak
                 </p>
             </div>

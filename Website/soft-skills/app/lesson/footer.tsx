@@ -41,6 +41,7 @@ export const Footer = ({
                 {status === "completed" && (
                     <Button
                         variant="default"
+                        className="cursor-pointer"
                         size={isMobile ? "sm" : "lg"}
                         onClick={() => window.location.href = `/lesson/${lessonId}`}
                     >
