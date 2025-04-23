@@ -7,10 +7,12 @@ import { Badges } from './badges';
 import { Button } from '@/components/ui/button';
 import { useDeleteModal } from '@/store/use-delete-modal';
 import { Statistics } from './statistics';
+import { useDeleteProgressModal } from '@/store/use-delete-progress-modal';
 
 const Profile = () => {
   const { user } = useUser();
   const { open } = useDeleteModal();
+  const { openDeleteProgressModal } = useDeleteProgressModal();
 
   const firstName = user?.firstName;
   const userName = user?.username;
@@ -57,11 +59,18 @@ const Profile = () => {
                     DANGER ZONE
                 </h1>
                 <Button
-                    onClick={open}
                     variant="danger"
-                    className="cursor-pointer"
+                    className="cursor-pointer mb-5"
+                    onClick={open}
                 >
                     DELETE ACCOUNT
+                </Button>
+                <Button
+                    variant="danger"
+                    className="cursor-pointer mb-5"
+                    onClick={openDeleteProgressModal}
+                >
+                    RESET PROGRESS
                 </Button>
             </div>
         </FeedWrapper>

@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ExitModal } from "@/components/modals/exit-modal";
 import { DeleteModal } from "@/components/modals/delete-modal";
+import { DeleteProgressModal } from "@/components/modals/delete-progress-modal";
 
 const font = Nunito({
   variable: "--font-nunito",
@@ -31,6 +32,7 @@ export default function RootLayout({
           <Toaster/>
           <ExitModal/>
           <DeleteModal/>
+          <DeleteProgressModal/>
           {children}
         </body>
       </html>
