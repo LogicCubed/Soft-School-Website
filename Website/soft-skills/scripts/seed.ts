@@ -134,6 +134,14 @@ const main = async () => {
                 order: 4,
                 videoUrl: "/videos/samplevideo.mp4"
             },
+            {
+                id: 5,
+                lessonId: 1,
+                type: "AUDIO",
+                question: "",
+                order: 5,
+                audio: "/sounds/sampleaudio1.mp3"
+            },
         ])
 
         await db.insert(schema.challengeOptions).values([
@@ -220,23 +228,44 @@ const main = async () => {
             },
         ]);
 
+        await db.insert(schema.challengeOptions).values([
+            {
+                challengeId: 5,
+                correct: true,
+                text: "TEST ANSWER 1",
+                explanation: "EXPLANATION 1",
+            },
+            {
+                challengeId: 5,
+                correct: false,
+                text: "TEST ANSWER 2",
+                explanation: "EXPLANATION 2",
+            },
+            {
+                challengeId: 5,
+                correct: false,
+                text: "TEST ANSWER 3",
+                explanation: "EXPLANATION 3",
+            },
+        ]);
+
         await db.insert(schema.challenges).values([
             {
-                id: 5,
+                id: 6,
                 lessonId: 2, // Feelings
                 type: "SELECT",
                 order: 1,
                 question: 'Your classmate Jamie was really quiet during your group project presentation. Normally, Jamie is outgoing and confident, but today they seemed distracted and barely spoke. After class, you approach Jamie to check in.'
             },
             {
-                id: 6,
+                id: 7,
                 lessonId: 2, // Feelings
                 type: "SELECT",
                 order: 2,
                 question: 'You are working on a team project, and your teammate Sam seems frustrated after receiving feedback from the teacher. What is the most supportive way to ask about how Sam is feeling?'
             },
             {
-                id: 7,
+                id: 8,
                 lessonId: 2, // Feelings
                 type: "SELECT",
                 order: 3,
@@ -246,19 +275,19 @@ const main = async () => {
 
         await db.insert(schema.challengeOptions).values([
             {
-                challengeId: 5,
+                challengeId: 6,
                 correct: false,
                 text: "Why didn’t you say anything during the presentation?",
                 explanation: "This question can feel accusatory. The word “why” puts Jamie on the defensive, as if they did something wrong. It focuses on their behavior rather than their feelings, which can shut down open conversation.",
             },
             {
-                challengeId: 5,
+                challengeId: 6,
                 correct: false,
                 text: "You seemed off today—what’s wrong with you?",
                 explanation: "Even if well-meaning, this phrase sounds critical or judgmental. Saying “what’s wrong with you” targets the person, not their experience, and can make someone feel like they are being blamed for how they feel.",
             },
             {
-                challengeId: 5,
+                challengeId: 6,
                 correct: true,
                 text: "Hey, I noticed you were really quiet during the presentation. Are you feeling okay?",
                 explanation: "This question is observational and empathetic. It notices a specific behavior (“quiet during the presentation”) and invites Jamie to share their emotional state (“Are you feeling okay?”), creating a safe and supportive space.",
@@ -267,19 +296,19 @@ const main = async () => {
 
         await db.insert(schema.challengeOptions).values([
             {
-                challengeId: 6,
+                challengeId: 7,
                 correct: true,
                 text: "Hey, how are you feeling after that feedback?",
                 explanation: "This is the best option because it’s open-ended, non-judgmental, and invites Sam to share their feelings in their own words. It shows genuine curiosity and support without making assumptions. Great for practicing emotional intelligence and empathy.",
             },
             {
-                challengeId: 6,
+                challengeId: 7,
                 correct: false,
                 text: "You took that feedback way too personally, didn’t you?",
                 explanation: "This comes across as judgmental and assumes how the other person feels. It can make Sam feel defensive or invalidated. Even if it’s true, starting with empathy is key.",
             },
             {
-                challengeId: 6,
+                challengeId: 7,
                 correct: false,
                 text: "It's just feedback — don’t let it get to you.",
                 explanation: "This dismisses Sam’s feelings entirely. Even if the intent is to comfort, it invalidates the emotion instead of recognizing it. Effective conflict resolution starts with acknowledging how someone feels before offering perspective.",
@@ -288,19 +317,19 @@ const main = async () => {
 
         await db.insert(schema.challengeOptions).values([
             {
-                challengeId: 7,
+                challengeId: 8,
                 correct: false,
                 text: "You’re probably super upset, right? That sucks.",
                 explanation: "This assumes Jordan’s emotion instead of giving them a chance to express it themselves. Even if the guess is accurate, it can feel a little limiting or overwhelming, especially if Jordan isn’t ready to talk.",
             },
             {
-                challengeId: 7,
+                challengeId: 8,
                 correct: true,
                 text: "Hey, I know you were really hoping to get in. How are you feeling about it?",
                 explanation: "This is a compassionate and supportive response. It shows that you were paying attention to what mattered to Jordan and invites them to share how they really feel without judgment or assumption.",
             },
             {
-                challengeId: 7,
+                challengeId: 8,
                 correct: false,
                 text: "It’s just a school play. You’ll get over it.",
                 explanation: "This dismisses Jordan’s feelings entirely. Even if well-meant, it invalidates the emotional weight of the situation for Jordan, which can make them feel unheard or alone.",
@@ -309,7 +338,7 @@ const main = async () => {
 
         await db.insert(schema.challenges).values([
             {
-                id: 8,
+                id: 9,
                 lessonId: 3,
                 type: "SELECT",
                 order: 1,

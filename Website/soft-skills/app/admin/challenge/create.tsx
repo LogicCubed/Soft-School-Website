@@ -23,6 +23,10 @@ export const ChallengeCreate = () => {
                         {
                             id: "VIDEO",
                             name: "VIDEO",
+                        },
+                        {
+                            id: "AUDIO",
+                            name: "AUDIO",
                         }
                     ]}
                     validate={[required()]}

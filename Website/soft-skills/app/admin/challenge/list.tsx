@@ -20,6 +20,10 @@ export const ChallengeList = () => {
                     {
                         id: "VIDEO",
                         name: "VIDEO",
+                    },
+                    {
+                        id: "AUDIO",
+                        name: "AUDIO",
                     }
                 ]}
             />

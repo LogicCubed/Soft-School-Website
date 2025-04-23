@@ -2,7 +2,7 @@
 
 import { challengeOptions, challenges } from "@/db/schema";
 import { Header } from "./header";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { QuestionBubble } from "./question-bubble";
 import { Challenge } from "./challenge";
 import { Footer } from "./footer";
@@ -13,6 +13,8 @@ import { ResultCard } from "./result-card";
 import { useRouter } from "next/navigation";
 import Confetti from "react-Confetti";
 import { getVideoUrl } from "@/db/queries";
+import { Button } from "@/components/ui/button";
+import { Icon, Volume2, Volume2Icon } from "lucide-react";
 
 type Props ={
     initialPercentage: number;
@@ -68,6 +70,7 @@ export const Quiz = ({
 
     const challenge = challenges[activeIndex];
     const videoUrl = challenge?.videoUrl;
+    const audioRef = useRef<HTMLAudioElement>(null);
     const options = challenge?.challengeOptions ?? [];
 
     const onNext = () => {
@@ -193,6 +196,33 @@ export const Quiz = ({
                                     >
                                     </video>
                                         <Challenge
+                                        options={options}
+                                        onSelect={onSelect}
+                                        status={status}
+                                        selectedOption={selectedOption}
+                                        disabled={pending}
+                                        type={challenge.type}
+                                        />
+                                </div>
+
+                            ) : challenge.type === "AUDIO" ? (
+                                <div>
+                                    <div className="flex justify-center items-center h-full mb-10">
+                                        <Button
+                                            size="lg"
+                                            className="cursor-pointer w-40 h-40"
+                                            onClick={() => {
+                                                if (audioRef.current) {
+                                                  audioRef.current.currentTime = 0;
+                                                  audioRef.current.play();
+                                                }
+                                              }}
+                                        >
+                                            <Volume2Icon className="w-24 h-24"/>
+                                        </Button>
+                                        <audio ref={audioRef} src={challenge.audio || ""} />
+                                    </div>
+                                    <Challenge
                                         options={options}
                                         onSelect={onSelect}
                                         status={status}
