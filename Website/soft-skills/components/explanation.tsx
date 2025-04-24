@@ -26,12 +26,12 @@ export const Explanation = ({
         : "/softy-assets/softyhappy.svg";
         
     return (
-        <div className="fixed left-0 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center">
+        <div className="fixed left-0 top-[41%] -translate-y-1/2 z-50 flex flex-col items-center">
             <Image
                 src={imageSrc}
                 alt="logo"
-                height={60}
-                width={60}
+                height={128}
+                width={128}
                 className={cn(
                     "hidden lg:block mb-4",
                     "transition-opacity duration-500 ease-in-out",

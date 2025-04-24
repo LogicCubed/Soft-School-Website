@@ -28,6 +28,12 @@ export const UserProgress = async ({
                     />
                 </Button>
             </Link>
+            <div>
+                <Button variant="ghost" className="text-[#ffcc00] cursor-pointer">
+                    <Image src="/streak.svg" alt="Steak" height={28} width={28} className="mr-2"/>
+                    5
+                </Button>
+            </div>
             <Link href="/shop">
                 <Button variant="ghost" className="text-[#ffcc00] cursor-pointer">
                     <Image src="/points.svg" alt="Points" height={28} width={28} className="mr-2"/>
