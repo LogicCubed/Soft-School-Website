@@ -1,6 +1,5 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
 import Profile from "./profile";
 import { getUserProgress } from "@/db/queries";
 

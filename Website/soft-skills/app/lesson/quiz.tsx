@@ -7,14 +7,13 @@ import { QuestionBubble } from "./question-bubble";
 import { Challenge } from "./challenge";
 import { Footer } from "./footer";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
-import { useAudio, useWindowSize } from "react-use";
+import { useAudio } from "react-use";
 import Image from "next/image";
 import { ResultCard } from "./result-card";
 import { useRouter } from "next/navigation";
 import Confetti from "react-Confetti";
-import { getVideoUrl } from "@/db/queries";
 import { Button } from "@/components/ui/button";
-import { Icon, Volume2, Volume2Icon } from "lucide-react";
+import { Volume2Icon } from "lucide-react";
 
 type Props ={
     initialPercentage: number;
@@ -41,6 +40,8 @@ export const Quiz = ({
 
     const router = useRouter();
 
+    // Correct and Incorrect Audio
+
     const [
         correctAudio,
         _c,
@@ -52,7 +53,11 @@ export const Quiz = ({
         incorrectControls,
     ]  = useAudio({ src: "/sounds/incorrect.wav" });
 
+    // Setup transition state
+
     const [pending, startTransition] = useTransition();
+
+    // Percentage Bar
 
     const [lessonId] = useState(initialLessonId);
     const [percentage, setPercentage] = useState(() => {
@@ -60,22 +65,79 @@ export const Quiz = ({
     });
     const [challenges] = useState(initialLessonChallenges);
 
+    // Track which challenge is currently active
+
     const [activeIndex, setActiveIndex] = useState(() => {
         const uncompletedIndex = challenges.findIndex((challenge) => !challenge.completed);
         return uncompletedIndex === -1 ? 0 : uncompletedIndex;
     });
 
+    // Track selected option and answer status
+
     const [selectedOption, setSelectedOption] = useState<number>();
     const [status, setStatus] = useState<"correct" | "wrong" | "none">("none");
 
+    // Reference and extract challenge details
+
     const challenge = challenges[activeIndex];
-    const videoUrl = challenge?.videoUrl;
     const audioRef = useRef<HTMLAudioElement>(null);
     const options = challenge?.challengeOptions ?? [];
 
+    // Transition between Questions
+    
+    const [showContent, setShowContent] = useState(true);
     const onNext = () => {
-        setActiveIndex((current) => current + 1);
+        setShowContent(false);
+        setTimeout(() => {
+            setActiveIndex((current) => current + 1);
+            setShowContent(true);
+    }, 300);
     };
+
+    // Accuracy
+    const [attempted, setAttempted] = useState(0);
+    const [correct, setCorrect] = useState(0);
+    const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+    // Timer
+    const [startTime, setStartTime] = useState<number | null>(null);
+    const [elapsedTime, setElapsedTime] = useState<number>(0);
+    const [isLessonComplete, setIsLessonComplete] = useState(false);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+      
+    useEffect(() => {
+        const start = Date.now();
+        setStartTime(start);
+      
+        const interval = setInterval(() => {
+            setElapsedTime(Date.now() - start);
+        }, 1000);
+
+        timerRef.current = interval;
+      
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (isLessonComplete && timerRef.current) {
+            clearInterval(timerRef.current);
+        }
+    }, [isLessonComplete]);
+
+    const formatTime = (ms: number) => {
+        const totalSeconds = Math.floor(ms / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    };
+
+    useEffect(() => {
+        if (!challenge) {
+          setIsLessonComplete(true);
+        }
+    }, [challenge]);
+
+    // On Answer Select
 
     const onSelect = (id: number) => {
         if(status !== "none") return;
@@ -111,6 +173,12 @@ export const Quiz = ({
                     .then((response) => {
                         correctControls.play();
                         setStatus("correct");
+
+                        // Accuracy
+                        setAttempted((prev) => prev + 1);
+                        setCorrect((prev) => prev + 1);
+
+                        // Progress Bar
                         setPercentage((prev) => prev + 100 / challenges.length);
                     })
             });
@@ -118,6 +186,10 @@ export const Quiz = ({
             startTransition(() => {
                 incorrectControls.play();
                 setStatus("wrong");
+
+                // Accuracy
+
+                setAttempted((prev) => prev + 1);
             })
         }
     };
@@ -153,6 +225,8 @@ export const Quiz = ({
                     <div className="flex items-center gap-x-4 w-full">
                         <ResultCard
                             value={challenges.length * 10}
+                            accuracy={accuracy}
+                            time={formatTime(elapsedTime)}
                         />
                     </div>
                 </div>
@@ -178,7 +252,7 @@ export const Quiz = ({
             />
             <div className="flex-1">
                 <div className="h-full flex items-center justify-center">
-                    <div className="lg:min-h-[350[x] lg:w-[600px] w-full px-6 lg:px-0 flex flex-col gap-y-12">
+                <div className={`transition-opacity duration-300 ${showContent ? "opacity-100" : "opacity-0"} lg:min-h-[350px] lg:w-[600px] w-full px-6 lg:px-0 flex flex-col gap-y-12`}>
                         <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
                             {title}
                         </h1>
