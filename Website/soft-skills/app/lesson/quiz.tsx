@@ -41,7 +41,6 @@ export const Quiz = ({
     const router = useRouter();
 
     // Correct and Incorrect Audio
-
     const [
         correctAudio,
         _c,
@@ -53,12 +52,10 @@ export const Quiz = ({
         incorrectControls,
     ]  = useAudio({ src: "/sounds/incorrect.wav" });
 
-    // Setup transition state
-
+    // Transition State
     const [pending, startTransition] = useTransition();
 
     // Percentage Bar
-
     const [lessonId] = useState(initialLessonId);
     const [percentage, setPercentage] = useState(() => {
         return initialPercentage === 100 ? 0 : initialPercentage;
@@ -66,25 +63,24 @@ export const Quiz = ({
     const [challenges] = useState(initialLessonChallenges);
 
     // Track which challenge is currently active
-
     const [activeIndex, setActiveIndex] = useState(() => {
         const uncompletedIndex = challenges.findIndex((challenge) => !challenge.completed);
         return uncompletedIndex === -1 ? 0 : uncompletedIndex;
     });
 
     // Track selected option and answer status
-
     const [selectedOption, setSelectedOption] = useState<number>();
     const [status, setStatus] = useState<"correct" | "wrong" | "none">("none");
 
     // Reference and extract challenge details
-
     const challenge = challenges[activeIndex];
     const audioRef = useRef<HTMLAudioElement>(null);
     const options = challenge?.challengeOptions ?? [];
 
+    // Track Video playback Status
+    const [videoEnded, setVideoEnded] = useState(false);
+
     // Transition between Questions
-    
     const [showContent, setShowContent] = useState(true);
     const onNext = () => {
         setShowContent(false);
@@ -138,7 +134,6 @@ export const Quiz = ({
     }, [challenge]);
 
     // On Answer Select
-
     const onSelect = (id: number) => {
         if(status !== "none") return;
 
@@ -257,28 +252,42 @@ export const Quiz = ({
                             {title}
                         </h1>
                         <div>
+                            {/* DELETE THIS LATER */}
                             {challenge.type === "ASSIST" && (
                                 <QuestionBubble question={challenge.question}/>
                             )}
 
+                            {/* Video Type Questions */}
                             {challenge.type === "VIDEO" ? (
                                 <div>
                                     <video
                                         controls
+                                        autoPlay
                                         className="w-full rounded-xl mb-4"
                                         src={challenge.videoUrl || undefined}
+                                        onEnded={() => setVideoEnded(true)}
                                     >
                                     </video>
+
+                                    <div
+                                        className={`transition-opacity duration-500 ${
+                                        videoEnded ? "opacity-100" : "opacity-0 pointer-events-none"
+                                        }`}
+                                    >
+                                    {videoEnded && (
                                         <Challenge
-                                        options={options}
-                                        onSelect={onSelect}
-                                        status={status}
-                                        selectedOption={selectedOption}
-                                        disabled={pending}
-                                        type={challenge.type}
+                                            options={options}
+                                            onSelect={onSelect}
+                                            status={status}
+                                            selectedOption={selectedOption}
+                                            disabled={pending}
+                                            type={challenge.type}
                                         />
+                                    )}
+                                    </div>
                                 </div>
 
+                                // Audio Type Question
                             ) : challenge.type === "AUDIO" ? (
                                 <div>
                                     <div className="flex justify-center items-center h-full mb-10">

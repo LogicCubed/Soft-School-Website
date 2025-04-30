@@ -17,7 +17,6 @@ export const Challenge = ({
     onSelect,
     status,
     selectedOption,
-    disabled,
     type,
 }: Props) => {
     const selectedExplanation = options.find((option) => option.id === selectedOption)?.explanation ?? "";
