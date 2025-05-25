@@ -43,12 +43,12 @@ export const Quiz = ({
     // Correct and Incorrect Audio
     const [
         correctAudio,
-        _c,
+        ,
         correctControls,
     ]  = useAudio({ src: "/sounds/correct.wav" });
     const [
         incorrectAudio,
-        _i,
+        ,
         incorrectControls,
     ]  = useAudio({ src: "/sounds/incorrect.wav" });
 
@@ -96,14 +96,12 @@ export const Quiz = ({
     const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
     // Timer
-    const [startTime, setStartTime] = useState<number | null>(null);
     const [elapsedTime, setElapsedTime] = useState<number>(0);
     const [isLessonComplete, setIsLessonComplete] = useState(false);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
       
     useEffect(() => {
         const start = Date.now();
-        setStartTime(start);
       
         const interval = setInterval(() => {
             setElapsedTime(Date.now() - start);
@@ -165,7 +163,7 @@ export const Quiz = ({
         if (correctOption && correctOption.id === selectedOption) {
             startTransition(() => {
                 upsertChallengeProgress(challenge.id)
-                    .then((response) => {
+                    .then(() => {
                         correctControls.play();
                         setStatus("correct");
 

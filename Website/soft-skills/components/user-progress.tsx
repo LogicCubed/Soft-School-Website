@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { courses, userProgress } from "@/db/schema";
+import { courses } from "@/db/schema";
 import { getUserProgress } from "@/db/queries";
 
 type Props = {
@@ -11,7 +11,6 @@ type Props = {
 
 export const UserProgress = async ({
     activeCourse,
-    points,
 }: Props) => {
     const progress = await getUserProgress();
 

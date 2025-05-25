@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import { Quiz } from "./quiz";
 
 const LessonPage = async () => {
-    const lessonData = getLesson();
-    const userProgressData = getUserProgress();
+    const lessonData = await getLesson();
+    const userProgressData = await getUserProgress();
 
     const [
         lesson,

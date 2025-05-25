@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { challenges } from "@/db/schema";
 import { useCallback } from "react";
-import { useAudio, useKey } from "react-use";
+import { useKey } from "react-use";
 
 type Props = {
     id: number;
@@ -15,7 +15,6 @@ type Props = {
 }
 
 export const Card = ({
-    id,
     text,
     shortcut,
     selected,

@@ -9,8 +9,6 @@ type Props = {
 };
 
 export const Badges = ({
-    icon,
-    name,
 }: Props) => {
 
     return (

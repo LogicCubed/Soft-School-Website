@@ -4,22 +4,24 @@ import { Quiz } from "../quiz";
 
 type Props = {
     params: {
-        lessonId: number;
+        lessonId: string;
     };
 };
 
-const LessonIdPage = async ({
-    params,
-}: Props) => {
-    const lessonData = getLesson(params.lessonId);
-    const userProgressData = getUserProgress();
+export default async function LessonIdPage({ params }: Props) {
+    const { lessonId } = await params;
+    const lessonIdNumber = Number(lessonId);
+
+    if (isNaN(lessonIdNumber)) {
+        redirect("/learn");
+    }
 
     const [
         lesson,
         userProgress,
     ] = await Promise.all([
-        lessonData,
-        userProgressData
+        getLesson(lessonIdNumber),
+        getUserProgress(),
     ]);
 
     if (!lesson || !userProgress) {
@@ -38,5 +40,3 @@ const LessonIdPage = async ({
         />
     );
 };
-
-export default LessonIdPage;

@@ -4,7 +4,7 @@ import AppClient from "./appclient";
 
 const AdminPage = async () => {
 
-    const isAdminUser = await isAdmin();
+    // const isAdminUser = await isAdmin();
 
     if (!isAdmin) {
         redirect("/");

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
@@ -17,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { useDeleteProgressModal } from "@/store/use-delete-progress-modal";
 
 export const DeleteProgressModal = () => {
-    const router = useRouter();
     const [isClient, setIsClient] = useState(false);
     const { isOpen, closeDeleteProgressModal } = useDeleteProgressModal();
 
@@ -61,7 +59,7 @@ export const DeleteProgressModal = () => {
                             className="w-full cursor-pointer"
                             size="lg"
                             onClick={async () => {
-                                const res = await fetch("/api/reset-progress", { method: "POST" });
+                                await fetch("/api/reset-progress", { method: "POST" });
                             }}
                         >
                             Delete Progress

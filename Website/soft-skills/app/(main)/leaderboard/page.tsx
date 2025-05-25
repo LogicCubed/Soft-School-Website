@@ -1,11 +1,10 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { getTopTenUsers, getUserProgress } from "@/db/queries";
+import { getTopTenUsers } from "@/db/queries";
 import Image from "next/image";
 
 const LeaderboardPage = async () => {
-    const userProgressData = getUserProgress();
     const leaderboardData = getTopTenUsers();
 
     const [

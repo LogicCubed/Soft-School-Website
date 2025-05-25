@@ -9,9 +9,6 @@ type Props = {
 };
 
 export const Statistics = ({
-    icon,
-    stat,
-    caption,
 }: Props) => {
 
     return (

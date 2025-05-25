@@ -15,7 +15,6 @@ const Profile = () => {
   const { openDeleteProgressModal } = useDeleteProgressModal();
 
   const firstName = user?.firstName;
-  const userName = user?.username;
   const creationDate = user?.createdAt;
 
   const formattedDate = creationDate

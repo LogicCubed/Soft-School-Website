@@ -6,14 +6,19 @@ import { NextResponse } from "next/server";
 
 export const GET = async (
     req: Request,
-    { params }: { params: { challengeOptionId: number } },
+    { params }: { params: { challengeOptionsId: string } }, // Fixed parameter name
 ) => {
+    const id = Number(params.challengeOptionsId); // Corrected variable name
+    if (isNaN(id)) {
+        return new NextResponse("Invalid ID", { status: 400 });
+    }
+
     if (!isAdmin()) {
         return new NextResponse("Unauthorized", { status: 403 });
     }
 
     const data = await db.query.challengeOptions.findFirst({
-        where: eq(challengeOptions.id, params.challengeOptionId),
+        where: eq(challengeOptions.id, id),
     });
 
     return NextResponse.json(data);
@@ -21,8 +26,13 @@ export const GET = async (
 
 export const PUT = async (
     req: Request,
-    { params }: { params: { challengeId: number } },
+    { params }: { params: { challengeOptionsId: string } }, // Fixed parameter name
 ) => {
+    const id = Number(params.challengeOptionsId); // Corrected variable name
+    if (isNaN(id)) {
+        return new NextResponse("Invalid ID", { status: 400 });
+    }
+
     if (!isAdmin()) {
         return new NextResponse("Unauthorized", { status: 403 });
     }
@@ -30,21 +40,26 @@ export const PUT = async (
     const body = await req.json();
     const data = await db.update(challengeOptions).set({
         ...body,
-    }).where(eq(challengeOptions.id, params.challengeId)).returning();
+    }).where(eq(challengeOptions.id, id)).returning();
 
     return NextResponse.json(data[0]);
 };
 
 export const DELETE = async (
     req: Request,
-    { params }: { params: { challengeId: number } },
+    { params }: { params: { challengeOptionsId: string } }, // Fixed parameter name
 ) => {
+    const id = Number(params.challengeOptionsId); // Corrected variable name
+    if (isNaN(id)) {
+        return new NextResponse("Invalid ID", { status: 400 });
+    }
+
     if (!isAdmin()) {
         return new NextResponse("Unauthorized", { status: 403 });
     }
 
     const data = await db.delete(challengeOptions)
-        .where(eq(challengeOptions.id, params.challengeId)).returning();
+        .where(eq(challengeOptions.id, id)).returning();
 
     return NextResponse.json(data[0]);
 };
