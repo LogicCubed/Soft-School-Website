@@ -5,6 +5,10 @@ import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 import { challengeProgress, challenges, courses, lessons, units, userProgress } from "@/db/schema";
 
+// Fetches the user's progress record from the database based on their userId.
+// Includes the active course associated with the user.
+// Returns null if no user is authenticated or progress is not found.
+
 export const getUserProgress = cache(async () => {
     const { userId } = await auth();
 
@@ -21,6 +25,11 @@ export const getUserProgress = cache(async () => {
 
     return data;
 });
+
+// Retrieves all units for the user's active course, along with nested lessons and challenges.
+// Also includes challenge progress for the current user to determine lesson completion.
+// Adds a `completed` flag to each lesson based on whether all challenges are completed.
+// Returns an empty array if the user is not authenticated or has no active course.
 
 export const getUnits = cache(async () => {
     const { userId } = await auth();
@@ -76,11 +85,17 @@ export const getUnits = cache(async () => {
     return normalizedData;
 });
 
+// Returns all courses available in the system.
+// No user authentication is required.
+
 export const getCourses = cache(async () => {
     const data = await db.query.courses.findMany();
 
     return data;
 });
+
+// Fetches a specific course by its ID.
+// Includes associated units and lessons, ordered by their `order` fields.
 
 export const getCourseById = cache(async (courseId: number) => {
     const data = await db.query.courses.findFirst({
@@ -99,6 +114,12 @@ export const getCourseById = cache(async (courseId: number) => {
 
     return data;
 });
+
+// Computes the user's course progress for their active course.
+// Retrieves all units and their lessons/challenges.
+// Finds the first uncompleted lesson (based on whether any challenge is incomplete).
+// Returns the `activeLesson` object and its ID.
+// Returns null if user is unauthenticated or has no active course.
 
 export const getCourseProgress = cache(async () => {
     const { userId } = await auth();
@@ -145,6 +166,11 @@ export const getCourseProgress = cache(async () => {
     }
 });
 
+// Retrieves a specific lesson by ID, or the user's active lesson if no ID is provided.
+// Includes associated challenges, their options, and progress for the current user.
+// Adds a `completed` flag to each challenge based on whether it is fully completed.
+// Returns the full lesson object with normalized challenges, or null if unauthenticated or missing data.
+
 export const getLesson = cache(async (id?: number) => {
     const { userId } = await auth();
 
@@ -190,6 +216,10 @@ export const getLesson = cache(async (id?: number) => {
     return { ...data, challenges: normalizedChallenges }
 });
 
+// Calculates the completion percentage of the active lesson based on completed challenges.
+// Returns 0 if the lesson or user progress is not found.
+// Returns a number between 0 and 100 representing the percentage.
+
 export const getLessonPercentage = cache(async () => {
     const courseProgress = await getCourseProgress();
 
@@ -211,6 +241,10 @@ export const getLessonPercentage = cache(async () => {
     return percentage;
 })
 
+// Fetches the top 10 users based on points, ordered descendingly.
+// Includes userId, userName, userImageSrc, and points.
+// Requires the current user to be authenticated.
+
 export const getTopTenUsers = cache(async () => {
     const { userId } = await auth();
 
@@ -231,6 +265,9 @@ export const getTopTenUsers = cache(async () => {
 
     return data;
 });
+
+// Retrieves the video URL for a specific challenge based on its ID.
+// Returns the URL if the challenge exists, or null if it doesn't.
 
 export const getVideoUrl = async (challengeId: number) => {
     const challenge = await db.select()
