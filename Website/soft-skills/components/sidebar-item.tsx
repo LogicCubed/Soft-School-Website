@@ -17,6 +17,8 @@ export const SidebarItem = ({
     href,
 }: Props) => {
     const pathname = usePathname();
+
+    // Set Sidebar Item to "Active"
     const active = pathname === href;
 
     return (

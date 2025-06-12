@@ -19,7 +19,7 @@ export const AdminCourseManager = ({ initialCourses }: AdminCourseManagerProps) 
     <>
       <Button
         variant="primary"
-        className="cursor-pointer m-4"
+        className="cursor-pointer mt-5"
         onClick={openCreateCourseModal}
       >
         Create Course

@@ -12,7 +12,10 @@ const AdminPage = async () => {
 
   return (
     <div>
-      ADMIN HOMEPAGE
+      <h1 className="text-2xl font-bold text-neutral-700">Current Courses:</h1>
+      <AdminCourseManager
+        initialCourses={courses}
+      />
     </div>
   );
 };

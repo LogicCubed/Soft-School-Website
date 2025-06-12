@@ -64,43 +64,43 @@ const main = async () => {
                 id: 1,
                 unitId: 1, // Unit 1 (Learn the basics...)
                 order: 1,
-                title: "Listening",
+                title: "Lesson 1",
             },
             {
                 id: 2,
                 unitId: 1, // Unit 1 (Learn the basics...)
                 order: 2,
-                title: "Listening",
+                title: "Lesson 2",
             },
             {
                 id: 3,
                 unitId: 1, // Unit 1 (Learn the basics...)
                 order: 3,
-                title: "Listening",
+                title: "Lesson 3",
             },
             {
                 id: 4,
                 unitId: 1, // Unit 1 (Learn the basics...)
                 order: 4,
-                title: "Listening",
+                title: "Lesson 4",
             },
             {
                 id: 5,
                 unitId: 1, // Unit 1 (Learn the basics...)
                 order: 5,
-                title: "Listening",
+                title: "Lesson 5",
             },
             {
                 id: 6,
                 unitId: 2, // Unit 2 (Learn the basics...)
                 order: 6,
-                title: "Feelings",
+                title: "Lesson 1",
             },
             {
                 id: 7,
                 unitId: 2, // Unit 2 (Learn the basics...)
                 order: 7,
-                title: "Feelings",
+                title: "Lesson 2",
             }
         ]);
 

@@ -13,15 +13,8 @@ type AdminCardProps = {
 export const AdminCard = ({ id, title, imageSrc }: AdminCardProps) => {
   const router = useRouter();
 
-  // Clicking the card navigates to admin edit page for that course
   const handleClick = () => {
-    router.push(`/admin/courses/edit/${id}`);
-  };
-
-  // Example admin action buttons (optional)
-  const handleDelete = () => {
-    // You can add delete logic here
-    console.log("Delete course", id);
+    router.push(`/admin/curriculum/courses/edit/${id}`);
   };
 
   return (
@@ -39,7 +32,7 @@ export const AdminCard = ({ id, title, imageSrc }: AdminCardProps) => {
       <h2 className="mt-3 font-bold text-neutral-700 text-center">{title}</h2>
       <div
         className="mt-2 flex gap-2"
-        onClick={(e) => e.stopPropagation()} // prevent card click on button clicks
+        onClick={(e) => e.stopPropagation()}
       >
       </div>
     </div>
