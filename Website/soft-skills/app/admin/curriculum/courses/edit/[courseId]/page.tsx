@@ -1,21 +1,19 @@
+import { PlusIcon } from "lucide-react";
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { Button } from "@/components/ui/button";
 import { getCourseById } from "@/db/queries";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { DeleteUnitButton } from "@/components/admin-components/delete-unit-button";
+import { CreateUnitButton } from "@/components/admin-components/create-unit-button";
+import { CreateUnitModal } from "@/components/admin-components/admin-modals/create-unit-modal";
 
-type EditCoursePageProps = {
-  params: {
-    courseId: string;
-  };
-};
-
-const EditCoursePage = async ({ params }: EditCoursePageProps) => {
+const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = Number(params.courseId);
   if (isNaN(courseId)) notFound();
 
   const course = await getCourseById(courseId);
-  if (!course) notFound();
+  if (!course) return notFound();
 
   return (
     <div>
@@ -30,51 +28,58 @@ const EditCoursePage = async ({ params }: EditCoursePageProps) => {
               width={128}
             />
             <h2>No Units were found for this Course!</h2>
-            <Button variant="primary" className="cursor-pointer m-4">
-              Create Unit
-            </Button>
+            <div className="cursor-pointer m4">
+              <CreateUnitButton/>
+              <CreateUnitModal courseId={courseId} />
+            </div>
           </div>
         ) : (
           <>
-            <div>
-              <Button
-                variant="primary"
-                className="cursor-pointer mb-5 mr-5"
-              >
-                Create Unit
-              </Button>
-              <Button
-                variant="primary"
-                className="cursor-pointer mb-5 mr-5"
-              >
-                Create Lesson
-              </Button>
+            <div className="cursor-pointer mb-5 mr-5">
+              <CreateUnitButton/>
+              <CreateUnitModal courseId={courseId} />
             </div>
             {course.units.map((unit) => (
               <div key={unit.id} className="mb-10">
-                <div className="w-full rounded-xl bg-sky-500 p-5 text-white font-bold text-2xl flex items-center justify-between">
+                <div className="group relative w-full rounded-xl bg-sky-500 p-5 text-white font-bold text-2xl flex flex-col">
                   <h2 className="text-2xl font-bold">
                     {unit.title || `Unit ${unit.order}`}
                   </h2>
                   <p className="text-lg">
                     {unit.description}
                   </p>
+                  {/* REMOVE ABSOLUTE, MAKE THE BUTTON POSITION THE SAME */}
+                  <div className="hidden group-hover:flex absolute top-1/2 right-0 -translate-y-1/2 items-center pr-4">
+                    <DeleteUnitButton unitId={unit.id} />
+                  </div>
                 </div>
-
                 {unit.lessons.length === 0 ? (
-                  <p className="text-neutral-500 mt-2">No lessons in this unit.</p>
+                  <div className="mt-5">
+                    <Button
+                        variant="secondary"
+                        className="cursor-pointer h-[42px] w-[42px] text-4xl mr-5 font-bold rounded-full flex items-center justify-center"
+                    >
+                      <PlusIcon></PlusIcon>
+                    </Button>
+                  </div>
                 ) : (
-                  <div className="flex flex-wrap mt-4">
+                  <div className="flex flex-wrap mt-5">
                     {unit.lessons.map((lesson) => (
                       <Button
                         variant="secondary"
-                        size="lg"
-                        className="mr-5"
+                        className="cursor-pointer mr-5"
                         key={lesson.id}
                       >
                         {lesson.title || `Lesson ${lesson.order}`}
                       </Button>
                     ))}
+                    {/* THIS IS A CREATE NEW LESSON BUTTON */}
+                    <Button
+                      variant="secondary"
+                      className="cursor-pointer h-[42px] w-[42px] text-4xl mr-5 font-bold rounded-full flex items-center justify-center"
+                    >
+                      <PlusIcon></PlusIcon>
+                    </Button>
                   </div>
                 )}
               </div>
