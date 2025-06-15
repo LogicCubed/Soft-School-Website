@@ -1,4 +1,3 @@
-import { PlusIcon } from "lucide-react";
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { Button } from "@/components/ui/button";
 import { getCourseById } from "@/db/queries";
@@ -7,6 +6,8 @@ import { notFound } from "next/navigation";
 import { DeleteUnitButton } from "@/components/admin-components/delete-unit-button";
 import { CreateUnitButton } from "@/components/admin-components/create-unit-button";
 import { CreateUnitModal } from "@/components/admin-components/admin-modals/create-unit-modal";
+import { CreateLessonButton } from "@/components/admin-components/create-lesson-button";
+import Link from "next/link";
 
 const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = Number(params.courseId);
@@ -55,31 +56,25 @@ const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
                 </div>
                 {unit.lessons.length === 0 ? (
                   <div className="mt-5">
-                    <Button
-                        variant="secondary"
-                        className="cursor-pointer h-[42px] w-[42px] text-4xl mr-5 font-bold rounded-full flex items-center justify-center"
-                    >
-                      <PlusIcon></PlusIcon>
-                    </Button>
+                    <CreateLessonButton unitId={unit.id}/>
                   </div>
                 ) : (
                   <div className="flex flex-wrap mt-5">
                     {unit.lessons.map((lesson) => (
-                      <Button
-                        variant="secondary"
-                        className="cursor-pointer mr-5"
+                      <Link
+                        href={`/admin/curriculum/courses/edit/${courseId}/lesson/${lesson.id}`}
                         key={lesson.id}
                       >
-                        {lesson.title || `Lesson ${lesson.order}`}
-                      </Button>
+                        <Button
+                          variant="secondary"
+                          className="cursor-pointer mr-5 mb-5"
+                          key={lesson.id}
+                        >
+                          {lesson.title || `Lesson ${lesson.order}`}
+                        </Button>
+                      </Link>
                     ))}
-                    {/* THIS IS A CREATE NEW LESSON BUTTON */}
-                    <Button
-                      variant="secondary"
-                      className="cursor-pointer h-[42px] w-[42px] text-4xl mr-5 font-bold rounded-full flex items-center justify-center"
-                    >
-                      <PlusIcon></PlusIcon>
-                    </Button>
+                    <CreateLessonButton unitId={unit.id}/>
                   </div>
                 )}
               </div>
