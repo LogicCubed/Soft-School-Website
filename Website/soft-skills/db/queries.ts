@@ -280,3 +280,29 @@ export const getVideoUrl = async (challengeId: number) => {
     }
     return null;
 };
+
+// Fetches a lesson by its ID WITHOUT requiring user authentication.
+
+export const getLessonByIdForAdmin = cache(async (lessonId: number) => {
+  const data = await db.query.lessons.findFirst({
+    where: eq(lessons.id, lessonId),
+    with: {
+      challenges: {
+        orderBy: (challenges, { asc }) => [asc(challenges.order)],
+        with: {
+          challengeOptions: true,
+        },
+      },
+    },
+  });
+
+  if (!data) return null;
+
+  const normalizedChallenges = data.challenges.map((challenge) => ({
+    ...challenge,
+    completed: false,
+  }));
+
+  return { ...data, challenges: normalizedChallenges };
+});
+

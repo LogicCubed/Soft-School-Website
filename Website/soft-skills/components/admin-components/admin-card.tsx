@@ -15,7 +15,7 @@ export const AdminCard = ({ id, title, imageSrc }: AdminCardProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/admin/curriculum/courses/edit/${id}`);
+    router.push(`/admin/curriculum/courses/${id}`);
   };
 
   return (

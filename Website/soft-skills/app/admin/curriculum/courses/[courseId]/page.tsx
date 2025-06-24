@@ -62,7 +62,7 @@ const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
                   <div className="flex flex-wrap mt-5">
                     {unit.lessons.map((lesson) => (
                       <Link
-                        href={`/admin/curriculum/courses/edit/${courseId}/lesson/${lesson.id}`}
+                        href={`/admin/curriculum/courses/${courseId}/lesson/${lesson.id}`}
                         key={lesson.id}
                       >
                         <Button

@@ -1,5 +1,7 @@
 import { AdminSidebar } from "@/components/admin-components/admin-sidebar";
+import { QuestionsSidebar } from "@/components/admin-components/questions-sidebar";
 import { MobileHeader } from "@/components/mobile-header";
+import { usePathname } from "next/navigation";
 
 type Props = {
     children: React.ReactNode;
