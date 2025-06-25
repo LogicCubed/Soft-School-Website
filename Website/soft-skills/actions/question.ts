@@ -27,3 +27,7 @@ export async function createQuestion(lessonId: number) {
 
   return newQuestion;
 }
+
+export async function deleteQuestion(questionId: number) {
+  await db.delete(challenges).where(eq(challenges.id, questionId));
+}

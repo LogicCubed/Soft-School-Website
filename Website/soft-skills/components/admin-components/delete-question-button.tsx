@@ -3,15 +3,16 @@
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { deleteUnit } from "@/actions/unit";
+import { deleteQuestion } from "@/actions/question";
+import { Trash2 } from "lucide-react";
 
-export const DeleteUnitButton = ({ unitId }: { unitId: number }) => {
+export const DeleteQuestionButton = ({ questionId }: { questionId: number }) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteUnit(unitId);
+      await deleteQuestion(questionId);
       router.refresh();
     });
   };
@@ -22,7 +23,7 @@ export const DeleteUnitButton = ({ unitId }: { unitId: number }) => {
       className="cursor-pointer"
       onClick={handleDelete}
     >
-        Delete
+      <Trash2/>
     </Button>
   );
 };

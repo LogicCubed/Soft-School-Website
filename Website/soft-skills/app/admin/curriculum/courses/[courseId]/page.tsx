@@ -29,7 +29,7 @@ const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
               width={128}
             />
             <h2>No Units were found for this Course!</h2>
-            <div className="cursor-pointer m4">
+            <div className="cursor-pointer m-4">
               <CreateUnitButton/>
               <CreateUnitModal courseId={courseId} />
             </div>
