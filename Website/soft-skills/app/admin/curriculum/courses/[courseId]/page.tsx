@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { getCourseById } from "@/db/queries";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { DeleteUnitButton } from "@/components/admin-components/delete-unit-button";
-import { CreateUnitButton } from "@/components/admin-components/create-unit-button";
+import { DeleteUnitButton } from "@/components/admin-components/admin-delete/delete-unit-button";
+import { CreateUnitButton } from "@/components/admin-components/admin-create/create-unit-button";
 import { CreateUnitModal } from "@/components/admin-components/admin-modals/create-unit-modal";
-import { CreateLessonButton } from "@/components/admin-components/create-lesson-button";
+import { CreateLessonButton } from "@/components/admin-components/admin-create/create-lesson-button";
 import Link from "next/link";
+import { CurriculumHeader } from "@/components/admin-components/curriculum-header";
 
 const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
   const courseId = Number(params.courseId);
@@ -19,24 +20,24 @@ const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
   return (
     <div>
       <FeedWrapper>
+        <CurriculumHeader title={course.title} />
         {course.units.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-10">
-            <h1 className="text-2xl font-bold text-neutral-700">{course.title}</h1>
             <Image
               src="/softy-assets/softyscared.svg"
               alt="logo"
               height={128}
               width={128}
             />
-            <h2>No Units were found for this Course!</h2>
-            <div className="cursor-pointer m-4">
+            <h2 className="text-2xl font-bold text-gray-500 ml-5">No Units were found for this Course!</h2>
+            <div className="m-4">
               <CreateUnitButton/>
               <CreateUnitModal courseId={courseId} />
             </div>
           </div>
         ) : (
           <>
-            <div className="cursor-pointer mb-5 mr-5">
+            <div className="mb-5 mr-5 mt-5">
               <CreateUnitButton/>
               <CreateUnitModal courseId={courseId} />
             </div>

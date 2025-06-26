@@ -1,9 +1,10 @@
 "use server";
 
 import db from "@/db/drizzle";
-import { challenges } from "@/db/schema";
+import { challengeOptions, challenges } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 
+// Function to Create a new Question
 export async function createQuestion(lessonId: number) {
   const maxOrderResult = await db
     .select({
@@ -20,7 +21,7 @@ export async function createQuestion(lessonId: number) {
     .values({
       lessonId,
       type: "SELECT",
-      question: "Untitled question",
+      question: "Question",
       order: maxOrder + 1,
     })
     .returning();
@@ -28,6 +29,31 @@ export async function createQuestion(lessonId: number) {
   return newQuestion;
 }
 
+// Function to delete a Question
 export async function deleteQuestion(questionId: number) {
   await db.delete(challenges).where(eq(challenges.id, questionId));
+}
+
+// Function to update a Question's Type
+export async function updateQuestionType(questionId: number, newType: typeof challenges.type.enumValues[number]) {
+  await db
+    .update(challenges)
+    .set({ type: newType })
+    .where(eq(challenges.id, questionId));
+}
+
+// Function to update a Question's Text
+export async function updateQuestionText(questionId: number, newText: string) {
+  await db
+    .update(challenges)
+    .set({ question: newText })
+    .where(eq(challenges.id, questionId));
+}
+
+// Function to update Question Options
+export async function updateOptionText(optionId: number, newText: string) {
+  await db
+    .update(challengeOptions)
+    .set({ text: newText })
+    .where(eq(challengeOptions.id, optionId));
 }

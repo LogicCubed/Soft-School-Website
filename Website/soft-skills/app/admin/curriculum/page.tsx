@@ -2,6 +2,7 @@ import { isAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
 import { getCourses } from "@/db/queries";
 import { AdminCourseManager } from "@/components/admin-components/admin-course-manager";
+import { CurriculumHeader } from "@/components/admin-components/curriculum-header";
 
 const AdminPage = async () => {
   if (!isAdmin) {
@@ -12,7 +13,7 @@ const AdminPage = async () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-700">Current Courses:</h1>
+      <CurriculumHeader title="Courses" />
       <AdminCourseManager
         initialCourses={courses}
       />

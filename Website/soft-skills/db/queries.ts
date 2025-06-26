@@ -293,6 +293,11 @@ export const getLessonByIdForAdmin = cache(async (lessonId: number) => {
           challengeOptions: true,
         },
       },
+      unit: {
+        with: {
+          course: true,
+        },
+      },
     },
   });
 

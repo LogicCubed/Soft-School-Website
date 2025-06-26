@@ -3,15 +3,17 @@
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { deleteUnit } from "@/actions/unit";
+import { deleteLesson } from "@/actions/lesson";
+import { Trash2 } from "lucide-react";
 
-export const DeleteUnitButton = ({ unitId }: { unitId: number }) => {
+export const DeleteLessonButton = ({ lessonId }: { lessonId: number }) => {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
+  // TODO: Update code to re-route to courses page upon lesson deletion
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteUnit(unitId);
+      await deleteLesson(lessonId);
       router.refresh();
     });
   };
@@ -22,7 +24,7 @@ export const DeleteUnitButton = ({ unitId }: { unitId: number }) => {
       className="cursor-pointer"
       onClick={handleDelete}
     >
-        Delete
+      <Trash2/>
     </Button>
   );
 };

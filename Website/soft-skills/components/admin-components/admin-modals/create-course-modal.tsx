@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { Button } from "@/components/ui/button";
-import { useCreateCourseModal } from "@/store/use-create-course-modal";
+import { useCreateCourseModal } from "@/store/admin-modals/use-create-course-modal";
 import { createCourse } from "@/actions/course";
 import { useRouter } from "next/navigation";
 

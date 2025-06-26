@@ -14,7 +14,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useCreateUnitModal } from "@/store/use-create-unit-modal";
+import { useCreateUnitModal } from "@/store/admin-modals/use-create-unit-modal";
 import { createUnit } from "@/actions/unit";
 
 type CreateUnitModalProps = {

@@ -1,9 +1,9 @@
 "use client";
 
-import { useCreateCourseModal } from "@/store/use-create-course-modal";
+import { useCreateCourseModal } from "@/store/admin-modals/use-create-course-modal";
 import { Button } from "@/components/ui/button";
 import { AdminCard } from "./admin-card";
-import { CreateCourseModal } from "./admin-modals/create-course-modal"; // <- import your modal here
+import { CreateCourseModal } from "./admin-modals/create-course-modal";
 import { courses } from "@/db/schema";
 
 type Course = typeof courses.$inferSelect;

@@ -1,6 +1,8 @@
 "use client";
 
+import { updateQuestionType } from "@/actions/question";
 import { QuestionType } from "./question-type";
+import { useRouter } from "next/navigation";
 
 interface QuestionTypeWrapperProps {
   initialType: string;
@@ -8,8 +10,11 @@ interface QuestionTypeWrapperProps {
 }
 
 export function QuestionTypeWrapper({ initialType, questionId }: QuestionTypeWrapperProps) {
-  const handleValueChange = (newType: string) => {
-    // TODO: CODE HERE
+  const router = useRouter();
+
+  const handleValueChange = async (newType: string) => {
+    await updateQuestionType(questionId, newType as "SELECT" | "ASSIST" | "VIDEO" | "AUDIO");
+    router.refresh();
   };
 
   return (

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { DeleteCourseButton } from "./delete-course-button";
+import { DeleteCourseButton } from "./admin-delete/delete-course-button";
 
 type AdminCardProps = {
   id: number;

@@ -1,11 +1,16 @@
-import { CreateQuestionButton } from "@/components/admin-components/create-question-button";
-import { DeleteQuestionButton } from "@/components/admin-components/delete-question-button";
+import { CreateQuestionButton } from "@/components/admin-components/admin-create/create-question-button";
+import { DeleteQuestionButton } from "@/components/admin-components/admin-delete/delete-question-button";
 import { Circle, EllipsisVertical, GripHorizontal, GripVertical } from "lucide-react";
 import { QuestionTypeWrapper } from "@/components/question-type-wrapper";
 import { getLessonByIdForAdmin, getVideoUrl } from "@/db/queries";
 import { isAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
-import { DeleteAnswerButton } from "@/components/admin-components/delete-answer-button";
+import { DeleteAnswerButton } from "@/components/admin-components/admin-delete/delete-answer-button";
+import { CurriculumHeader } from "@/components/admin-components/curriculum-header";
+import { DeleteLessonButton } from "@/components/admin-components/admin-delete/delete-lesson-button";
+import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit-question";
+import { OptionTextInput } from "@/components/admin-components/admin-edit/edit-answer";
+import { NewOptionInput } from "@/components/admin-components/admin-create/add-option";
 
 interface EditLessonPageProps {
   params: {
@@ -29,6 +34,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
 
   // If no lesson is found with the given ID, show an error message
   if (!lesson) {
+    // TODO: Stylize this
     return <p>Lesson not found.</p>;
   }
 
@@ -43,9 +49,15 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
     })
   );
 
+  // Constructs the title for the Header to display the Lesson's Course, Unit, and ID
+  const headerTitle =
+    lesson.unit && lesson.unit.course
+      ? `${lesson.unit.course.title} | Unit ${lesson.unit.order ?? lesson.unit.id} | ${lesson.title}`
+      : "Curriculum";
+
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-700">{lesson.title}</h1>
+      <CurriculumHeader title={headerTitle} />
 
       {lesson.challenges.length === 0 ? (
         <p>No Questions Found!</p>
@@ -68,8 +80,11 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                 {challenge.type === "SELECT" ? (
                   <>
                     {/* SELECT TYPE QUESTION */}
-                    <div className="mt-5 hover:bg-gray-100 p-5">
-                      {challenge.question}
+                    <div className="mt-5 p-5">
+                      <QuestionTextInput
+                        initialText={challenge.question}
+                        questionId={challenge.id}
+                      />
                     </div>
 
                     {/* MAP OUT MULTIPLE CHOICE OPTIONS */}
@@ -77,12 +92,15 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                       {challenge.challengeOptions.map((option, idx) => (
                         <div
                           key={option.id}
-                          className="group flex items-center hover:underline hover:decoration-gray-300 hover:underline-offset-4 mt-5 pr-12"
+                          className="group flex items-center hover:decoration-gray-300 hover:underline-offset-4 mt-5 pr-12"
                           style={{ position: 'relative' }}
                         >
-                          <div className="flex items-center">
-                            <Circle className="text-gray-300 mr-2" />
-                            {option.text}
+                          <div className="w-[90%] flex items-center">
+                            <Circle className="text-gray-300 mr-5 ml-5" />
+                            <OptionTextInput
+                              initialText={option.text}
+                              optionId={option.id}
+                            />
                           </div>
 
                           <div
@@ -97,23 +115,21 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
 
                     {/* ADD MULTIPLE CHOICE OPTION */}
                     <div
-                      className="flex items-center text-gray-500 hover:underline hover:decoration-gray-300 hover:underline-offset-4 mt-5"
+                      className="w-[85.5%] flex items-center mt-5"
                     >
-                      <Circle className="text-gray-300 mr-2"/>
-                      Add Option
+                      <Circle className="text-gray-300 mr-5 ml-5"/>
+                      <NewOptionInput challengeId={challenge.id} />
                     </div>
                   </>
 
                 ) : challenge.type === "ASSIST" ? (
                   <>
                     {/* ASSIST TYPE QUESTION CONTENT */}
-                    <p>{challenge.question}</p>
                   </>
 
                 ) : challenge.type === "VIDEO" ? (
                   <>
                     {/* VIDEO TYPE QUESTION CONTENT */}
-                    <p>{challenge.question}</p>
                     {challenge.videoUrl ? (
                       <video
                         src={challenge.videoUrl}
@@ -121,20 +137,19 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                         className="mt-2 max-w-[400px] rounded"
                       />
                     ) : (
-                      <p className="text-red-500 mt-2">ERROR: NO VIDEO FOUND</p>
+                      <p>UPLOAD VIDEO!</p>
                     )}
                   </>
 
                 ) : challenge.type === "AUDIO" ? (
                   <>
                     {/* AUDIO TYPE QUESTION CONTENT */}
-                    <p>{challenge.question}</p>
+                    <p>UPLOAD AUDIO!</p>
                   </>
 
                 ) : (
                   <>
                     {/* FALLBACK QUESTION CONTENT */}
-                    <p>{challenge.question}</p>
                   </>
 
                 )}
@@ -149,8 +164,9 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
         </div>
       )}
 
-      <div>
-        <CreateQuestionButton lessonId={lessonId} />
+      <div className="flex gap-5">
+        <CreateQuestionButton lessonId={lessonId}/>
+        <DeleteLessonButton lessonId={lessonId}/>
       </div>
     </div>
   );

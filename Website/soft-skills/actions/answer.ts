@@ -4,6 +4,7 @@ import db from "@/db/drizzle";
 import { challengeOptions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
+// Function to Create a new Answer
 export async function createAnswer(
   challengeId: number,
   question: string,
@@ -23,6 +24,7 @@ export async function createAnswer(
   return newAnswer;
 }
 
+// Function to delete an Answer
 export async function deleteAnswer(answerId: number) {
   await db.delete(challengeOptions).where(eq(challengeOptions.id, answerId));
 }

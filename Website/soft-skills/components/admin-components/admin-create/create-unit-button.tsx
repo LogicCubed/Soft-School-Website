@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useCreateUnitModal } from "@/store/use-create-unit-modal";
+import { useCreateUnitModal } from "@/store/admin-modals/use-create-unit-modal";
 
 export function CreateUnitButton() {
   const { openCreateUnitModal } = useCreateUnitModal();
@@ -12,7 +12,7 @@ export function CreateUnitButton() {
       className="cursor-pointer"
       onClick={openCreateUnitModal}
     >
-      Create Unit
+      Create
     </Button>
   );
 }

@@ -32,3 +32,7 @@ export const createLesson = async ({
     title: finalTitle,
   });
 };
+
+export const deleteLesson = async (lessonId: number) => {
+  await db.delete(lessons).where(eq(lessons.id, lessonId));
+};
