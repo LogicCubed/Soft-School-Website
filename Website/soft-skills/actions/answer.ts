@@ -28,3 +28,26 @@ export async function createAnswer(
 export async function deleteAnswer(answerId: number) {
   await db.delete(challengeOptions).where(eq(challengeOptions.id, answerId));
 }
+
+// Function to update Explanations
+export async function updateOptionExplanation(answerId: number, newExplanation: string) {
+  await db
+    .update(challengeOptions)
+    .set({ explanation: newExplanation })
+    .where(eq(challengeOptions.id, answerId));
+}
+
+// Function to set Correct Answer
+export async function updateCorrectAnswer(optionId: number, challengeId: number) {
+  // First, set all options for this challenge to incorrect
+  await db
+    .update(challengeOptions)
+    .set({ correct: false })
+    .where(eq(challengeOptions.challengeId, challengeId));
+
+  // Then, mark the selected option as correct
+  await db
+    .update(challengeOptions)
+    .set({ correct: true })
+    .where(eq(challengeOptions.id, optionId));
+}

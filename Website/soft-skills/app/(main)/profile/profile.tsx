@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { useUser } from '@clerk/clerk-react';
 import { Badges } from './badges';
 import { Button } from '@/components/ui/button';
-import { useDeleteModal } from '@/store/admin-modals/use-delete-modal';
+import { useDeleteModal } from '@/store/use-delete-modal';
 import { Statistics } from './statistics';
 import { useDeleteProgressModal } from '@/store/use-delete-progress-modal';
 

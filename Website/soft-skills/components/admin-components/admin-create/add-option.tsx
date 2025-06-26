@@ -1,35 +1,36 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { createAnswer } from "@/actions/answer";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { CirclePlus } from "lucide-react";
 
 interface NewOptionInputProps {
   challengeId: number;
 }
 
 export function NewOptionInput({ challengeId }: NewOptionInputProps) {
-  const [isCreated, setIsCreated] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleCreate = () => {
-    if (isCreated) return;
-    setIsCreated(true);
-
     startTransition(async () => {
-      await createAnswer(challengeId, "New Option", false);
-      router.refresh();
+      const newAnswer = await createAnswer(challengeId, "New Option", false);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("focusOptionId", String(newAnswer.id));
+      router.replace(`${window.location.pathname}?${params.toString()}`);
     });
   };
 
   return (
-    <input
-      type="text"
-      onFocus={handleCreate}
-      disabled={isPending}
-      placeholder="Add Option"
-      className="w-full border hover:underline hover:decoration-gray-300 p-1 hover:bg-gray-100 rounded text-gray-500 cursor-text"
-    />
+    <Button
+        variant="ghost"
+        className="cursor-pointer"
+        onClick={handleCreate}
+      >
+        <CirclePlus className="w-8 h-8"/>
+    </Button>
   );
 }

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { Button } from "@/components/ui/button";
-import { useDeleteModal } from "@/store/admin-modals/use-delete-modal";
+import { useDeleteModal } from "@/store/use-delete-modal";
 
 export const DeleteModal = () => {
     const router = useRouter();

@@ -29,7 +29,7 @@ const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
               height={128}
               width={128}
             />
-            <h2 className="text-2xl font-bold text-gray-500 ml-5">No Units were found for this Course!</h2>
+            <h2 className="text-2xl font-bold text-gray-500 ml-5">No Units yet. Start by adding your first one!</h2>
             <div className="m-4">
               <CreateUnitButton/>
               <CreateUnitModal courseId={courseId} />

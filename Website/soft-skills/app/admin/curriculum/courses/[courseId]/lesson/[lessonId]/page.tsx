@@ -1,6 +1,6 @@
 import { CreateQuestionButton } from "@/components/admin-components/admin-create/create-question-button";
 import { DeleteQuestionButton } from "@/components/admin-components/admin-delete/delete-question-button";
-import { Circle, EllipsisVertical, GripHorizontal, GripVertical } from "lucide-react";
+import { Circle, EllipsisVertical, GripHorizontal, GripVertical, NotebookPen } from "lucide-react";
 import { QuestionTypeWrapper } from "@/components/question-type-wrapper";
 import { getLessonByIdForAdmin, getVideoUrl } from "@/db/queries";
 import { isAdmin } from "@/lib/admin";
@@ -11,6 +11,9 @@ import { DeleteLessonButton } from "@/components/admin-components/admin-delete/d
 import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit-question";
 import { OptionTextInput } from "@/components/admin-components/admin-edit/edit-answer";
 import { NewOptionInput } from "@/components/admin-components/admin-create/add-option";
+import { ExplanationTextInput } from "@/components/admin-components/admin-create/explanation-button";
+import Image from "next/image";
+import { SelectTypeQuestion } from "@/components/admin-components/question-types/select-type-question";
 
 interface EditLessonPageProps {
   params: {
@@ -60,7 +63,15 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
       <CurriculumHeader title={headerTitle} />
 
       {lesson.challenges.length === 0 ? (
-        <p>No Questions Found!</p>
+        <div className="flex flex-col items-center justify-center text-center py-10">
+          <Image
+            src="/softy-assets/softyscared.svg"
+            alt="logo"
+            height={128}
+            width={128}
+          />
+          <h2 className="text-2xl font-bold text-gray-500 ml-5">No questions yet. Start by adding your first one!</h2>
+        </div>
       ) : (
         <div>
           {lesson.challenges.map((challenge, idx) => (
@@ -76,82 +87,31 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                   <h1 className="text-1xl font-bold text-neutral-700">Question {idx + 1}</h1>
                   <QuestionTypeWrapper initialType={challenge.type} questionId={challenge.id} />
                 </div>
+                {challenge.type === "SELECT" && (
+                  <SelectTypeQuestion challenge={challenge}/>
+                )}
 
-                {challenge.type === "SELECT" ? (
+                {challenge.type === "ASSIST" && (
+                  <></>
+                  // TODO: DELETE ASSIST TYPE
+                )}
+
+                {challenge.type === "VIDEO" && (
                   <>
-                    {/* SELECT TYPE QUESTION */}
-                    <div className="mt-5 p-5">
-                      <QuestionTextInput
-                        initialText={challenge.question}
-                        questionId={challenge.id}
-                      />
-                    </div>
-
-                    {/* MAP OUT MULTIPLE CHOICE OPTIONS */}
-                    <div className="relative mt-5">
-                      {challenge.challengeOptions.map((option, idx) => (
-                        <div
-                          key={option.id}
-                          className="group flex items-center hover:decoration-gray-300 hover:underline-offset-4 mt-5 pr-12"
-                          style={{ position: 'relative' }}
-                        >
-                          <div className="w-[90%] flex items-center">
-                            <Circle className="text-gray-300 mr-5 ml-5" />
-                            <OptionTextInput
-                              initialText={option.text}
-                              optionId={option.id}
-                            />
-                          </div>
-
-                          <div
-                            className="absolute right-0 top-1/2 transform -translate-y-1/2 mr-4"
-                            style={{ width: '40px', textAlign: 'center' }}
-                          >
-                            <DeleteAnswerButton answerId={option.id} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* ADD MULTIPLE CHOICE OPTION */}
-                    <div
-                      className="w-[85.5%] flex items-center mt-5"
-                    >
-                      <Circle className="text-gray-300 mr-5 ml-5"/>
-                      <NewOptionInput challengeId={challenge.id} />
-                    </div>
+                  {challenge.videoUrl ? (
+                    <video
+                      src={challenge.videoUrl}
+                      controls
+                      className="mt-2 max-w-[400px] rounded mx-auto"
+                    />
+                  ) : (
+                    <p>UPLOAD VIDEO!</p>
+                  )}
                   </>
+                )}
 
-                ) : challenge.type === "ASSIST" ? (
-                  <>
-                    {/* ASSIST TYPE QUESTION CONTENT */}
-                  </>
-
-                ) : challenge.type === "VIDEO" ? (
-                  <>
-                    {/* VIDEO TYPE QUESTION CONTENT */}
-                    {challenge.videoUrl ? (
-                      <video
-                        src={challenge.videoUrl}
-                        controls
-                        className="mt-2 max-w-[400px] rounded"
-                      />
-                    ) : (
-                      <p>UPLOAD VIDEO!</p>
-                    )}
-                  </>
-
-                ) : challenge.type === "AUDIO" ? (
-                  <>
-                    {/* AUDIO TYPE QUESTION CONTENT */}
-                    <p>UPLOAD AUDIO!</p>
-                  </>
-
-                ) : (
-                  <>
-                    {/* FALLBACK QUESTION CONTENT */}
-                  </>
-
+                {challenge.type === "AUDIO" && (
+                  <></>
                 )}
               </div>
               <div className="w-[98%] border-t border-gray-300 mx-auto mb-5 mt-5" />
