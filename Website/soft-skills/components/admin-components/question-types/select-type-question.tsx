@@ -10,6 +10,7 @@ import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit
 import { updateCorrectAnswer } from "@/actions/answer"; // <-- add this
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useEditing } from "../admin-context/editing-context";
 
 interface SelectTypeQuestionProps {
   challenge: {
@@ -27,6 +28,7 @@ interface SelectTypeQuestionProps {
 export function SelectTypeQuestion({ challenge }: SelectTypeQuestionProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const { pendingDeletedOptions } = useEditing();
 
   const handleSetCorrect = (optionId: number) => {
     startTransition(async () => {
@@ -50,6 +52,7 @@ export function SelectTypeQuestion({ challenge }: SelectTypeQuestionProps) {
         {challenge.challengeOptions
           .slice()
           .sort((a, b) => a.id - b.id)
+          .filter(option => !pendingDeletedOptions.has(option.id)) // <== HIDE deleted options
           .map((option) => (
             <div
               key={option.id}

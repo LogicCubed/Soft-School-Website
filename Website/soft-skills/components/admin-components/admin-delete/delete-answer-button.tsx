@@ -1,33 +1,28 @@
 "use client";
 
-import React, { useTransition } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import { deleteAnswer } from "@/actions/answer";
-import { useRouter } from "next/navigation";
+import { useEditing } from "@/components/admin-components/admin-context/editing-context";
 
 interface DeleteAnswerButtonProps {
   answerId: number;
 }
 
 export function DeleteAnswerButton({ answerId }: DeleteAnswerButtonProps) {
-    const router = useRouter();
-    const [isPending, startTransition] = useTransition();
+  const { markOptionDeleted } = useEditing();
 
-    const handleDelete = async () => {
-        startTransition(async () => {
-              await deleteAnswer(answerId);
-              router.refresh();
-            });
-    };
+  const handleDelete = () => {
+    markOptionDeleted(answerId);
+  };
 
-    return (
-        <Button
-            variant="ghost"
-            className="cursor-pointer"
-            onClick={handleDelete}
-        >
-            <X/>
-        </Button>
-    );
+  return (
+    <Button
+      variant="ghost"
+      className="cursor-pointer"
+      onClick={handleDelete}
+    >
+      <X />
+    </Button>
+  );
 }

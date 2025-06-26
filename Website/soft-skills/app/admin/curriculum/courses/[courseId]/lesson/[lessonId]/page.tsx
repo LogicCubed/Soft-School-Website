@@ -1,19 +1,15 @@
 import { CreateQuestionButton } from "@/components/admin-components/admin-create/create-question-button";
 import { DeleteQuestionButton } from "@/components/admin-components/admin-delete/delete-question-button";
-import { Circle, EllipsisVertical, GripHorizontal, GripVertical, NotebookPen } from "lucide-react";
+import { EllipsisVertical, GripHorizontal } from "lucide-react";
 import { QuestionTypeWrapper } from "@/components/question-type-wrapper";
 import { getLessonByIdForAdmin, getVideoUrl } from "@/db/queries";
 import { isAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
-import { DeleteAnswerButton } from "@/components/admin-components/admin-delete/delete-answer-button";
 import { CurriculumHeader } from "@/components/admin-components/curriculum-header";
 import { DeleteLessonButton } from "@/components/admin-components/admin-delete/delete-lesson-button";
-import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit-question";
-import { OptionTextInput } from "@/components/admin-components/admin-edit/edit-answer";
-import { NewOptionInput } from "@/components/admin-components/admin-create/add-option";
-import { ExplanationTextInput } from "@/components/admin-components/admin-create/explanation-button";
 import Image from "next/image";
 import { SelectTypeQuestion } from "@/components/admin-components/question-types/select-type-question";
+import { EditingProvider } from "@/components/admin-components/admin-context/editing-context";
 
 interface EditLessonPageProps {
   params: {
@@ -59,6 +55,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
       : "Curriculum";
 
   return (
+    <EditingProvider>
     <div>
       <CurriculumHeader title={headerTitle} />
 
@@ -129,5 +126,6 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
         <DeleteLessonButton lessonId={lessonId}/>
       </div>
     </div>
+    </EditingProvider>
   );
 }

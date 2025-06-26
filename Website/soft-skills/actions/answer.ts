@@ -51,3 +51,11 @@ export async function updateCorrectAnswer(optionId: number, challengeId: number)
     .set({ correct: true })
     .where(eq(challengeOptions.id, optionId));
 }
+
+// Function to update option text
+export async function updateOptionText(answerId: number, newText: string) {
+  await db
+    .update(challengeOptions)
+    .set({ text: newText })
+    .where(eq(challengeOptions.id, answerId));
+}

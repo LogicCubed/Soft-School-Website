@@ -5,6 +5,7 @@ import { createAnswer } from "@/actions/answer";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
+import { useEditing } from "../admin-context/editing-context";
 
 interface NewOptionInputProps {
   challengeId: number;
@@ -14,10 +15,14 @@ export function NewOptionInput({ challengeId }: NewOptionInputProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { addPendingNewOption } = useEditing();
 
   const handleCreate = () => {
     startTransition(async () => {
       const newAnswer = await createAnswer(challengeId, "New Option", false);
+
+      addPendingNewOption(challengeId);
+
       const params = new URLSearchParams(searchParams.toString());
       params.set("focusOptionId", String(newAnswer.id));
       router.replace(`${window.location.pathname}?${params.toString()}`);
@@ -26,11 +31,12 @@ export function NewOptionInput({ challengeId }: NewOptionInputProps) {
 
   return (
     <Button
-        variant="ghost"
-        className="cursor-pointer"
-        onClick={handleCreate}
-      >
-        <CirclePlus className="w-8 h-8"/>
+      variant="ghost"
+      className="cursor-pointer"
+      onClick={handleCreate}
+      disabled={isPending}
+    >
+      <CirclePlus className="w-8 h-8" />
     </Button>
   );
 }

@@ -18,8 +18,18 @@ export const SidebarItem = ({
 }: Props) => {
     const pathname = usePathname();
 
-    // Set Sidebar Item to "Active"
-    const active = pathname === href;
+    /* There's definitely a better way to do this but for some reason
+    I'm struggling to get it to work since curriculum and the admin homepage
+    share the same href*/
+    let active = false;
+
+    if (href === "/admin") {
+        active = pathname === "/admin";
+    } else if (href === "/admin/curriculum") {
+        active = pathname.startsWith("/admin/curriculum");
+    } else if (href === "/learn") {
+        active = pathname === "/learn" || pathname.startsWith("/learn/");
+    }
 
     return (
         <Button

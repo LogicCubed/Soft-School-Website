@@ -55,7 +55,7 @@ export const DeleteProgressModal = () => {
                             Nevermind
                         </Button>
                         <Button
-                            variant="dangerOutline"
+                            variant="danger"
                             className="w-full cursor-pointer"
                             size="lg"
                             onClick={async () => {
