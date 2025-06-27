@@ -11,7 +11,7 @@ import { useAudio } from "react-use";
 import Image from "next/image";
 import { ResultCard } from "./result-card";
 import { useRouter } from "next/navigation";
-import Confetti from "react-Confetti";
+import Confetti from "react-confetti";
 import { Button } from "@/components/ui/button";
 import { Volume2Icon } from "lucide-react";
 
