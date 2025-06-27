@@ -17,7 +17,6 @@ interface QuestionTypeProps {
 
 const questionTypes = [
   { value: "SELECT", label: "SELECT", icon: <CircleDotIcon className="w-4 h-4 mr-2" /> },
-  { value: "ASSIST", label: "ASSIST", icon: <BotIcon className="w-4 h-4 mr-2" /> },
   { value: "VIDEO", label: "VIDEO", icon: <VideoIcon className="w-4 h-4 mr-2" /> },
   { value: "AUDIO", label: "AUDIO", icon: <Volume2Icon className="w-4 h-4 mr-2" /> },
 ];

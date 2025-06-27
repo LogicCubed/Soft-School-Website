@@ -1,38 +1,38 @@
 "use client";
 
-import { useState, useRef, useTransition, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { NotebookPen } from "lucide-react";
-import { updateOptionExplanation } from "@/actions/answer";
-import { useRouter } from "next/navigation";
 
 interface ExplanationTextInputProps {
   initialExplanation: string;
   answerId: number;
+  onChange?: (newExplanation: string) => void;
 }
 
-export function ExplanationTextInput({ initialExplanation, answerId }: ExplanationTextInputProps) {
+export function ExplanationTextInput({ initialExplanation, answerId, onChange }: ExplanationTextInputProps) {
   const [showInput, setShowInput] = useState(false);
   const [text, setText] = useState(initialExplanation);
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Focus the textarea when it becomes visible
   useEffect(() => {
     if (showInput) {
       textareaRef.current?.focus();
     }
   }, [showInput]);
 
-  const handleSave = () => {
-    startTransition(async () => {
-      await updateOptionExplanation(answerId, text);
-      router.refresh();
-    });
-  };
+  useEffect(() => {
+    setText(initialExplanation);
+  }, [initialExplanation]);
 
   const maxChars = 100;
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
 
   return (
     <div className="relative inline-block">
@@ -49,9 +49,7 @@ export function ExplanationTextInput({ initialExplanation, answerId }: Explanati
           <textarea
             ref={textareaRef}
             value={text}
-            onChange={(e) => setText(e.target.value)}
-            onBlur={handleSave}
-            disabled={isPending}
+            onChange={handleTextChange}
             placeholder="Enter explanation"
             rows={4}
             maxLength={maxChars}

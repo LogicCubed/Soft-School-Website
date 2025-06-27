@@ -234,9 +234,7 @@ export const Quiz = ({
         );
     };
 
-    const title = challenge.type === "ASSIST"
-        ? "Select the correct response"
-        : challenge.question;
+    const title = challenge.question;
 
     return (
         <>
@@ -252,11 +250,6 @@ export const Quiz = ({
                             {title}
                         </h1>
                         <div>
-                            {/* DELETE THIS LATER */}
-                            {challenge.type === "ASSIST" && (
-                                <QuestionBubble question={challenge.question}/>
-                            )}
-
                             {/* Video Type Questions */}
                             {challenge.type === "VIDEO" ? (
                                 <div>

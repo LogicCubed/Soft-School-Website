@@ -62,7 +62,7 @@ export const DeleteProgressModal = () => {
                                 await fetch("/api/reset-progress", { method: "POST" });
                             }}
                         >
-                            Delete Progress
+                            Reset Progress
                         </Button>
                     </div>
                 </DialogFooter>

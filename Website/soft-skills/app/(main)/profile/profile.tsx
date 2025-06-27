@@ -5,13 +5,11 @@ import { Separator } from '@/components/ui/separator';
 import { useUser } from '@clerk/clerk-react';
 import { Badges } from './badges';
 import { Button } from '@/components/ui/button';
-import { useDeleteModal } from '@/store/use-delete-modal';
 import { Statistics } from './statistics';
 import { useDeleteProgressModal } from '@/store/use-delete-progress-modal';
 
 const Profile = () => {
   const { user } = useUser();
-  const { open } = useDeleteModal();
   const { openDeleteProgressModal } = useDeleteProgressModal();
 
   const firstName = user?.firstName;
@@ -57,13 +55,6 @@ const Profile = () => {
                 <h1 className="text-center font-bold text-rose-500 text-2xl my-6">
                     DANGER ZONE
                 </h1>
-                <Button
-                    variant="danger"
-                    className="cursor-pointer mb-5"
-                    onClick={open}
-                >
-                    DELETE ACCOUNT
-                </Button>
                 <Button
                     variant="danger"
                     className="cursor-pointer mb-5"

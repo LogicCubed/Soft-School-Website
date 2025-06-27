@@ -13,7 +13,7 @@ export function QuestionTypeWrapper({ initialType, questionId }: QuestionTypeWra
   const router = useRouter();
 
   const handleValueChange = async (newType: string) => {
-    await updateQuestionType(questionId, newType as "SELECT" | "ASSIST" | "VIDEO" | "AUDIO");
+    await updateQuestionType(questionId, newType as "SELECT" | "VIDEO" | "AUDIO");
     router.refresh();
   };
 

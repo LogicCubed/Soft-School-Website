@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button";
 import { deleteLesson } from "@/actions/lesson";
 import { Trash2 } from "lucide-react";
 
-export const DeleteLessonButton = ({ lessonId }: { lessonId: number }) => {
+export const DeleteLessonButton = ({ lessonId, courseId }: { lessonId: number; courseId: number }) => {
   const router = useRouter();
   const [, startTransition] = useTransition();
 
-  // TODO: Update code to re-route to courses page upon lesson deletion
   const handleDelete = () => {
     startTransition(async () => {
       await deleteLesson(lessonId);
+      router.push(`/admin/curriculum/courses/${courseId}`);
       router.refresh();
     });
   };
@@ -24,7 +24,7 @@ export const DeleteLessonButton = ({ lessonId }: { lessonId: number }) => {
       className="cursor-pointer"
       onClick={handleDelete}
     >
-      <Trash2/>
+      <Trash2 />
     </Button>
   );
 };

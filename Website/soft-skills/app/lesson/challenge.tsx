@@ -33,7 +33,6 @@ export const Challenge = ({
             </div>
                 <div className={cn(
                     "grid gap-2",
-                    type === "ASSIST" && "grid-cols-1",
                     type === "SELECT" && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]",
                     type === "VIDEO" && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]",
                     type === "AUDIO" && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]"

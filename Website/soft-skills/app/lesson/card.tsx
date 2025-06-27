@@ -10,8 +10,8 @@ type Props = {
     selected?: boolean;
     onClick: () => void;
     disabled?: boolean;
-    status?: "correct" | "wrong" | "none",
-    type: typeof challenges.$inferSelect["type"],
+    status?: "correct" | "wrong" | "none";
+    type: typeof challenges.$inferSelect["type"];
 }
 
 export const Card = ({
@@ -42,13 +42,9 @@ export const Card = ({
                 selected && status === "wrong"
                     && "border-rose-300 bg-rose-100 hover:bg-rose-100",
                 disabled && "pointer-events-none hover:bg-white",
-                type === "ASSIST" && "lg:p-3 w-full"
             )}
         >
-            <div className={cn("flex items-center justify-between",
-                type === "ASSIST" && "flex-row-reverse",
-            )}>
-                {type === "ASSIST" && <div />}
+            <div className="flex items-center justify-between">
                 <p className={cn(
                     "text-neutral-600 text-sm lg:text-base",
                     selected && "text-sky-500",

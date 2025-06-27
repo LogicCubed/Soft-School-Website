@@ -4,7 +4,6 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ExitModal } from "@/components/modals/exit-modal";
-import { DeleteModal } from "@/components/modals/delete-modal";
 import { DeleteProgressModal } from "@/components/modals/delete-progress-modal";
 
 const font = Nunito({
@@ -31,7 +30,6 @@ export default function RootLayout({
         <body className={`${font.variable} antialiased`}>
           <Toaster/>
           <ExitModal/>
-          <DeleteModal/>
           <DeleteProgressModal/>
           {children}
         </body>

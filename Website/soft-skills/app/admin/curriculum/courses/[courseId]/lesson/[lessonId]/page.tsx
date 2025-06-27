@@ -77,11 +77,6 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                   <SelectTypeQuestion challenge={challenge}/>
                 )}
 
-                {challenge.type === "ASSIST" && (
-                  <></>
-                  // TODO: DELETE ASSIST TYPE
-                )}
-
                 {challenge.type === "VIDEO" && (
                   <>
                   {challenge.videoUrl ? (
@@ -112,7 +107,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
 
       <div className="flex gap-5">
         <CreateQuestionButton lessonId={lessonId}/>
-        <DeleteLessonButton lessonId={lessonId}/>
+        <DeleteLessonButton lessonId={lessonId} courseId={lesson.unit.course.id}/>
       </div>
     </div>
     </EditingProvider>
