@@ -21,7 +21,6 @@ interface EditingContextValue {
   hasPendingChanges: boolean;
   submitChanges: () => Promise<void>;
 
-  // NEW: helpers to get the merged current text (pending edit or original)
   getMergedQuestionText: (questionId: number, originalText: string) => string;
   getMergedOptionText: (optionId: number, originalText: string) => string;
 }
@@ -89,7 +88,6 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     );
   }, [pendingQuestionEdits, pendingOptionEdits, pendingNewOptions, pendingDeletedOptions]);
 
-  // NEW helpers to get merged text (local edit overrides original)
   function getMergedQuestionText(questionId: number, originalText: string) {
     return pendingQuestionEdits[questionId] ?? originalText;
   }

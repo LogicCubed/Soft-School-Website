@@ -7,7 +7,7 @@ import { NewOptionInput } from "@/components/admin-components/admin-create/add-o
 import { ExplanationTextInput } from "@/components/admin-components/admin-create/explanation-button";
 import { DeleteAnswerButton } from "@/components/admin-components/admin-delete/delete-answer-button";
 import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit-question";
-import { updateCorrectAnswer } from "@/actions/answer"; // <-- add this
+import { updateCorrectAnswer } from "@/actions/answer";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useEditing } from "../admin-context/editing-context";

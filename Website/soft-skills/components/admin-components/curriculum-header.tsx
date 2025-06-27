@@ -45,8 +45,8 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
         className={clsx(
           "font-semibold",
           hasPendingChanges
-            ? "bg-green-400 hover:bg-green-500 text-white cursor-pointer"
-            : "bg-gray-200 text-gray-500 cursor-not-allowed"
+            ? "bg-green-400 hover:bg-green-500 text-white font-extrabold cursor-pointer"
+            : "bg-gray-200 text-gray-500 font-extrabold"
         )}
       >
         Save Changes

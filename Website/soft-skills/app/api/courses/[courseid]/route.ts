@@ -1,50 +1,76 @@
+import { NextResponse } from "next/server";
 import db from "@/db/drizzle";
 import { courses } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
 import { eq } from "drizzle-orm";
-import { NextResponse } from "next/server";
 
-export const GET = async (
-    req: Request,
-    { params }: { params: { courseId: number } },
-) => {
-    if (!isAdmin()) {
-        return new NextResponse("Unauthorized", { status: 403 });
-    }
+export async function GET(
+  _req: Request,
+  context: { params: Promise<{ courseId: string }> }
+) {
+  const { courseId } = await context.params;
 
-    const data = await db.query.courses.findFirst({
-        where: eq(courses.id, params.courseId),
-    });
+  if (!isAdmin()) {
+    return new NextResponse("Unauthorized", { status: 403 });
+  }
 
-    return NextResponse.json(data);
-};
+  const id = Number(courseId);
+  if (isNaN(id)) {
+    return new NextResponse("Invalid ID", { status: 400 });
+  }
 
-export const PUT = async (
-    req: Request,
-    { params }: { params: { courseId: number } },
-) => {
-    if (!isAdmin()) {
-        return new NextResponse("Unauthorized", { status: 403 });
-    }
+  const data = await db.query.courses.findFirst({
+    where: eq(courses.id, id),
+  });
 
-    const body = await req.json();
-    const data = await db.update(courses).set({
-        ...body,
-    }).where(eq(courses.id, params.courseId)).returning();
+  return NextResponse.json(data);
+}
 
-    return NextResponse.json(data[0]);
-};
+export async function PUT(
+  req: Request,
+  context: { params: Promise<{ courseId: string }> }
+) {
+  const { courseId } = await context.params;
 
-export const DELETE = async (
-    req: Request,
-    { params }: { params: { courseId: number } },
-) => {
-    if (!isAdmin()) {
-        return new NextResponse("Unauthorized", { status: 403 });
-    }
+  if (!isAdmin()) {
+    return new NextResponse("Unauthorized", { status: 403 });
+  }
 
-    const data = await db.delete(courses)
-        .where(eq(courses.id, params.courseId)).returning();
+  const id = Number(courseId);
+  if (isNaN(id)) {
+    return new NextResponse("Invalid ID", { status: 400 });
+  }
 
-    return NextResponse.json(data[0]);
-};
+  const body = await req.json();
+
+  const data = await db
+    .update(courses)
+    .set(body)
+    .where(eq(courses.id, id))
+    .returning();
+
+  return NextResponse.json(data[0]);
+}
+
+export async function DELETE(
+  _req: Request,
+  context: { params: Promise<{ courseId: string }> }
+) {
+  const { courseId } = await context.params;
+
+  if (!isAdmin()) {
+    return new NextResponse("Unauthorized", { status: 403 });
+  }
+
+  const id = Number(courseId);
+  if (isNaN(id)) {
+    return new NextResponse("Invalid ID", { status: 400 });
+  }
+
+  const data = await db
+    .delete(courses)
+    .where(eq(courses.id, id))
+    .returning();
+
+  return NextResponse.json(data[0]);
+}

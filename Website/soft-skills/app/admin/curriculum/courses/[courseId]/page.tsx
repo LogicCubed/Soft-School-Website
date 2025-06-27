@@ -10,8 +10,9 @@ import { CreateLessonButton } from "@/components/admin-components/admin-create/c
 import Link from "next/link";
 import { CurriculumHeader } from "@/components/admin-components/curriculum-header";
 
-const EditCoursePage = async ({ params }: { params: { courseId: string } }) => {
-  const courseId = Number(params.courseId);
+const EditCoursePage = async ({ params }: { params: Promise<{ courseId: string }> }) => {
+  const resolvedParams = await params;
+  const courseId = Number(resolvedParams.courseId);
   if (isNaN(courseId)) notFound();
 
   const course = await getCourseById(courseId);

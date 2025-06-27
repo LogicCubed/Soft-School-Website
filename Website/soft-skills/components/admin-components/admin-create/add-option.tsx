@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { createAnswer } from "@/actions/answer";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
 import { useEditing } from "../admin-context/editing-context";
@@ -14,6 +14,7 @@ interface NewOptionInputProps {
 export function NewOptionInput({ challengeId }: NewOptionInputProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { addPendingNewOption } = useEditing();
 
@@ -25,7 +26,8 @@ export function NewOptionInput({ challengeId }: NewOptionInputProps) {
 
       const params = new URLSearchParams(searchParams.toString());
       params.set("focusOptionId", String(newAnswer.id));
-      router.replace(`${window.location.pathname}?${params.toString()}`);
+
+      router.replace(`${pathname}?${params.toString()}`);
     });
   };
 

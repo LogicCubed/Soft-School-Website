@@ -11,7 +11,7 @@ interface CreateQuestionButtonProps {
 
 export const CreateQuestionButton = ({ lessonId }: CreateQuestionButtonProps) => {
 
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const router = useRouter();
 
   const handleClick = () => {

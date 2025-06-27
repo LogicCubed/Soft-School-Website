@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { DeleteCourseButton } from "./admin-delete/delete-course-button";
+import { EditCourseButton } from "./admin-edit/edit-course-button";
 
 type AdminCardProps = {
   id: number;
@@ -31,8 +31,11 @@ export const AdminCard = ({ id, title, imageSrc }: AdminCardProps) => {
         className="rounded-lg object-cover"
       />
       <h2 className="mt-5 mb-5 font-bold text-neutral-700 text-center">{title}</h2>
-      <div className="hidden group-hover:block">
+      <div className="hidden group-hover:flex gap-2">
         <DeleteCourseButton
+          courseId={id}
+        />
+        <EditCourseButton
           courseId={id}
         />
       </div>

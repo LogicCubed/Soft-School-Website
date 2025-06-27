@@ -15,15 +15,17 @@ import Confetti from "react-Confetti";
 import { Button } from "@/components/ui/button";
 import { Volume2Icon } from "lucide-react";
 
-type Props ={
-    initialPercentage: number;
-    initialLessonId: number;
-    initialLessonChallenges: (typeof challenges.$inferSelect & {
-        completed: boolean;
-        challengeOptions: typeof challengeOptions.$inferSelect[];
-        videoUrl?: string;
-    })[];
-}
+type Props = {
+  initialPercentage: number;
+  initialLessonId: number;
+  initialLessonChallenges: (
+    Omit<typeof challenges.$inferSelect, "videoUrl"> & {
+      completed: boolean;
+      challengeOptions: typeof challengeOptions.$inferSelect[];
+      videoUrl?: string;
+    }
+  )[];
+};
 
 export const Quiz = ({
     initialPercentage,

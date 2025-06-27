@@ -4,47 +4,83 @@ import { isAdmin } from "@/lib/admin";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export const GET = async (
-    req: Request,
-    { params }: { params: { lessonId: number } },
-) => {
-    if (!isAdmin()) {
-        return new NextResponse("Unauthorized", { status: 403 });
-    }
-
-    const data = await db.query.lessons.findFirst({
-        where: eq(lessons.id, params.lessonId),
-    });
-
-    return NextResponse.json(data);
+const parseId = (lessonId: string) => {
+  const id = Number(lessonId);
+  if (isNaN(id)) return null;
+  return id;
 };
 
-export const PUT = async (
-    req: Request,
-    { params }: { params: { lessonId: number } },
-) => {
-    if (!isAdmin()) {
-        return new NextResponse("Unauthorized", { status: 403 });
-    }
-
-    const body = await req.json();
-    const data = await db.update(lessons).set({
-        ...body,
-    }).where(eq(lessons.id, params.lessonId)).returning();
-
-    return NextResponse.json(data[0]);
+const checkAdmin = () => {
+  if (!isAdmin()) {
+    return new NextResponse("Unauthorized", { status: 403 });
+  }
+  return null;
 };
 
-export const DELETE = async (
-    req: Request,
-    { params }: { params: { lessonId: number } },
-) => {
-    if (!isAdmin()) {
-        return new NextResponse("Unauthorized", { status: 403 });
-    }
+export async function GET(
+  _req: Request,
+  context: { params: Promise<{ lessonId: string }> }
+) {
+  const { lessonId } = await context.params;
 
-    const data = await db.delete(lessons)
-        .where(eq(lessons.id, params.lessonId)).returning();
+  const authError = checkAdmin();
+  if (authError) return authError;
 
-    return NextResponse.json(data[0]);
-};
+  const id = parseId(lessonId);
+  if (!id) {
+    return new NextResponse("Invalid ID", { status: 400 });
+  }
+
+  const data = await db.query.lessons.findFirst({
+    where: eq(lessons.id, id),
+  });
+
+  return NextResponse.json(data);
+}
+
+export async function PUT(
+  req: Request,
+  context: { params: Promise<{ lessonId: string }> }
+) {
+  const { lessonId } = await context.params;
+
+  const authError = checkAdmin();
+  if (authError) return authError;
+
+  const id = parseId(lessonId);
+  if (!id) {
+    return new NextResponse("Invalid ID", { status: 400 });
+  }
+
+  const body = await req.json();
+
+  const data = await db
+    .update(lessons)
+    .set(body)
+    .where(eq(lessons.id, id))
+    .returning();
+
+  return NextResponse.json(data[0]);
+}
+
+export async function DELETE(
+  _req: Request,
+  context: { params: Promise<{ lessonId: string }> }
+) {
+  const { lessonId } = await context.params;
+
+  const authError = checkAdmin();
+  if (authError) return authError;
+
+  const id = parseId(lessonId);
+  if (!id) {
+    return new NextResponse("Invalid ID", { status: 400 });
+  }
+
+  const data = await db
+    .delete(lessons)
+    .where(eq(lessons.id, id))
+    .returning();
+
+  return NextResponse.json(data[0]);
+}

@@ -8,7 +8,7 @@ import { Trash2 } from "lucide-react";
 
 export const DeleteLessonButton = ({ lessonId }: { lessonId: number }) => {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   // TODO: Update code to re-route to courses page upon lesson deletion
   const handleDelete = () => {

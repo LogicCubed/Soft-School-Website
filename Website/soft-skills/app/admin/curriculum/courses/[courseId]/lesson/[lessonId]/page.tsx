@@ -2,7 +2,7 @@ import { CreateQuestionButton } from "@/components/admin-components/admin-create
 import { DeleteQuestionButton } from "@/components/admin-components/admin-delete/delete-question-button";
 import { EllipsisVertical, GripHorizontal } from "lucide-react";
 import { QuestionTypeWrapper } from "@/components/question-type-wrapper";
-import { getLessonByIdForAdmin, getVideoUrl } from "@/db/queries";
+import { getLessonByIdForAdmin } from "@/db/queries";
 import { isAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
 import { CurriculumHeader } from "@/components/admin-components/curriculum-header";
@@ -12,9 +12,7 @@ import { SelectTypeQuestion } from "@/components/admin-components/question-types
 import { EditingProvider } from "@/components/admin-components/admin-context/editing-context";
 
 interface EditLessonPageProps {
-  params: {
-    lessonId: string;
-  };
+  params: Promise<{ lessonId: string }>;
 }
 
 export default async function EditLessonPage({ params }: EditLessonPageProps) {
@@ -23,7 +21,9 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
   }
 
   // Extract the lessonId parameter from the URL and convert it to a number
-  const lessonId = Number(params.lessonId);
+  const resolvedParams = await params;
+  const lessonId = Number(resolvedParams.lessonId);
+  
   if (isNaN(lessonId)) {
     return <p>Invalid lesson ID.</p>;
   }
@@ -36,17 +36,6 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
     // TODO: Stylize this
     return <p>Lesson not found.</p>;
   }
-
-  // For each challenge of type VIDEO, fetch the video URL
-  const challengesWithVideos = await Promise.all(
-    lesson.challenges.map(async (challenge) => {
-      if (challenge.type === "VIDEO") {
-        const videoUrl = await getVideoUrl(challenge.id);
-        return { ...challenge, videoUrl };
-      }
-      return challenge;
-    })
-  );
 
   // Constructs the title for the Header to display the Lesson's Course, Unit, and ID
   const headerTitle =
@@ -77,7 +66,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
               className="group relative border border-gray-300 rounded-lg p-4 shadow-sm mb-5 mt-5 flex flex-col"
             >
               <div className="hidden group-hover:block absolute top-2 left-1/2 transform -translate-x-1/2">
-                <GripHorizontal className="text-gray-400 w-5 h-5 cursor-move" />
+                <GripHorizontal className="text-gray-400 w-5 h-5 cursor-grab" />
               </div>
               <div className="flex-grow">
                 <div className="flex items-center space-x-2">

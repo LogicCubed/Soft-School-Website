@@ -1,42 +1,54 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { getLesson, getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
 import { Quiz } from "../quiz";
+import { challengeOptions, challenges } from "@/db/schema";
 
 type Props = {
-    params: {
-        lessonId: string;
-    };
+  params: Promise<{
+    lessonId: string;
+  }>;
 };
 
 export default async function LessonIdPage({ params }: Props) {
-    const { lessonId } = await params;
-    const lessonIdNumber = Number(lessonId);
+  const { lessonId } = await params;
+  const lessonIdNumber = Number(lessonId);
 
-    if (isNaN(lessonIdNumber)) {
-        redirect("/learn");
-    }
+  if (isNaN(lessonIdNumber)) {
+    redirect("/learn");
+  }
 
-    const [
-        lesson,
-        userProgress,
-    ] = await Promise.all([
-        getLesson(lessonIdNumber),
-        getUserProgress(),
-    ]);
+  const [lesson, userProgress] = await Promise.all([
+    getLesson(lessonIdNumber),
+    getUserProgress(),
+  ]);
 
-    if (!lesson || !userProgress) {
-        redirect("/learn");
-    }
+  if (!lesson || !userProgress) {
+    redirect("/learn");
+  }
 
-    const initialPercentage = lesson.challenges
-        .filter((challenge) => challenge.completed)
-        .length / lesson.challenges.length * 100;
+  const initialPercentage =
+    (lesson.challenges.filter((challenge) => challenge.completed).length /
+      lesson.challenges.length) *
+    100;
 
-    return (
-        <Quiz
-            initialLessonId={lesson.id}
-            initialLessonChallenges={lesson.challenges}
-            initialPercentage={initialPercentage}
-        />
-    );
+type CleanChallenge = Omit<typeof challenges.$inferSelect, "videoUrl"> & {
+  completed: boolean;
+  challengeOptions: typeof challengeOptions.$inferSelect[];
+  videoUrl?: string;
 };
+
+const cleanedChallenges: CleanChallenge[] = lesson.challenges.map(({ challengeProgress: _, videoUrl, ...rest }) => ({
+  ...rest,
+  videoUrl: videoUrl === null ? undefined : videoUrl,
+}));
+
+return (
+  <Quiz
+    initialLessonId={lesson.id}
+    initialLessonChallenges={cleanedChallenges}
+    initialPercentage={initialPercentage}
+  />
+);
+}

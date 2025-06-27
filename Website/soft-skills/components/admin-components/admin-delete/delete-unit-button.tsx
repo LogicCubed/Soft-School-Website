@@ -8,7 +8,7 @@ import { Trash2 } from "lucide-react";
 
 export const DeleteUnitButton = ({ unitId }: { unitId: number }) => {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const handleDelete = () => {
     startTransition(async () => {

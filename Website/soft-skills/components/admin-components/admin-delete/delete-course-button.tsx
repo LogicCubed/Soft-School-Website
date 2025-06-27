@@ -6,9 +6,13 @@ import { Button } from "@/components/ui/button";
 import { deleteCourse } from "@/actions/course";
 import { Trash2 } from "lucide-react";
 
-export const DeleteCourseButton = ({ courseId }: { courseId: number }) => {
+type DeleteCourseButtonProps = {
+  courseId: number;
+};
+
+export const DeleteCourseButton = ({ courseId }: DeleteCourseButtonProps) => {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const handleDelete = () => {
     startTransition(async () => {
