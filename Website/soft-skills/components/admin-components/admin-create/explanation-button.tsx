@@ -3,17 +3,18 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { NotebookPen } from "lucide-react";
+import { useEditing } from "../admin-context/editing-context";
 
 interface ExplanationTextInputProps {
   initialExplanation: string;
   answerId: number;
-  onChange?: (newExplanation: string) => void;
 }
 
-export function ExplanationTextInput({ initialExplanation, answerId, onChange }: ExplanationTextInputProps) {
+export function ExplanationTextInput({ initialExplanation, answerId }: ExplanationTextInputProps) {
   const [showInput, setShowInput] = useState(false);
   const [text, setText] = useState(initialExplanation);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { updateExplanation } = useEditing();
 
   useEffect(() => {
     if (showInput) {
@@ -28,10 +29,9 @@ export function ExplanationTextInput({ initialExplanation, answerId, onChange }:
   const maxChars = 100;
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
-    if (onChange) {
-      onChange(e.target.value);
-    }
+    const newText = e.target.value;
+    setText(newText);
+    updateExplanation(answerId, newText);
   };
 
   return (

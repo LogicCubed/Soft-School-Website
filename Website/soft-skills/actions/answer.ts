@@ -53,17 +53,19 @@ export async function updateCorrectAnswer(
   optionId: number,
   challengeId: number
 ): Promise<void> {
-  // Set all options for this challenge to incorrect
+  // Mark all options incorrect in one query
   await db
     .update(challengeOptions)
     .set({ correct: false })
-    .where(eq(challengeOptions.challengeId, challengeId));
+    .where(eq(challengeOptions.challengeId, challengeId))
+    .execute();
 
-  // Mark the chosen option as correct
+  // Then mark the selected option correct
   await db
     .update(challengeOptions)
     .set({ correct: true })
-    .where(eq(challengeOptions.id, optionId));
+    .where(eq(challengeOptions.id, optionId))
+    .execute();
 }
 
 // Update the text of an option

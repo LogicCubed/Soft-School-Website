@@ -2,7 +2,12 @@
 
 import React, { createContext, useContext, useState, useMemo } from "react";
 import { updateQuestionText as apiUpdateQuestionText } from "@/actions/question";
-import { updateOptionText as apiUpdateOptionText, deleteAnswer } from "@/actions/answer";
+import {
+  updateOptionText as apiUpdateOptionText,
+  deleteAnswer,
+  updateCorrectAnswer as apiUpdateCorrectAnswer,
+  updateOptionExplanation as apiUpdateOptionExplanation,
+} from "@/actions/answer";
 import { usePathname, useRouter } from "next/navigation";
 
 interface EditingContextValue {
@@ -18,11 +23,19 @@ interface EditingContextValue {
   pendingDeletedOptions: Set<number>;
   markOptionDeleted: (optionId: number) => void;
 
+  pendingCorrectAnswerEdits: Record<number, number>; // challengeId -> correct optionId
+  updateCorrectAnswer: (challengeId: number, optionId: number) => void;
+
+  pendingExplanationEdits: Record<number, string>;
+  updateExplanation: (optionId: number, explanation: string) => void;
+
   hasPendingChanges: boolean;
   submitChanges: () => Promise<void>;
 
   getMergedQuestionText: (questionId: number, originalText: string) => string;
   getMergedOptionText: (optionId: number, originalText: string) => string;
+  getMergedCorrectAnswer: (challengeId: number, originalOptionId: number) => number;
+  getMergedExplanation: (optionId: number, originalExplanation: string) => string;
 }
 
 const EditingContext = createContext<EditingContextValue | undefined>(undefined);
@@ -32,6 +45,8 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
   const [pendingOptionEdits, setPendingOptionEdits] = useState<Record<number, string>>({});
   const [pendingNewOptions, setPendingNewOptions] = useState<Set<number>>(new Set());
   const [pendingDeletedOptions, setPendingDeletedOptions] = useState<Set<number>>(new Set());
+  const [pendingCorrectAnswerEdits, setPendingCorrectAnswerEdits] = useState<Record<number, number>>({});
+  const [pendingExplanationEdits, setPendingExplanationEdits] = useState<Record<number, string>>({});
 
   const router = useRouter();
   const pathname = usePathname();
@@ -77,6 +92,26 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
       next.delete(optionId);
       return next;
     });
+
+    setPendingExplanationEdits((prev) => {
+      const copy = { ...prev };
+      delete copy[optionId];
+      return copy;
+    });
+  }
+
+  function updateCorrectAnswer(challengeId: number, optionId: number) {
+    setPendingCorrectAnswerEdits((prev) => ({
+      ...prev,
+      [challengeId]: optionId,
+    }));
+  }
+
+  function updateExplanation(optionId: number, explanation: string) {
+    setPendingExplanationEdits((prev) => ({
+      ...prev,
+      [optionId]: explanation,
+    }));
   }
 
   const hasPendingChanges = useMemo(() => {
@@ -84,9 +119,18 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
       Object.keys(pendingQuestionEdits).length > 0 ||
       Object.keys(pendingOptionEdits).length > 0 ||
       pendingNewOptions.size > 0 ||
-      pendingDeletedOptions.size > 0
+      pendingDeletedOptions.size > 0 ||
+      Object.keys(pendingCorrectAnswerEdits).length > 0 ||
+      Object.keys(pendingExplanationEdits).length > 0
     );
-  }, [pendingQuestionEdits, pendingOptionEdits, pendingNewOptions, pendingDeletedOptions]);
+  }, [
+    pendingQuestionEdits,
+    pendingOptionEdits,
+    pendingNewOptions,
+    pendingDeletedOptions,
+    pendingCorrectAnswerEdits,
+    pendingExplanationEdits,
+  ]);
 
   function getMergedQuestionText(questionId: number, originalText: string) {
     return pendingQuestionEdits[questionId] ?? originalText;
@@ -94,6 +138,14 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
 
   function getMergedOptionText(optionId: number, originalText: string) {
     return pendingOptionEdits[optionId] ?? originalText;
+  }
+
+  function getMergedCorrectAnswer(challengeId: number, originalOptionId: number) {
+    return pendingCorrectAnswerEdits[challengeId] ?? originalOptionId;
+  }
+
+  function getMergedExplanation(optionId: number, originalExplanation: string) {
+    return pendingExplanationEdits[optionId] ?? originalExplanation;
   }
 
   async function submitChanges() {
@@ -114,11 +166,25 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
       await apiUpdateOptionText(optionId, text);
     }
 
+    // Update correct answers
+    for (const [challengeIdStr, optionId] of Object.entries(pendingCorrectAnswerEdits)) {
+      const challengeId = Number(challengeIdStr);
+      await apiUpdateCorrectAnswer(optionId, challengeId);
+    }
+
+    // Update explanations
+    for (const [optionIdStr, explanation] of Object.entries(pendingExplanationEdits)) {
+      const optionId = Number(optionIdStr);
+      await apiUpdateOptionExplanation(optionId, explanation);
+    }
+
     // Clear all pending changes
     setPendingQuestionEdits({});
     setPendingOptionEdits({});
     setPendingNewOptions(new Set());
     setPendingDeletedOptions(new Set());
+    setPendingCorrectAnswerEdits({});
+    setPendingExplanationEdits({});
 
     router.replace(pathname);
   }
@@ -132,10 +198,16 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     addPendingNewOption,
     pendingDeletedOptions,
     markOptionDeleted,
+    pendingCorrectAnswerEdits,
+    updateCorrectAnswer,
+    pendingExplanationEdits,
+    updateExplanation,
     hasPendingChanges,
     submitChanges,
     getMergedQuestionText,
     getMergedOptionText,
+    getMergedCorrectAnswer,
+    getMergedExplanation,
   };
 
   return <EditingContext.Provider value={value}>{children}</EditingContext.Provider>;
