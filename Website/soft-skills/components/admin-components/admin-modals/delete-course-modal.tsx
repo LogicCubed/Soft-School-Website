@@ -74,7 +74,7 @@ export const DeleteCourseModal = () => {
           <DialogTitle className="text-center font-bold text-2xl">Wait!</DialogTitle>
           <DialogDescription className="text-center text-base">
             To confirm, type{" "}
-            <span className="font-semibold">"{courseNameToDelete}"</span> in the box below:
+            <span className="font-semibold">&quot;{courseNameToDelete}&quot;</span> in the box below:
           </DialogDescription>
           <input
             type="text"

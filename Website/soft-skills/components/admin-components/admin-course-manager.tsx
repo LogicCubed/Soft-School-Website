@@ -1,12 +1,11 @@
 "use client";
 
 import { useCreateCourseModal } from "@/store/admin-modals/use-create-course-modal";
-// Remove import of useDeleteCourseModal if you don't need it here anymore
 import { useEditing } from "@/components/admin-components/admin-context/editing-context";
 import { Button } from "@/components/ui/button";
 import { AdminCard } from "./admin-card";
 import { CreateCourseModal } from "./admin-modals/create-course-modal";
-import { DeleteCourseModal } from "../modals/admin-modals/delete-course-modal";
+import { DeleteCourseModal } from "./admin-modals/delete-course-modal";
 import { courses } from "@/db/schema";
 import { useEffect, useState } from "react";
 
@@ -48,7 +47,7 @@ export const AdminCourseManager = ({ initialCourses }: AdminCourseManagerProps) 
             id={course.id}
             title={course.title}
             imageSrc={course.imageSrc}
-            isPendingDelete={pendingCourseDeletes.has(course.id)}  // pass pending state if needed
+            isPendingDelete={pendingCourseDeletes.has(course.id)}
           />
         ))}
       </div>

@@ -5,7 +5,6 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
   CircleDotIcon,
-  BotIcon,
   VideoIcon,
   Volume2Icon
 } from "lucide-react";

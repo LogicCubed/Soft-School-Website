@@ -1,0 +1,27 @@
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+
+export const Middle = () => {
+    return (
+        <footer className="hidden lg:block h-20 w-screen border-t-2 border-b-2 p-2 mt-20">
+            <div className="max-w-screen-lg mx-auto flex items-center justify-evenly h-full">
+                <Button size="lg" variant="ghost">
+                    <Image src="/speaking.svg" alt="Speaking" height={32} width={40} className="mr-4 rounded-md"/>
+                    Speaking
+                </Button>
+                <Button size="lg" variant="ghost">
+                    <Image src="/teamwork.svg" alt="Teamwork" height={32} width={40} className="mr-4 rounded-md"/>
+                    Teamwork
+                </Button>
+                <Button size="lg" variant="ghost">
+                    <Image src="/problemsolving.svg" alt="Problem Solving" height={32} width={40} className="mr-4 rounded-md"/>
+                    Problem Solving
+                </Button>
+                <Button size="lg" variant="ghost">
+                    <Image src="/conflictresolution.svg" alt="Conflict Resolution" height={32} width={40} className="mr-4 rounded-md"/>
+                    Conflict Resolution
+                </Button>
+            </div>
+        </footer>
+    );
+};

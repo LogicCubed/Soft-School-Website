@@ -3,7 +3,6 @@
 import { challengeOptions, challenges } from "@/db/schema";
 import { Header } from "./header";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { QuestionBubble } from "./question-bubble";
 import { Challenge } from "./challenge";
 import { Footer } from "./footer";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";

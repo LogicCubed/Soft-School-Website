@@ -21,7 +21,6 @@ export const Card = ({
     onClick,
     disabled,
     status,
-    type,
 }: Props) => {
     const handleClick = useCallback(() => {
         if (disabled) return;
