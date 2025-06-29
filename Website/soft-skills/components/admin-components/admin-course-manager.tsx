@@ -1,10 +1,14 @@
 "use client";
 
 import { useCreateCourseModal } from "@/store/admin-modals/use-create-course-modal";
+// Remove import of useDeleteCourseModal if you don't need it here anymore
+import { useEditing } from "@/components/admin-components/admin-context/editing-context";
 import { Button } from "@/components/ui/button";
 import { AdminCard } from "./admin-card";
 import { CreateCourseModal } from "./admin-modals/create-course-modal";
+import { DeleteCourseModal } from "../modals/admin-modals/delete-course-modal";
 import { courses } from "@/db/schema";
+import { useEffect, useState } from "react";
 
 type Course = typeof courses.$inferSelect;
 
@@ -14,6 +18,15 @@ type AdminCourseManagerProps = {
 
 export const AdminCourseManager = ({ initialCourses }: AdminCourseManagerProps) => {
   const { openCreateCourseModal } = useCreateCourseModal();
+  const { pendingCourseDeletes } = useEditing();  // <-- use editing context here
+
+  const [visibleCourses, setVisibleCourses] = useState<Course[]>(initialCourses);
+
+  useEffect(() => {
+    setVisibleCourses(
+      initialCourses.filter(course => !pendingCourseDeletes.has(course.id))
+    );
+  }, [pendingCourseDeletes, initialCourses]);
 
   return (
     <>
@@ -25,15 +38,17 @@ export const AdminCourseManager = ({ initialCourses }: AdminCourseManagerProps) 
         Create
       </Button>
 
-      <CreateCourseModal /> {}
+      <CreateCourseModal />
+      <DeleteCourseModal />
 
       <div className="pt-6 grid grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(210px,1fr))] gap-4">
-        {initialCourses.map((course) => (
+        {visibleCourses.map(course => (
           <AdminCard
             key={course.id}
             id={course.id}
             title={course.title}
             imageSrc={course.imageSrc}
+            isPendingDelete={pendingCourseDeletes.has(course.id)}  // pass pending state if needed
           />
         ))}
       </div>

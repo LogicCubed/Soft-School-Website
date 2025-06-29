@@ -1,25 +1,21 @@
 "use client";
 
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { MouseEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { deleteCourse } from "@/actions/course";
 import { Trash2 } from "lucide-react";
+import { useDeleteCourseModal } from "@/store/admin-modals/use-delete-course-modal";
 
 type DeleteCourseButtonProps = {
   courseId: number;
+  courseName: string;
 };
 
-export const DeleteCourseButton = ({ courseId }: DeleteCourseButtonProps) => {
-  const router = useRouter();
-  const [, startTransition] = useTransition();
+export const DeleteCourseButton = ({ courseId, courseName }: DeleteCourseButtonProps) => {
+  const openDeleteCourseModal = useDeleteCourseModal((state) => state.openDeleteCourseModal);
 
-  const handleDelete = () => {
-    startTransition(async () => {
-      await deleteCourse(courseId);
-      router.refresh();
-      router.push("/admin/curriculum");
-    });
+  const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); // Prevent parent click
+    openDeleteCourseModal(courseId, courseName);
   };
 
   return (
@@ -28,7 +24,7 @@ export const DeleteCourseButton = ({ courseId }: DeleteCourseButtonProps) => {
       className="cursor-pointer"
       onClick={handleDelete}
     >
-        <Trash2/>
+      <Trash2 />
     </Button>
   );
 };

@@ -23,7 +23,10 @@ interface EditingContextValue {
   pendingDeletedOptions: Set<number>;
   markOptionDeleted: (optionId: number) => void;
 
-  pendingCorrectAnswerEdits: Record<number, number>; // challengeId -> correct optionId
+  pendingCourseDeletes: Set<number>;
+  markCourseDeleted: (courseId: number) => void;
+
+  pendingCorrectAnswerEdits: Record<number, number>;
   updateCorrectAnswer: (challengeId: number, optionId: number) => void;
 
   pendingExplanationEdits: Record<number, string>;
@@ -45,6 +48,7 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
   const [pendingOptionEdits, setPendingOptionEdits] = useState<Record<number, string>>({});
   const [pendingNewOptions, setPendingNewOptions] = useState<Set<number>>(new Set());
   const [pendingDeletedOptions, setPendingDeletedOptions] = useState<Set<number>>(new Set());
+  const [pendingCourseDeletes, setPendingCourseDeletes] = useState<Set<number>>(new Set());
   const [pendingCorrectAnswerEdits, setPendingCorrectAnswerEdits] = useState<Record<number, number>>({});
   const [pendingExplanationEdits, setPendingExplanationEdits] = useState<Record<number, string>>({});
 
@@ -100,6 +104,14 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
+  function markCourseDeleted(courseId: number) {
+    setPendingCourseDeletes((prev) => {
+      const next = new Set(prev);
+      next.add(courseId);
+      return next;
+    });
+  }
+
   function updateCorrectAnswer(challengeId: number, optionId: number) {
     setPendingCorrectAnswerEdits((prev) => ({
       ...prev,
@@ -120,6 +132,7 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
       Object.keys(pendingOptionEdits).length > 0 ||
       pendingNewOptions.size > 0 ||
       pendingDeletedOptions.size > 0 ||
+      pendingCourseDeletes.size > 0 ||
       Object.keys(pendingCorrectAnswerEdits).length > 0 ||
       Object.keys(pendingExplanationEdits).length > 0
     );
@@ -128,27 +141,17 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     pendingOptionEdits,
     pendingNewOptions,
     pendingDeletedOptions,
+    pendingCourseDeletes,
     pendingCorrectAnswerEdits,
     pendingExplanationEdits,
   ]);
 
-  function getMergedQuestionText(questionId: number, originalText: string) {
-    return pendingQuestionEdits[questionId] ?? originalText;
-  }
-
-  function getMergedOptionText(optionId: number, originalText: string) {
-    return pendingOptionEdits[optionId] ?? originalText;
-  }
-
-  function getMergedCorrectAnswer(challengeId: number, originalOptionId: number) {
-    return pendingCorrectAnswerEdits[challengeId] ?? originalOptionId;
-  }
-
-  function getMergedExplanation(optionId: number, originalExplanation: string) {
-    return pendingExplanationEdits[optionId] ?? originalExplanation;
-  }
-
   async function submitChanges() {
+    // Delete courses
+    for (const courseId of pendingCourseDeletes) {
+      await fetch(`/api/courses/${courseId}`, { method: "DELETE" });
+    }
+
     // Delete options
     for (const optionId of pendingDeletedOptions) {
       await deleteAnswer(optionId);
@@ -179,6 +182,7 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     }
 
     // Clear all pending changes
+    setPendingCourseDeletes(new Set());
     setPendingQuestionEdits({});
     setPendingOptionEdits({});
     setPendingNewOptions(new Set());
@@ -198,16 +202,18 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     addPendingNewOption,
     pendingDeletedOptions,
     markOptionDeleted,
+    pendingCourseDeletes,
+    markCourseDeleted,
     pendingCorrectAnswerEdits,
     updateCorrectAnswer,
     pendingExplanationEdits,
     updateExplanation,
     hasPendingChanges,
     submitChanges,
-    getMergedQuestionText,
-    getMergedOptionText,
-    getMergedCorrectAnswer,
-    getMergedExplanation,
+    getMergedQuestionText: (q, o) => pendingQuestionEdits[q] ?? o,
+    getMergedOptionText: (oId, oText) => pendingOptionEdits[oId] ?? oText,
+    getMergedCorrectAnswer: (cId, oId) => pendingCorrectAnswerEdits[cId] ?? oId,
+    getMergedExplanation: (oId, ex) => pendingExplanationEdits[oId] ?? ex,
   };
 
   return <EditingContext.Provider value={value}>{children}</EditingContext.Provider>;
