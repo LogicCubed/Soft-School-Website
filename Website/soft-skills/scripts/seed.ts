@@ -237,20 +237,20 @@ const main = async () => {
             {
                 challengeId: 5,
                 correct: true,
-                text: "TEST ANSWER 1",
-                explanation: "EXPLANATION 1",
+                text: "Tell your teacher you’re struggling and ask for help, even if you’re not sure what specific questions to ask.",
+                explanation: "They can guide you even if you’re unsure.",
             },
             {
                 challengeId: 5,
                 correct: false,
-                text: "TEST ANSWER 2",
-                explanation: "EXPLANATION 2",
+                text: "Stop doing the homework for now and wait until you feel more confident.",
+                explanation: "You’ll fall further behind.",
             },
             {
                 challengeId: 5,
                 correct: false,
-                text: "TEST ANSWER 3",
-                explanation: "EXPLANATION 3",
+                text: "Don’t say anything — just copy what others are doing until you can figure it out on your own.",
+                explanation: "You won’t actually learn that way.",
             },
         ]);
 

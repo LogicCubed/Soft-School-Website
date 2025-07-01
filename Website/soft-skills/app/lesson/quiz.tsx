@@ -251,7 +251,7 @@ export const Quiz = ({
                         {challenge.type !== "VIDEO" && challenge.type !== "AUDIO" && (
                             <div>
                                 <div className="flex items-center justify-between border-b border-gray-300"></div>
-                                <div className="text-gray-600">{challenge.callToAction}</div>
+                                <div className="text-gray-600 mt-5 text-xl">{challenge.callToAction}</div>
                             </div>
                         )}
                         <div>

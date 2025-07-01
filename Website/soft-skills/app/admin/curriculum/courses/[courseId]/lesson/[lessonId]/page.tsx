@@ -10,6 +10,8 @@ import { DeleteLessonButton } from "@/components/admin-components/admin-delete/d
 import Image from "next/image";
 import { SelectTypeQuestion } from "@/components/admin-components/question-types/select-type-question";
 import { EditingProvider } from "@/components/admin-components/admin-context/editing-context";
+import { AudioTypeQuestion } from "@/components/admin-components/question-types/audio-type-question";
+import { VideoTypeQuestion } from "@/components/admin-components/question-types/video-type-question";
 
 interface EditLessonPageProps {
   params: Promise<{ lessonId: string }>;
@@ -80,11 +82,14 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                 {challenge.type === "VIDEO" && (
                   <>
                   {challenge.videoUrl ? (
-                    <video
-                      src={challenge.videoUrl}
-                      controls
-                      className="mt-2 max-w-[400px] rounded mx-auto"
-                    />
+                    <div>
+                      <video
+                        src={challenge.videoUrl}
+                        controls
+                        className="mt-2 max-w-[400px] rounded mx-auto"
+                      />
+                      <VideoTypeQuestion challenge={challenge}/>
+                    </div>
                   ) : (
                     <p>UPLOAD VIDEO!</p>
                   )}
@@ -92,7 +97,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                 )}
 
                 {challenge.type === "AUDIO" && (
-                  <></>
+                  <AudioTypeQuestion challenge={challenge}/>
                 )}
               </div>
               <div className="w-[98%] border-t border-gray-300 mx-auto mb-5 mt-5" />
