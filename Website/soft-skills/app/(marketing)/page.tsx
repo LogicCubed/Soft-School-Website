@@ -47,11 +47,13 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       <Middle />
+
       <Section
           title="Engaging Modules"
           description="Lorem ipsum dolor sit amet. Et nisi sunt eum sint culpa non nisi dignissimos ad officia soluta. Est quisquam earum ut magni optio quo consequatur mollitia ea consectetur necessitatibus."
-          imageSrc="/softy-assets/softyhappy.svg"
+          imageSrc="/softy-assets/softydetermined.svg"
       />
       <Section
           title="Games"

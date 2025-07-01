@@ -22,6 +22,7 @@ export async function createQuestion(lessonId: number) {
       lessonId,
       type: "SELECT",
       question: "Question",
+      callToAction: "Choose the best response.",
       order: maxOrder + 1,
     })
     .returning();

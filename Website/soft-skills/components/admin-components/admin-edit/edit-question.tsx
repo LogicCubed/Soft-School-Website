@@ -36,7 +36,7 @@ export function QuestionTextInput({
       type="text"
       value={text}
       onChange={handleChange}
-      className="w-full border hover:underline hover:decoration-gray-300 p-6 hover:bg-gray-100 rounded mt-2"
+      className="w-full border hover:underline hover:decoration-gray-300 p-2 hover:bg-gray-100 rounded mt-2"
     />
   );
 }

@@ -248,6 +248,12 @@ export const Quiz = ({
                         <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
                             {title}
                         </h1>
+                        {challenge.type !== "VIDEO" && challenge.type !== "AUDIO" && (
+                            <div>
+                                <div className="flex items-center justify-between border-b border-gray-300"></div>
+                                <div className="text-gray-600">{challenge.callToAction}</div>
+                            </div>
+                        )}
                         <div>
                             {/* Video Type Questions */}
                             {challenge.type === "VIDEO" ? (
@@ -255,6 +261,7 @@ export const Quiz = ({
                                     <video
                                         controls
                                         autoPlay
+                                        controlsList="nodownload noplaybackrate"
                                         className="w-full rounded-xl mb-4"
                                         src={challenge.videoUrl || undefined}
                                         onEnded={() => setVideoEnded(true)}

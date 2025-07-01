@@ -9,11 +9,13 @@ import { ExplanationTextInput } from "@/components/admin-components/admin-create
 import { DeleteAnswerButton } from "@/components/admin-components/admin-delete/delete-answer-button";
 import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit-question";
 import { useEditing } from "../admin-context/editing-context";
+import { CallToActionTextInput } from "../admin-edit/edit-calltoaction";
 
 interface SelectTypeQuestionProps {
   challenge: {
     id: number;
     question: string;
+    callToAction: string;
     challengeOptions: {
       id: number;
       text: string;
@@ -43,9 +45,13 @@ export function SelectTypeQuestion({ challenge }: SelectTypeQuestionProps) {
 
   return (
     <>
-      <div className="mt-5 p-5">
+      <div className="mt-5">
         <QuestionTextInput
           initialText={challenge.question}
+          questionId={challenge.id}
+        />
+        <CallToActionTextInput
+          initialText={challenge.callToAction}
           questionId={challenge.id}
         />
       </div>

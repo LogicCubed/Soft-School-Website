@@ -45,14 +45,14 @@ const main = async () => {
         await db.insert(schema.units).values([
             {
                 id: 1,
-                courseId: 1, // Conflict Resolution
+                courseId: 1,
                 title: "Unit 1",
                 description: "Learn how to listen for Conflict Resolution",
                 order: 1,
             },
             {
                 id: 2,
-                courseId: 1, // Conflict Resolution
+                courseId: 1,
                 title: "Unit 2",
                 description: "Learn about feelings in Conflict Resolution",
                 order: 2,
@@ -62,43 +62,43 @@ const main = async () => {
         await db.insert(schema.lessons).values([
             {
                 id: 1,
-                unitId: 1, // Unit 1 (Learn the basics...)
+                unitId: 1,
                 order: 1,
                 title: "Lesson 1",
             },
             {
                 id: 2,
-                unitId: 1, // Unit 1 (Learn the basics...)
+                unitId: 1,
                 order: 2,
                 title: "Lesson 2",
             },
             {
                 id: 3,
-                unitId: 1, // Unit 1 (Learn the basics...)
+                unitId: 1,
                 order: 3,
                 title: "Lesson 3",
             },
             {
                 id: 4,
-                unitId: 1, // Unit 1 (Learn the basics...)
+                unitId: 1,
                 order: 4,
                 title: "Lesson 4",
             },
             {
                 id: 5,
-                unitId: 1, // Unit 1 (Learn the basics...)
+                unitId: 1,
                 order: 5,
                 title: "Lesson 5",
             },
             {
                 id: 6,
-                unitId: 2, // Unit 2 (Learn the basics...)
+                unitId: 2,
                 order: 6,
                 title: "Lesson 1",
             },
             {
                 id: 7,
-                unitId: 2, // Unit 2 (Learn the basics...)
+                unitId: 2,
                 order: 7,
                 title: "Lesson 2",
             }
@@ -107,24 +107,27 @@ const main = async () => {
         await db.insert(schema.challenges).values([
             {
                 id: 1,
-                lessonId: 1, // Listening
+                lessonId: 1,
                 type: "SELECT",
                 order: 1,
-                question: 'Your friend Alex says: I\'m really stressed about the group project. I feel like I\'m doing all the work and no one else is helping.'
+                question: 'Your friend Alex says: I\'m really stressed about the group project. I feel like I\'m doing all the work and no one else is helping.',
+                callToAction: "What should you tell Alex?",
             },
             {
                 id: 2,
-                lessonId: 1, // Listening
+                lessonId: 1,
                 type: "SELECT",
                 order: 2,
-                question: 'Your friend, Josh, says, "I have so much homework, and I can’t keep up with all the assignments. I’m really stressed out."'
+                question: 'Your friend, Josh, says, "I have so much homework, and I can’t keep up with all the assignments. I’m really stressed out."',
+                callToAction: "How do you support Josh?",
             },
             {
                 id: 3,
-                lessonId: 1, // Listening
+                lessonId: 1,
                 type: "SELECT",
                 order: 3,
-                question: "Your classmate, Taylor, says, \"I\’m really upset because I didn\’t get the grade I wanted on the test. I studied so hard and thought I did well.\""
+                question: "Your classmate, Taylor, says, \"I\’m really upset because I didn\’t get the grade I wanted on the test. I studied so hard and thought I did well.\"",
+                callToAction: "How can you encourage Taylor?",
             },
             {
                 id: 4,
@@ -132,7 +135,8 @@ const main = async () => {
                 type: "VIDEO",
                 question: "",
                 order: 4,
-                videoUrl: "/videos/samplevideo.mp4"
+                videoUrl: "/videos/samplevideo.mp4",
+                callToAction: "",
             },
             {
                 id: 5,
@@ -140,9 +144,10 @@ const main = async () => {
                 type: "AUDIO",
                 question: "",
                 order: 5,
-                audio: "/sounds/sampleaudio1.mp3"
+                audio: "/sounds/sampleaudio1.mp3",
+                callToAction: "",
             },
-        ])
+        ]);
 
         await db.insert(schema.challengeOptions).values([
             {
@@ -252,24 +257,27 @@ const main = async () => {
         await db.insert(schema.challenges).values([
             {
                 id: 6,
-                lessonId: 2, // Feelings
+                lessonId: 2,
                 type: "SELECT",
                 order: 1,
-                question: 'Your classmate Jamie was really quiet during your group project presentation. Normally, Jamie is outgoing and confident, but today they seemed distracted and barely spoke. After class, you approach Jamie to check in.'
+                question: 'Your classmate Jamie was really quiet during your group project presentation. Normally, Jamie is outgoing and confident, but today they seemed distracted and barely spoke. After class, you approach Jamie to check in.',
+                callToAction: "How do you check in with Jamie?",
             },
             {
                 id: 7,
-                lessonId: 2, // Feelings
+                lessonId: 2,
                 type: "SELECT",
                 order: 2,
-                question: 'You are working on a team project, and your teammate Sam seems frustrated after receiving feedback from the teacher. What is the most supportive way to ask about how Sam is feeling?'
+                question: 'You are working on a team project, and your teammate Sam seems frustrated after receiving feedback from the teacher. What is the most supportive way to ask about how Sam is feeling?',
+                callToAction: "What do you say to Sam?",
             },
             {
                 id: 8,
-                lessonId: 2, // Feelings
+                lessonId: 2,
                 type: "SELECT",
                 order: 3,
-                question: 'Your friend Jordan didn’t get picked to join the school play cast, even though they worked really hard on their audition. You want to check in and see how they’re feeling about it.'
+                question: 'Your friend Jordan didn’t get picked to join the school play cast, even though they worked really hard on their audition. You want to check in and see how they’re feeling about it.',
+                callToAction: "How do you support Jordan?",
             }
         ]);
 
@@ -342,7 +350,8 @@ const main = async () => {
                 lessonId: 3,
                 type: "SELECT",
                 order: 1,
-                question: 'TEST QUESTION'
+                question: 'TEST QUESTION',
+                callToAction: "What is the best response?",
             }
         ]);
         
