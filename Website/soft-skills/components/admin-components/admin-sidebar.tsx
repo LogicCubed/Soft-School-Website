@@ -31,7 +31,7 @@ export const AdminSidebar = ({ className }: Props ) => {
                 <div className="flex flex-col gap-y-2 flex-1">
                     <SidebarItem
                         label="DASHBOARD"
-                        href="/admin"
+                        href="/admin/dashboard"
                         iconSrc="/admin.svg"
                     />
                     <SidebarItem

@@ -1,16 +1,10 @@
-import { auth } from "@clerk/nextjs/server"
-
-const adminIds = [
-    "user_2vLAwIvbZeBfDwuZyTwooRpjDTx",
-    "user_2vQ2huOD2do4YLc2KoeEj7bwRb8",
-];
+import { auth } from "@clerk/nextjs/server";
+import { ADMIN_IDS } from "./constants";
 
 export const isAdmin = async () => {
-    const { userId } = await auth();
+  const { userId } = await auth();
 
-    if (!userId) {
-        return false;
-    }
+  if (!userId) return false;
 
-    return adminIds.includes(userId);
-}
+  return ADMIN_IDS.includes(userId);
+};

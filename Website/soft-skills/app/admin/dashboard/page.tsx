@@ -2,13 +2,15 @@ import { isAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
 
 const AdminPage = async () => {
-  if (!isAdmin) {
-    redirect("/");
+  const admin = await isAdmin();
+
+  if (!admin) {
+    redirect("/learn");
   }
 
   return (
     <div>
-      ADMIN HOMEPAGE
+      ADMIN DASHBOARD
     </div>
   );
 };

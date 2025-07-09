@@ -8,7 +8,10 @@ type Props = {
     caption: string;
 };
 
-export const Statistics = ({
+export const Statistic = ({
+    icon,
+    stat,
+    caption,
 }: Props) => {
 
     return (
@@ -16,18 +19,18 @@ export const Statistics = ({
             <div className="border-2 rounded-xl border-b-4 p-2 ml-4 mb-6 w-[250px] h-[75px] flex items-center">
                 <div className="mr-5">
                     <Image
-                        src="/points.svg"
-                        alt="Points"
+                        src={icon}
+                        alt={caption}
                         height={40}
                         width={40}
                     />
                 </div>
                 <div className="flex flex-col items-start justify-center">
                     <p className="text-muted-foreground font-bold text-center text-lg leading-none mb-2">
-                        0
+                        {stat}
                     </p>
                     <p className="text-muted-foreground text-center text-sm font-bold leading-none">
-                        Total XP
+                        {caption}
                     </p>
                 </div>
             </div>
