@@ -16,7 +16,7 @@ export const Statistic = ({
 
     return (
         <div>
-            <div className="border-2 rounded-xl border-b-4 p-2 ml-4 mb-6 w-[250px] h-[75px] flex items-center">
+            <div className="border-2 rounded-xl border-b-4 p-2 m-4 mb-6 w-[250px] h-[75px] flex items-center">
                 <div className="mr-5">
                     <Image
                         src={icon}

@@ -11,7 +11,7 @@ const UserProfilePage = async () => {
     <div className="flex flex-row-reverse gap-[48px] px-6">
       <FeedWrapper>
         <div className="w-full flex flex-col items-center">
-          <Avatar>
+          <Avatar className="w-24 h-24">
             <AvatarImage
               className="object-cover"
               src={imageSrc}

@@ -10,7 +10,7 @@ import { Unit } from "./unit";
 import { lessons, units as unitsSchema } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Gamepad2 } from "lucide-react";
+import { Gamepad2, Puzzle } from "lucide-react";
 
 const LearnPage = async () => {
     const userProgressData = getUserProgress();
@@ -45,6 +45,26 @@ const LearnPage = async () => {
                     activeCourse={userProgress.activeCourse}
                     points={userProgress.points}
                 />
+                <div className="mt-1 w-full rounded-xl bg-sky-500 p-5 text-white flex items-center justify-between">
+                    <div className="space-y-2.5">
+                        <h3 className="text-2xl font-bold">
+                            Puzzles
+                        </h3>
+                        <p className="text-lg">
+                            Test your Soft Skills!
+                        </p>
+                    </div>
+                    <Link href="/lesson">
+                            <Button
+                                size="lg"
+                                variant="secondary"
+                                className="hidden xl:flex border-2 border-b-4 active:border-b-2 cursor-pointer"
+                            >
+                                <Puzzle className="mr-2"/>
+                                PLAY
+                            </Button>
+                    </Link>
+                </div>
                 <div className="mt-1 w-full rounded-xl bg-sky-500 p-5 text-white flex items-center justify-between">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">

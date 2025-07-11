@@ -81,6 +81,9 @@ export const Quiz = ({
     // Track Video playback Status
     const [videoEnded, setVideoEnded] = useState(false);
 
+    // Track Audio playback Status
+    const [audioEnded, setAudioEnded] = useState(false);
+
     // Transition between Questions
     const [showContent, setShowContent] = useState(true);
     const onNext = () => {
@@ -100,6 +103,17 @@ export const Quiz = ({
     const [elapsedTime, setElapsedTime] = useState<number>(0);
     const [isLessonComplete, setIsLessonComplete] = useState(false);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Manage User Streak Logic
+    const [hasUpdatedLastActivity, setHasUpdatedLastActivity] = useState(false);
+    useEffect(() => {
+        if (isLessonComplete && !hasUpdatedLastActivity) {
+            setHasUpdatedLastActivity(true);
+            fetch("/api/user", {
+                method: "POST",
+            }).catch(console.error);
+        }
+    }, [isLessonComplete, hasUpdatedLastActivity]);
       
     useEffect(() => {
         const start = Date.now();
@@ -302,16 +316,29 @@ export const Quiz = ({
                                         >
                                             <Volume2Icon className="w-24 h-24"/>
                                         </Button>
-                                        <audio ref={audioRef} src={challenge.audio || ""} />
+                                        <audio
+                                            ref={audioRef}
+                                            src={challenge.audio || ""}
+                                            onEnded={() => setAudioEnded(true)}
+                                        />
                                     </div>
-                                    <Challenge
-                                        options={options}
-                                        onSelect={onSelect}
-                                        status={status}
-                                        selectedOption={selectedOption}
-                                        disabled={pending}
-                                        type={challenge.type}
-                                    />
+
+                                    <div
+                                        className={`transition-opacity duration-500 ${
+                                        audioEnded ? "opacity-100" : "opacity-0 pointer-events-none"
+                                    }`}
+>
+                                        {audioEnded && (
+                                            <Challenge
+                                                options={options}
+                                                onSelect={onSelect}
+                                                status={status}
+                                                selectedOption={selectedOption}
+                                                disabled={pending}
+                                                type={challenge.type}
+                                            />
+                                        )}
+                                    </div>
                                 </div>
                             ) : (
                             <Challenge

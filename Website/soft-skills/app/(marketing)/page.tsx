@@ -52,13 +52,13 @@ export default function Home() {
 
       <Section
           title="Engaging Modules"
-          description="Lorem ipsum dolor sit amet. Et nisi sunt eum sint culpa non nisi dignissimos ad officia soluta. Est quisquam earum ut magni optio quo consequatur mollitia ea consectetur necessitatibus."
-          imageSrc="/softy-assets/softydetermined.svg"
+          description="Learn soft skills through interactive modules that blend real-life scenarios with practical exercises. Each lesson is crafted to build confidence, boost communication, and help you grow—one step at a time."
+          imageSrc="/softy-assets/softyglasses.svg"
       />
       <Section
           title="Games"
-          description="Lorem ipsum dolor sit amet. Et nisi sunt eum sint culpa non nisi dignissimos ad officia soluta. Est quisquam earum ut magni optio quo consequatur mollitia ea consectetur necessitatibus."
-          imageSrc="/softy-assets/softyhappy.svg"
+          description="Put your skills to the test with fun, replayable games designed to reinforce what you've learned. Every challenge sharpens your thinking, builds habits, and keeps you coming back for more!"
+          imageSrc="/softy-assets/softygaming.svg"
           reverse
       />
     </div>

@@ -8,7 +8,7 @@ type Props = {
     name: string;
 };
 
-export const Badges = ({
+export const Badge = ({
 }: Props) => {
 
     return (
