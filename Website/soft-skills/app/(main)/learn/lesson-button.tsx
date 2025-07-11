@@ -1,5 +1,7 @@
 "use client";
 
+import React, { CSSProperties } from "react";
+
 import { Check, Crown, Star } from "lucide-react";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { useRouter } from "next/navigation";
@@ -9,7 +11,6 @@ import { Button } from "@/components/ui/button";
 
 import "react-circular-progressbar/dist/styles.css";
 import { useLoading } from "@/store/loadingStore";
-import { CSSProperties } from "react";
 
 type Props = {
   id: number;
@@ -53,17 +54,17 @@ export const LessonButton = ({
   const Icon = isCompleted ? Check : isLast ? Crown : Star;
   const href = isCompleted ? `/lesson/${id}` : `/lesson`;
 
-  const handleClick = () => {
-    if (locked) return;
-    setLoading(true);
-    router.push(href);
-  };
+    const handleClick = () => {
+        if (locked) return;
+        setLoading(true);
+        router.push(href);
+    };
 
-  const buttonStyles: CSSProperties = {
-  pointerEvents: locked ? "none" : "auto",
-  right: `${rightPosition}px`,
-  marginTop: isFirst && !isCompleted ? 60 : 24,
-};
+    const buttonStyles: CSSProperties = {
+        pointerEvents: locked ? "none" : "auto",
+        right: `${rightPosition}px`,
+        marginTop: isFirst && !isCompleted ? 60 : 24,
+    };
 
   if (current) {
     return (
