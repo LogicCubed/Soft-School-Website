@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
 import { Button } from "@/components/ui/button";
 import { Volume2Icon } from "lucide-react";
+import { useLoading } from "@/store/loadingStore";
 
 type Props = {
   initialPercentage: number;
@@ -35,6 +36,11 @@ export const Quiz = ({
 
     useEffect(() => {
         setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    }, []);
+
+    useEffect(() => {
+        const { setLoading } = useLoading.getState();
+        setLoading(false);
     }, []);
 
     const { width, height } = windowSize;
@@ -146,61 +152,47 @@ export const Quiz = ({
         }
     }, [challenge]);
 
-    // On Answer Select
-    const onSelect = (id: number) => {
-        if(status !== "none") return;
+// On answer select - reset "wrong" status so they can retry cleanly
+const onSelect = (id: number) => {
+  // Only reset status if the current status is "wrong"
+  if (status === "wrong") {
+    setStatus("none");
+  }
+  setSelectedOption(id);
+};
 
-        setSelectedOption(id);
-    };
+const onContinue = () => {
+  if (!selectedOption) return;
 
-    const onContinue = () => {
-        if (!selectedOption) return;
-        
-        if (status === "wrong") {
-            setStatus("none");
-            setSelectedOption(undefined);
-            return;
-        };
+  const correctOption = options.find((option) => option.correct);
+  if (!correctOption) return;
 
-        if (status === "correct") {
-            setStatus("none");
-            setSelectedOption(undefined);
-            onNext();
-            return;
-        };
+  if (correctOption.id === selectedOption) {
+    startTransition(() => {
+      upsertChallengeProgress(challenge.id).then(() => {
+        correctControls.play();
+        setStatus("correct");
 
-        const correctOption = options.find((option) => option.correct);
+        setAttempted((prev) => prev + 1);
+        setCorrect((prev) => prev + 1);
+        setPercentage((prev) => prev + 100 / challenges.length);
 
-        if (!correctOption) {
-            return;
-        }
-
-        if (correctOption && correctOption.id === selectedOption) {
-            startTransition(() => {
-                upsertChallengeProgress(challenge.id)
-                    .then(() => {
-                        correctControls.play();
-                        setStatus("correct");
-
-                        // Accuracy
-                        setAttempted((prev) => prev + 1);
-                        setCorrect((prev) => prev + 1);
-
-                        // Progress Bar
-                        setPercentage((prev) => prev + 100 / challenges.length);
-                    })
-            });
-        } else {
-            startTransition(() => {
-                incorrectControls.play();
-                setStatus("wrong");
-
-                // Accuracy
-
-                setAttempted((prev) => prev + 1);
-            })
-        }
-    };
+        setTimeout(() => {
+          setStatus("none");
+          setSelectedOption(undefined);
+          onNext();
+        }, 2000);
+      });
+    });
+  } else {
+    startTransition(() => {
+      incorrectControls.play();
+      setStatus("wrong");
+      setAttempted((prev) => prev + 1);
+      // DO NOT reset status or selectedOption here
+    });
+  }
+};
 
     if (!challenge) {
         return (

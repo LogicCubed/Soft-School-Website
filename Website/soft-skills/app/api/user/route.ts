@@ -1,9 +1,8 @@
-// app/api/user/route.ts
 import { updateLastActivity } from "@/actions/userActivity";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST() {
   try {
     const { userId } = await auth();
 

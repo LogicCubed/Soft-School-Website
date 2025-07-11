@@ -24,12 +24,15 @@ export const Challenge = ({
     return (
         <div>
             <div>
+            {/*
+            TODO: EXPLANATION OVERHAUL
             {status !== "none" && (
                 <Explanation
                     explanation={selectedExplanation}
                     status={status}
                 />
             )}
+            */}
             </div>
                 <div className={cn(
                     "grid gap-2",

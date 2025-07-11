@@ -29,9 +29,9 @@ export const Footer = () => {
     {
       title: "Follow Us",
       links: [
-        { label: "Twitter", href: "https://twitter.com" },
-        { label: "Facebook", href: "https://facebook.com" },
         { label: "Instagram", href: "https://instagram.com" },
+        { label: "X", href: "https://instagram.com" },
+        { label: "LinkedIn", href: "https://instagram.com" },
       ],
     },
   ];
