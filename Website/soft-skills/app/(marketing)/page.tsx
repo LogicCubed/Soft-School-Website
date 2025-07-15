@@ -16,7 +16,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center gap-y-8">
             <h1 className="text-xl lg:text-3xl font-bold text-neutral-600 max-w-[480px] text-center">
-              Learn, practice, and Master your Soft Skills
+              Learn, Practice, and Master your Soft Skills
             </h1>
             <div className="flex flex-col items-center gap-y-3 max-w-[330px] w-full">
               <ClerkLoading>
@@ -49,18 +49,19 @@ export default function Home() {
       </div>
 
       <Middle />
-
-      <Section
-          title="Engaging Modules"
-          description="Learn soft skills through interactive modules that blend real-life scenarios with practical exercises. Each lesson is crafted to build confidence, boost communication, and help you grow—one step at a time."
-          imageSrc="/softy-assets/softyglasses.svg"
-      />
-      <Section
-          title="Games"
-          description="Put your skills to the test with fun, replayable games designed to reinforce what you've learned. Every challenge sharpens your thinking, builds habits, and keeps you coming back for more!"
-          imageSrc="/softy-assets/softygaming.svg"
-          reverse
-      />
+      <div className="mt-20 mb-20">
+        <Section
+            title="Engaging Modules"
+            description="Learn soft skills through interactive modules that blend real-life scenarios with practical exercises. Each lesson is crafted to build confidence, boost communication, and help you grow—one step at a time."
+            imageSrc="/softy-assets/softyglasses.svg"
+        />
+        <Section
+            title="Games"
+            description="Put your skills to the test with fun, replayable games designed to reinforce what you've learned. Every challenge sharpens your thinking, builds habits, and keeps you coming back for more!"
+            imageSrc="/softy-assets/softygaming.svg"
+            reverse
+        />
+      </div>
     </div>
   );
 }

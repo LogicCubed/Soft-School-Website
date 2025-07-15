@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+
 type FooterColumnProps = {
   title: string;
   links: { label: string; href?: string }[];
@@ -13,14 +17,23 @@ export const FooterColumns = ({ columns }: { columns: FooterColumnProps[] }) => 
             {links.map(({ label, href }) => (
               <li key={label}>
                 {href ? (
-                  <a
-                    href={href}
-                    className="hover:underline font-bold text-white text-opacity-50"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {label}
-                  </a>
+                  href.startsWith("http") ? (
+                    <a
+                      href={href}
+                      className="hover:underline font-bold text-white text-opacity-50"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={href}
+                      className="hover:underline font-bold text-white text-opacity-50"
+                    >
+                      {label}
+                    </Link>
+                  )
                 ) : (
                   <span className="font-bold text-white text-opacity-50">{label}</span>
                 )}

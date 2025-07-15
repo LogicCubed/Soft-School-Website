@@ -45,7 +45,7 @@ const LearnPage = async () => {
                     activeCourse={userProgress.activeCourse}
                     points={userProgress.points}
                 />
-                <div className="mt-1 w-full rounded-xl bg-sky-500 p-5 text-white flex items-center justify-between">
+                <div className="mt-1 w-full rounded-xl bg-sky-400 p-5 text-white flex items-center justify-between">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">
                             Puzzles
@@ -65,7 +65,7 @@ const LearnPage = async () => {
                             </Button>
                     </Link>
                 </div>
-                <div className="mt-1 w-full rounded-xl bg-sky-500 p-5 text-white flex items-center justify-between">
+                <div className="mt-1 w-full rounded-xl bg-sky-400 p-5 text-white flex items-center justify-between">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">
                             Games

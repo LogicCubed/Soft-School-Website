@@ -5,33 +5,33 @@ export const Footer = () => {
     {
       title: "Company",
       links: [
-        { label: "About Us", href: "/about" },
-        { label: "Careers", href: "/careers" },
-        { label: "Press" },
+        { label: "About Us", href: "/about-us" },
+        { label: "Courses", href: "/course-catalogue" }
       ],
     },
     {
-      title: "Support",
+      title: "Help and Support",
       links: [
-        { label: "Help Center", href: "/help" },
+        { label: "Soft School FAQs", href: "/help" },
         { label: "Contact Us", href: "/contact" },
-        { label: "Privacy Policy", href: "/privacy" },
       ],
     },
     {
-      title: "Learn",
+      title: "Privacy and Terms",
       links: [
-        { label: "Courses", href: "/courses" },
-        { label: "Blog", href: "/blog" },
-        { label: "Tutorials" },
+        { label: "Terms", href: "/terms" },
+        { label: "Privacy", href: "/privacy" },
       ],
     },
     {
-      title: "Follow Us",
+      title: "Social",
       links: [
-        { label: "Instagram", href: "https://instagram.com" },
-        { label: "X", href: "https://instagram.com" },
-        { label: "LinkedIn", href: "https://instagram.com" },
+        { label: "Instagram", href: "https://www.instagram.com/softschoolapp/" },
+        { label: "Facebook", href: "https://facebook.com" },
+        { label: "TikTok", href: "https://www.tiktok.com/@softschoolapp" },
+        { label: "Twitter", href: "https://x.com/softschoolapp" },
+        { label: "Youtube", href: "https://www.youtube.com/@SoftSchoolApp" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/soft-school-app-5477b3374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
       ],
     },
   ];
