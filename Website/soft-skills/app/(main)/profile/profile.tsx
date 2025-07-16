@@ -51,7 +51,7 @@ const Profile = ({ stats }: Props) => {
                 title="Copy User ID"
               >
                 <Copy className="w-5 h-5" />
-                {copied && <span className="text-xs text-gray-500">Copied ID</span>}
+                {copied && <span className="text-xs text-gray-400 ml-1">Copied ID</span>}
               </button>
             )}
           </h1>
@@ -62,7 +62,7 @@ const Profile = ({ stats }: Props) => {
             Last Seen {formattedLastActivity}
           </div>
 
-          <p className="text-center font-bold text-sky-500 text-2xl mb-6">
+          <p className="text-center font-bold text-sky-400 text-2xl mb-6">
             0 Friends
           </p>
 

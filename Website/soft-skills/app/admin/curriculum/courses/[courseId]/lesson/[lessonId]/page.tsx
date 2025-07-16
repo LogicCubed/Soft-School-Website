@@ -35,8 +35,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
 
   // If no lesson is found with the given ID, show an error message
   if (!lesson) {
-    // TODO: Stylize this
-    return <p>Lesson not found.</p>;
+    redirect("/admin/curriculum");
   }
 
   // Constructs the title for the Header to display the Lesson's Course, Unit, and ID

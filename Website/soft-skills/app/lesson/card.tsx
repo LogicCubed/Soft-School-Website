@@ -46,7 +46,7 @@ export const Card = ({
             <div className="flex items-center justify-between">
                 <p className={cn(
                     "text-neutral-600 text-sm lg:text-base",
-                    selected && "text-sky-500",
+                    selected && "text-sky-400",
                     selected && status === "correct" && "text-green-500",
                     selected && status === "wrong" && "text-rose-500",
                 )}>

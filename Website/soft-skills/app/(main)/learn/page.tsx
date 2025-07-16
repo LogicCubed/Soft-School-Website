@@ -45,16 +45,17 @@ const LearnPage = async () => {
                     activeCourse={userProgress.activeCourse}
                     points={userProgress.points}
                 />
-                <div className="mt-1 w-full rounded-xl bg-sky-400 p-5 text-white flex items-center justify-between">
+                <div className="mt-1 w-full rounded-xl bg-[#77e8f3] p-5 text-white flex items-center justify-between">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">
                             Puzzles
                         </h3>
-                        <p className="text-lg">
-                            Test your Soft Skills!
+                        <p className="text-lg font-semibold">
+                            Solve and grow!
                         </p>
                     </div>
-                    <Link href="/lesson">
+                    {/*TODO: UPDATE THIS TO A RANDOM PUZZLE ID*/}
+                    <Link href="/puzzle/1">
                             <Button
                                 size="lg"
                                 variant="secondary"
@@ -65,16 +66,16 @@ const LearnPage = async () => {
                             </Button>
                     </Link>
                 </div>
-                <div className="mt-1 w-full rounded-xl bg-sky-400 p-5 text-white flex items-center justify-between">
+                <div className="mt-1 w-full rounded-xl bg-[#2dd4bf] p-5 text-white flex items-center justify-between">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">
                             Games
                         </h3>
-                        <p className="text-lg">
-                            Try out some Games!
+                        <p className="text-lg font-semibold">
+                            Fun challenges await!
                         </p>
                     </div>
-                    <Link href="/lesson">
+                    <Link href="/games">
                             <Button
                                 size="lg"
                                 variant="secondary"
@@ -84,6 +85,24 @@ const LearnPage = async () => {
                                 PLAY
                             </Button>
                     </Link>
+                </div>
+                <div className="mt-1 w-full rounded-xl bg-green-400 p-5 text-white flex items-center justify-between">
+                    <div className="space-y-2.5">
+                        <h3 className="text-2xl font-bold">
+                            Friends
+                        </h3>
+                        <p className="text-lg font-semibold">
+                            Make learning a team effort!
+                        </p>
+                    </div>
+                </div>
+                <div className="mt-4 w-full flex justify-center">
+                    <div className="flex flex-wrap gap-x-6 text-sm font-bold text-neutral-300">
+                        <Link href="/about-us" className="hover:text-sky-400 transition-colors">About Us</Link>
+                        <Link href="/course-catalogue" className="hover:text-sky-400 transition-colors">Courses</Link>
+                        <Link href="/terms" className="hover:text-sky-400 transition-colors">Terms</Link>
+                        <Link href="/privacy" className="hover:text-sky-400 transition-colors">Privacy</Link>
+                    </div>
                 </div>
             </StickyWrapper>
             <FeedWrapper>

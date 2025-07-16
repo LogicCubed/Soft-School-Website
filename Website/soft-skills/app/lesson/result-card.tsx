@@ -51,7 +51,7 @@ export const ResultCard = ({ value, accuracy, time }: Props) => {
                     Time
                 </div>
                 <div className={cn(
-                    "rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg text-sky-500"
+                    "rounded-2xl bg-white items-center flex justify-center p-6 font-bold text-lg text-sky-400"
                 )}>
                     <Image
                         alt="Icon"
