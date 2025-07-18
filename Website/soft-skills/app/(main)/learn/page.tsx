@@ -10,7 +10,7 @@ import { Unit } from "./unit";
 import { lessons, units as unitsSchema } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Gamepad2, Puzzle } from "lucide-react";
+import { Computer } from "lucide-react";
 
 const LearnPage = async () => {
     const userProgressData = getUserProgress();
@@ -45,44 +45,23 @@ const LearnPage = async () => {
                     activeCourse={userProgress.activeCourse}
                     points={userProgress.points}
                 />
-                <div className="mt-1 w-full rounded-xl bg-[#77e8f3] p-5 text-white flex items-center justify-between">
-                    <div className="space-y-2.5">
-                        <h3 className="text-2xl font-bold">
-                            Puzzles
-                        </h3>
-                        <p className="text-lg font-semibold">
-                            Solve and grow!
-                        </p>
-                    </div>
-                    {/*TODO: UPDATE THIS TO A RANDOM PUZZLE ID*/}
-                    <Link href="/puzzle/1">
-                            <Button
-                                size="lg"
-                                variant="secondary"
-                                className="hidden xl:flex border-2 border-b-4 active:border-b-2 cursor-pointer"
-                            >
-                                <Puzzle className="mr-2"/>
-                                PLAY
-                            </Button>
-                    </Link>
-                </div>
                 <div className="mt-1 w-full rounded-xl bg-[#2dd4bf] p-5 text-white flex items-center justify-between">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">
-                            Games
+                            AI Helper
                         </h3>
                         <p className="text-lg font-semibold">
-                            Fun challenges await!
+                            Sharpen your soft skills!
                         </p>
                     </div>
-                    <Link href="/games">
+                    <Link href="/ai-helper">
                             <Button
                                 size="lg"
                                 variant="secondary"
                                 className="hidden xl:flex border-2 border-b-4 active:border-b-2 cursor-pointer"
                             >
-                                <Gamepad2 className="mr-2"/>
-                                PLAY
+                                <Computer className="mr-2"/>
+                                START
                             </Button>
                     </Link>
                 </div>

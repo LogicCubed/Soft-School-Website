@@ -36,9 +36,10 @@ export const Sidebar = ({ className }: Props) => {
 
       <div className="flex flex-col gap-y-2 flex-1">
         <SidebarItem label="Learn" href="/learn" iconSrc="/learn.svg" />
+        <SidebarItem label="Puzzles" href="/puzzle" iconSrc="/puzzle.svg" />
+        <SidebarItem label="Games" href="/games" iconSrc="/games.svg" />
         <SidebarItem label="Leaderboard" href="/leaderboard" iconSrc="/leaderboard.svg" />
         <SidebarItem label="Shop" href="/shop" iconSrc="/shop.svg" />
-        <SidebarItem label="AI Helper" href="/aihelper" iconSrc="/ai.svg" />
 
         {/* ONLY APPEARS IF THE USER IS AN ADMIN */}
         {isLoaded && isAdmin && (
