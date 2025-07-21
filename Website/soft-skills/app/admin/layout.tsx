@@ -1,5 +1,5 @@
 import { AdminSidebar } from "@/components/admin-components/admin-sidebar";
-import { MobileHeader } from "@/components/mobile-header";
+import { MobileHeader } from "@/components/mobile-components/mobile-header";
 
 type Props = {
     children: React.ReactNode;

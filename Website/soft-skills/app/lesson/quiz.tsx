@@ -182,14 +182,14 @@ export const Quiz = ({
     return (
       <>
         <Confetti width={width} height={height} recycle={false} numberOfPieces={500} tweenDuration={10000} />
-        <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
+        <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full px-4">
           <Image src="/softy-assets/softyhappy.svg" alt="Finish" className="hidden lg:block" height={100} width={100} />
           <Image src="/softy-assets/softyhappy.svg" alt="Finish" className="block lg:hidden" height={50} width={50} />
           <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
             Great Job! <br />
             You&apos;ve completed this lesson!
           </h1>
-          <div className="flex items-center gap-x-4 w-full">
+          <div className="flex items-center gap-x-4 w-full justify-center">
             <ResultCard value={challenges.length * 10} accuracy={accuracy} time={formatTime(elapsedTime)} />
           </div>
         </div>
@@ -206,27 +206,18 @@ export const Quiz = ({
       {incorrectAudio}
       {correctAudio}
       <Header percentage={percentage} />
-      <div className="flex-1 flex justify-center">
+      <div className="flex-1 flex justify-center px-4">
         <div
-          className={`transition-opacity duration-300 flex gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"}`}
-          style={{ maxWidth: "900px", paddingLeft: "3rem" }}
+          className={`transition-opacity duration-300 flex flex-col lg:flex-row gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"} max-w-[900px] px-4 lg:pl-12 mx-auto`}
         >
-            <div
-                style={{
-                    width: 160,
-                    flexShrink: 0,
-                    marginLeft: "-4rem",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    transform: "translateX(-125px)",
-                }}
-            >
-                <Explanation explanation={selectedExplanation} status={status} />
-            </div>
+          {/* Explanation box */}
+          <div className="hidden lg:flex w-[160px] flex-shrink-0 justify-center items-center lg:ml-[-4rem] lg:translate-x-[-125px]">
+            <Explanation explanation={selectedExplanation} status={status} />
+          </div>
 
+          {/* Challenge content */}
           <div className="flex flex-col gap-y-12 w-full">
-            <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">{title}</h1>
+            <h1 className="text-lg lg:text-3xl text-center lg:text-left font-bold text-neutral-700">{title}</h1>
 
             {challenge.type !== "VIDEO" && challenge.type !== "AUDIO" && (
               <div>

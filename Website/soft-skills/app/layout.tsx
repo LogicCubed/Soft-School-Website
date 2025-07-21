@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ExitModal } from "@/components/modals/exit-modal";
 import { DeleteProgressModal } from "@/components/modals/delete-progress-modal";
-import { LoadingScreen } from "@/components/LoadingScreen";
+import { LoadingScreen } from "@/components/loading-screen";
 
 const font = Nunito({
   variable: "--font-nunito",

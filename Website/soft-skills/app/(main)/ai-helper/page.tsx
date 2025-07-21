@@ -1,5 +1,4 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
-import Image from "next/image";
 
 const AIHelperPage = async () => {
     return (

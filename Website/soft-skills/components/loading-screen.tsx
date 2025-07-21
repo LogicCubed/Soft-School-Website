@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLoading } from "@/store/loadingStore";
 import { useEffect, useState, useRef } from "react";
+import { quotes } from "@/lib/quotes";
 
 export const LoadingScreen = () => {
   const isLoading = useLoading((s) => s.isLoading);
@@ -12,6 +13,16 @@ export const LoadingScreen = () => {
   const startTimeRef = useRef<number | null>(null);
   const fadeDuration = 500;
   const minDisplayTime = 2000;
+
+  // Select a random quote
+  const [randomQuote, setRandomQuote] = useState("");
+
+  useEffect(() => {
+    if (isLoading) {
+      const index = Math.floor(Math.random() * quotes.length);
+      setRandomQuote(quotes[index]);
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -54,8 +65,8 @@ export const LoadingScreen = () => {
         height={100}
         className="animate-bounce mb-4"
       />
-      <div className="text-2xl font-bold animate-pulse text-sky-400">
-        LOADING...
+      <div className="text-2xl font-bold text-sky-400">
+        {randomQuote}
       </div>
     </div>
   );
