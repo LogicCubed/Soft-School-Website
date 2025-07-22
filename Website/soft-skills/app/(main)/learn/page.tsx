@@ -11,6 +11,7 @@ import { lessons, units as unitsSchema } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Computer } from "lucide-react";
+import { BackToTop } from "@/components/back-to-top";
 
 const LearnPage = async () => {
     const userProgressData = getUserProgress();
@@ -45,7 +46,7 @@ const LearnPage = async () => {
                     activeCourse={userProgress.activeCourse}
                     points={userProgress.points}
                 />
-                <div className="mt-1 w-full rounded-xl bg-[#2dd4bf] p-5 text-white flex items-center justify-between">
+                <div className="mt-1 w-full rounded-xl bg-[#2dd4bf] p-5 text-white flex items-center justify-between border-2 border-b-[6px] border-teal-500">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">
                             AI Helper
@@ -65,7 +66,7 @@ const LearnPage = async () => {
                             </Button>
                     </Link>
                 </div>
-                <div className="mt-1 w-full rounded-xl bg-green-400 p-5 text-white flex items-center justify-between">
+                <div className="mt-1 w-full rounded-xl bg-green-400 p-5 text-white flex items-center justify-between border-2 border-b-[6px] border-green-500">
                     <div className="space-y-2.5">
                         <h3 className="text-2xl font-bold">
                             Friends
@@ -102,6 +103,7 @@ const LearnPage = async () => {
                         />
                     </div>
                 ))}
+                <BackToTop />
             </FeedWrapper>
         </div>
     );

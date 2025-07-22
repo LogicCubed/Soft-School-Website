@@ -4,55 +4,56 @@ import { useCallback } from "react";
 import { useKey } from "react-use";
 
 type Props = {
-    id: number;
-    text: string;
-    shortcut: string;
-    selected?: boolean;
-    onClick: () => void;
-    disabled?: boolean;
-    status?: "correct" | "wrong" | "none";
-    type: typeof challenges.$inferSelect["type"];
-}
+  id: number;
+  text: string;
+  shortcut: string;
+  selected?: boolean;
+  onClick: () => void;
+  disabled?: boolean;
+  status?: "correct" | "wrong" | "none";
+  type: typeof challenges.$inferSelect["type"];
+};
 
 export const Card = ({
-    text,
-    shortcut,
-    selected,
-    onClick,
-    disabled,
-    status,
+  text,
+  shortcut,
+  selected,
+  onClick,
+  disabled,
+  status,
 }: Props) => {
-    const handleClick = useCallback(() => {
-        if (disabled) return;
+  const handleClick = useCallback(() => {
+    if (disabled) return;
 
-        onClick();
-    }, [disabled, onClick]);
+    onClick();
+  }, [disabled, onClick]);
 
-    useKey(shortcut, handleClick, {}, [handleClick]);
-    
-    return (
-        <div
-            onClick={handleClick}
-            className={cn(
-                "h-full border-2 rounded-xl border-b-4 hover:bg-black/5 p-4 lg:p-6 cursor-pointer active:border-b-2",
-                selected && "border-sky-300 bg-sky-100 hover:bg-sky-100",
-                selected && status === "correct"
-                    && "border-green-300 bg-green-100 hover:bg-green-100",
-                selected && status === "wrong"
-                    && "border-rose-300 bg-rose-100 hover:bg-rose-100",
-                disabled && "pointer-events-none hover:bg-white",
-            )}
+  useKey(shortcut, handleClick, {}, [handleClick]);
+
+  return (
+    <div
+      onClick={handleClick}
+      className={cn(
+        // Keep border-b-4 for bottom depth always
+        "h-full border-2 border-b-4 rounded-xl hover:bg-black/5 p-4 lg:p-6 cursor-pointer transition-transform active:translate-y-[2px]",
+        selected && "border-sky-300 bg-sky-100 hover:bg-sky-100",
+        selected && status === "correct" && "border-green-300 bg-green-100 hover:bg-green-100",
+        selected && status === "wrong" && "border-rose-300 bg-rose-100 hover:bg-rose-100",
+        disabled && "pointer-events-none hover:bg-white"
+      )}
+    >
+      <div className="flex items-center justify-between">
+        <p
+          className={cn(
+            "text-neutral-600 text-sm lg:text-base",
+            selected && "text-sky-400",
+            selected && status === "correct" && "text-green-500",
+            selected && status === "wrong" && "text-rose-500"
+          )}
         >
-            <div className="flex items-center justify-between">
-                <p className={cn(
-                    "text-neutral-600 text-sm lg:text-base",
-                    selected && "text-sky-400",
-                    selected && status === "correct" && "text-green-500",
-                    selected && status === "wrong" && "text-rose-500",
-                )}>
-                    {text}
-                </p>
-            </div>
-        </div>
-    )
-}
+          {text}
+        </p>
+      </div>
+    </div>
+  );
+};
