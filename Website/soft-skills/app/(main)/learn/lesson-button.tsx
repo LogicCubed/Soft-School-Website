@@ -2,7 +2,7 @@
 
 import React, { CSSProperties } from "react";
 
-import { Check, Crown, Star } from "lucide-react";
+import { Check, Crown, Star, Lock } from "lucide-react";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import { useRouter } from "next/navigation";
 
@@ -51,22 +51,22 @@ export const LessonButton = ({
   const isLast = index === totalCount;
   const isCompleted = !current && !locked;
 
-  const Icon = isCompleted ? Check : isLast ? Crown : Star;
+  // Lock icon if locked, else others
+  const Icon = locked ? Lock : isCompleted ? Check : isLast ? Crown : Star;
   const href = isCompleted ? `/lesson/${id}` : `/lesson`;
 
   const handleClick = () => {
-    if (locked) return;
+    if (locked) return; // Do nothing on locked
     setLoading(true);
     router.push(href);
   };
 
   const buttonStyles: CSSProperties = {
-    pointerEvents: locked ? "none" : "auto",
+    pointerEvents: "auto", // always allow clicking
     right: `${rightPosition}px`,
     marginTop: isFirst && !isCompleted ? 60 : 24,
   };
 
-  // Icons 25% smaller than 65 (previous size)
   const iconSize = 49;
 
   const iconStyle = {
@@ -76,7 +76,6 @@ export const LessonButton = ({
     minHeight: iconSize,
   };
 
-  // Circular progress bar container larger at 120x120
   const progressWrapperStyle: CSSProperties = {
     width: 120,
     height: 120,
@@ -108,19 +107,24 @@ export const LessonButton = ({
               size="rounded"
               variant={locked ? "locked" : "secondary"}
               className="h-[88px] w-[88px] border-b-8 cursor-pointer overflow-visible"
-              disabled={locked}
               onClick={handleClick}
             >
-              <Icon
-                strokeWidth={isCompleted ? 3 : 2} // Thicker for Check, thinner for others
-                style={iconStyle}
-                className={cn(
-                  locked
-                    ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
-                    : "fill-primary-foreground text-primary-foreground",
-                  isCompleted && "fill-none"
-                )}
-              />
+              {locked ? (
+                <Lock
+                  className="text-neutral-400"
+                  strokeWidth={2.5}
+                  style={iconStyle}
+                />
+              ) : (
+                <Icon
+                  strokeWidth={isCompleted ? 3 : 2}
+                  style={iconStyle}
+                  className={cn(
+                    "fill-primary-foreground text-primary-foreground",
+                    isCompleted && "fill-none"
+                  )}
+                />
+              )}
             </Button>
           </CircularProgressbarWithChildren>
         </div>
@@ -133,23 +137,27 @@ export const LessonButton = ({
       size="rounded"
       variant={locked ? "locked" : "secondary"}
       className={cn(
-        "h-[88px] w-[88px] border-b-8 relative overflow-visible",
-        isCompleted && "cursor-pointer"
+        "h-[88px] w-[88px] border-b-8 relative overflow-visible cursor-pointer"
       )}
-      disabled={locked}
       onClick={handleClick}
       style={buttonStyles}
     >
-      <Icon
-        strokeWidth={isCompleted ? 3 : 2}
-        style={iconStyle}
-        className={cn(
-          locked
-            ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
-            : "fill-primary-foreground text-primary-foreground",
-          isCompleted && "fill-none"
-        )}
-      />
+      {locked ? (
+        <Lock
+          className="text-[#c1c5ca]"
+          strokeWidth={3}
+          style={iconStyle}
+        />
+      ) : (
+        <Icon
+          strokeWidth={isCompleted ? 3 : 2}
+          style={iconStyle}
+          className={cn(
+            "fill-primary-foreground text-primary-foreground cursor-pointer",
+            isCompleted && "fill-none"
+          )}
+        />
+      )}
     </Button>
   );
 };

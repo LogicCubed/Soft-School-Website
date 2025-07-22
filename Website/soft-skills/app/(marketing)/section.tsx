@@ -12,7 +12,7 @@ const Section = ({ title, description, imageSrc, reverse = false }: SectionProps
     <section className="max-w-7xl mx-auto px-24 py-12">
       <div className={`flex flex-col md:flex-row items-center gap-8 ${reverse ? "md:flex-row-reverse" : ""}`}>
         <div className="md:w-1/2 text-center md:text-left">
-          <h2 className="text-4xl font-extrabold text-sky-600 tracking-wide mb-5">{title}</h2>
+          <h2 className="text-4xl font-extrabold text-sky-400 tracking-wide mb-5">{title}</h2>
           <p className="text-lg text-gray-500">{description}</p>
         </div>
         <div className="md:w-1/2 flex justify-center">

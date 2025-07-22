@@ -23,7 +23,7 @@ export const AdminSidebar = ({ className }: Props ) => {
                 <Link href="/learn">
                     <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
                         <Image src="/softy-assets/softyhappy.svg" height={40} width={40} alt="Logo"/>
-                        <h1 className="text-2xl font-extrabold text-sky-600 tracking-wide">
+                        <h1 className="text-2xl font-extrabold text-sky-400 tracking-wide">
                             Soft Admin
                         </h1>
                     </div>

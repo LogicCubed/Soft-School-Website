@@ -38,7 +38,6 @@ export const Sidebar = ({ className }: Props) => {
         <SidebarItem label="Learn" href="/learn" iconSrc="/learn.svg" />
         <SidebarItem label="Puzzles" href="/puzzle" iconSrc="/puzzle.svg" />
         <SidebarItem label="Games" href="/games" iconSrc="/games.svg" />
-        <SidebarItem label="Leaderboard" href="/leaderboard" iconSrc="/leaderboard.svg" />
         <SidebarItem label="Shop" href="/shop" iconSrc="/shop.svg" />
 
         {/* ONLY APPEARS IF THE USER IS AN ADMIN */}
