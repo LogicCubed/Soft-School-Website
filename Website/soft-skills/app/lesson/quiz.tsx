@@ -139,6 +139,9 @@ export const Quiz = ({
 
   const [isChecking, setIsChecking] = useState(false);
 
+  // Track Streak Count
+  const [correctStreak, setCorrectStreak] = useState(0);
+
   const onContinue = () => {
     if (!selectedOption || isChecking) return;
 
@@ -160,6 +163,8 @@ export const Quiz = ({
           setCorrect((prev) => prev + 1);
           setPercentage((prev) => prev + 100 / challenges.length);
 
+          setCorrectStreak((prev) => prev + 1);
+
           setTimeout(() => {
             setStatus("none");
             setSelectedOption(undefined);
@@ -173,6 +178,7 @@ export const Quiz = ({
         incorrectControls.play();
         setStatus("wrong");
         setAttempted((prev) => prev + 1);
+        setCorrectStreak(0);
         setIsChecking(false);
       });
     }
@@ -212,16 +218,16 @@ export const Quiz = ({
         >
           {/* Explanation box */}
           <div className="hidden lg:flex w-[160px] flex-shrink-0 justify-center items-center lg:ml-[-4rem] lg:translate-x-[-125px]">
-            <Explanation explanation={selectedExplanation} status={status} />
+            <Explanation explanation={selectedExplanation} status={status} streakCount={correctStreak} streakThreshold={2} />
           </div>
 
           {/* Challenge content */}
           <div className="flex flex-col gap-y-12 w-full">
-            <h1 className="text-lg lg:text-3xl text-center lg:text-left font-bold text-neutral-700">{title}</h1>
+            <h1 className="text-lg lg:text-3xl text-center lg:text-left font-bold text-neutral-700 mt-5 lg:mt-0">{title}</h1>
 
             {challenge.type !== "VIDEO" && challenge.type !== "AUDIO" && (
               <div>
-                <div className="text-gray-600 mt-5 text-xl">{challenge.callToAction}</div>
+                <div className="text-gray-600 text-xl">{challenge.callToAction}</div>
               </div>
             )}
 

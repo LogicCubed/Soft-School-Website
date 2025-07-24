@@ -35,7 +35,7 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
         >
           <ArrowLeft className="w-5 h-5 text-white" />
         </Button>
-        <h1 className="text-2xl font-extrabold text-sky-600 ml-5">{title}</h1>
+        <h1 className="text-2xl font-extrabold text-sky-400 ml-5">{title}</h1>
       </div>
 
       <Button

@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 type Props = {
   iconSrc: string;
   href: string;
-  label: string; // keep label for alt text & accessibility
+  label: string;
 };
 
 export const MobileFooterItem = ({ iconSrc, href, label }: Props) => {
@@ -28,7 +28,7 @@ export const MobileFooterItem = ({ iconSrc, href, label }: Props) => {
           alt={label}
           width={28}
           height={28}
-          className="pointer-events-none" // prevent image from intercepting clicks
+          className="pointer-events-none"
         />
       </Link>
     </Button>

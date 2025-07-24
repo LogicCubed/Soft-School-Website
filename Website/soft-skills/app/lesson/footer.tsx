@@ -1,3 +1,5 @@
+"use client";
+
 import { useKey, useMedia } from "react-use";
 import { CheckCircle, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,7 +25,7 @@ export const Footer = ({
   return (
     <footer
       className={cn(
-        "lg:-h[140px] h-[100px] border-t-2 transition-colors duration-500 ease-in-out",
+        "lg:-h[140px] h-[100px] border-t-2 transition-colors duration-500 ease-in-out relative",
         status === "correct" && "border-transparent bg-green-100",
         status === "wrong" && "border-transparent bg-rose-100",
         (status === "none" || status === "completed") && "bg-transparent border-gray-200"
@@ -34,27 +36,49 @@ export const Footer = ({
         transitionTimingFunction: "ease-in-out",
       }}
     >
-      <div className="max-w-[1140px] h-full mx-auto flex items-center justify-between px-6 lg:px-10">
-        {status === "correct" && (
-          <div className="text-green-500 font-bold text-base lg:text-2xl flex items-center">
-            <CheckCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
-            Good Job!
-          </div>
-        )}
-        {status === "wrong" && (
-          <div className="text-rose-500 font-bold text-base lg:text-2xl flex items-center">
-            <XCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
-            Try Again!
+      <div className="max-w-[1140px] h-full mx-auto flex items-center px-6 lg:px-10 relative">
+        {/* Messages - left aligned, fixed width so does not push button */}
+        {(status === "correct" || status === "wrong") && (
+          <div
+            className={cn(
+              "font-bold text-base lg:text-2xl flex items-center text-ellipsis overflow-hidden whitespace-nowrap",
+              status === "correct" ? "text-green-500" : "text-rose-500",
+              isMobile
+                ? "absolute left-6 top-1/2 transform -translate-y-1/2 max-w-[calc(50%)]"
+                : "mr-auto"
+            )}
+            style={{ minWidth: isMobile ? "120px" : undefined }}
+          >
+            {status === "correct" && (
+              <>
+                <CheckCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
+                Good Job!
+              </>
+            )}
+            {status === "wrong" && (
+              <>
+                <XCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
+                Try Again!
+              </>
+            )}
           </div>
         )}
 
+        {/* Check button */}
         {status === "completed" ? (
-          <>
+          <div
+            className={cn(
+              "flex space-x-4",
+              isMobile
+                ? "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                : "ml-auto"
+            )}
+          >
             <Button
               variant="default"
-              className="cursor-pointer mr-4"
+              className="cursor-pointer"
               size={isMobile ? "sm" : "lg"}
-              onClick={() => window.location.href = `/lesson/${lessonId}`}
+              onClick={() => (window.location.href = `/lesson/${lessonId}`)}
             >
               Practice Again
             </Button>
@@ -62,21 +86,29 @@ export const Footer = ({
               variant="secondary"
               className="cursor-pointer"
               size={isMobile ? "sm" : "lg"}
-              onClick={() => window.location.href = "/learn"}
+              onClick={() => (window.location.href = "/learn")}
             >
               Home
             </Button>
-          </>
+          </div>
         ) : (
-          <Button
-            disabled={disabled}
-            className="ml-auto cursor-pointer"
-            onClick={onCheck}
-            size={isMobile ? "sm" : "lg"}
-            variant="secondary"
+          <div
+            className={cn(
+              isMobile
+                ? "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                : "ml-auto"
+            )}
           >
-            Check
-          </Button>
+            <Button
+              disabled={disabled}
+              className="cursor-pointer"
+              onClick={onCheck}
+              size={isMobile ? "lg" : "lg"} // always large for better tap
+              variant="secondary"
+            >
+              Check
+            </Button>
+          </div>
         )}
       </div>
     </footer>

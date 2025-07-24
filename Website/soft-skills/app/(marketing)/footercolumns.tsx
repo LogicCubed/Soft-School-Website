@@ -20,7 +20,7 @@ export const FooterColumns = ({ columns }: { columns: FooterColumnProps[] }) => 
                   href.startsWith("http") ? (
                     <a
                       href={href}
-                      className="hover:underline font-bold text-white text-opacity-50"
+                      className="font-bold text-white text-opacity-25"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -29,13 +29,13 @@ export const FooterColumns = ({ columns }: { columns: FooterColumnProps[] }) => 
                   ) : (
                     <Link
                       href={href}
-                      className="hover:underline font-bold text-white text-opacity-50"
+                      className="font-bold text-white text-opacity-25"
                     >
                       {label}
                     </Link>
                   )
                 ) : (
-                  <span className="font-bold text-white text-opacity-50">{label}</span>
+                  <span className="font-bold text-white text-opacity-25">{label}</span>
                 )}
               </li>
             ))}
