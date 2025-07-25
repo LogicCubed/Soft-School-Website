@@ -36,7 +36,7 @@ export const Sidebar = ({ className }: Props) => {
 
       <div className="flex flex-col gap-y-2 flex-1">
         <SidebarItem label="Learn" href="/learn" iconSrc="/learn.svg" />
-        <SidebarItem label="Puzzles" href="/puzzle" iconSrc="/puzzle.svg" />
+        <SidebarItem label="Puzzles" href="/puzzles" iconSrc="/puzzle.svg" />
         <SidebarItem label="Games" href="/games" iconSrc="/games.svg" />
         <SidebarItem label="Shop" href="/shop" iconSrc="/shop.svg" />
 

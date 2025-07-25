@@ -136,7 +136,7 @@ const main = async () => {
                 question: "",
                 order: 4,
                 videoUrl: "/videos/samplevideo.mp4",
-                callToAction: "",
+                callToAction: "Watch the video and choose the most empathetic response.",
             },
             {
                 id: 5,
@@ -145,7 +145,7 @@ const main = async () => {
                 question: "",
                 order: 5,
                 audio: "/sounds/sampleaudio1.mp3",
-                callToAction: "",
+                callToAction: "Listen and choose the best response.",
             },
         ]);
 

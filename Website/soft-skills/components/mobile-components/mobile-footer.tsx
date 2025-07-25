@@ -15,7 +15,7 @@ export const MobileFooter = () => {
           <MobileFooterItem href="/learn" iconSrc="/learn.svg" label="Learn" />
         </div>
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/puzzle" iconSrc="/puzzle.svg" label="Puzzles" />
+          <MobileFooterItem href="/puzzles" iconSrc="/puzzle.svg" label="Puzzles" />
         </div>
         <div className="flex flex-1 justify-center">
           <MobileFooterItem href="/games" iconSrc="/games.svg" label="Games" />

@@ -11,10 +11,10 @@ import Image from "next/image";
 import { ResultCard } from "./result-card";
 import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
-import { Button } from "@/components/ui/button";
-import { Volume2Icon } from "lucide-react";
 import { useLoading } from "@/store/loadingStore";
 import { Explanation } from "./explanation";
+import { VideoChallenge } from "../../components/challenge-types/video-challenge";
+import { AudioChallenge } from "@/components/challenge-types/audio-challenge";
 
 type Props = {
   initialPercentage: number;
@@ -66,11 +66,7 @@ export const Quiz = ({
   const [status, setStatus] = useState<"correct" | "wrong" | "none">("none");
 
   const challenge = challenges[activeIndex];
-  const audioRef = useRef<HTMLAudioElement>(null);
   const options = challenge?.challengeOptions ?? [];
-
-  const [videoEnded, setVideoEnded] = useState(false);
-  const [audioEnded, setAudioEnded] = useState(false);
 
   const [showContent, setShowContent] = useState(true);
   const onNext = () => {
@@ -233,59 +229,27 @@ export const Quiz = ({
 
             <div>
               {challenge.type === "VIDEO" ? (
-                <div>
-                  <video
-                    controls
-                    autoPlay
-                    controlsList="nodownload noplaybackrate"
-                    className="w-full rounded-xl mb-4"
-                    src={challenge.videoUrl || undefined}
-                    onEnded={() => setVideoEnded(true)}
-                  />
-                  <div className={`transition-opacity duration-500 ${videoEnded ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                    {videoEnded && (
-                      <Challenge
-                        options={options}
-                        onSelect={onSelect}
-                        status={status}
-                        selectedOption={selectedOption}
-                        disabled={pending}
-                        type={challenge.type}
-                      />
-                    )}
-                  </div>
-                </div>
+                <VideoChallenge
+                  videoUrl={challenge.videoUrl}
+                  callToAction={challenge.callToAction}
+                  options={options}
+                  onSelect={onSelect}
+                  selectedOption={selectedOption}
+                  status={status}
+                  disabled={pending}
+                  type={challenge.type}
+                />
               ) : challenge.type === "AUDIO" ? (
-                <div>
-                  <div className="flex justify-center items-center h-full mb-10">
-                    <Button
-                      size="lg"
-                      className="cursor-pointer w-40 h-40"
-                      onClick={() => {
-                        if (audioRef.current) {
-                          audioRef.current.currentTime = 0;
-                          audioRef.current.play();
-                        }
-                      }}
-                    >
-                      <Volume2Icon className="w-24 h-24" />
-                    </Button>
-                    <audio ref={audioRef} src={challenge.audio || ""} onEnded={() => setAudioEnded(true)} />
-                  </div>
-
-                  <div className={`transition-opacity duration-500 ${audioEnded ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                    {audioEnded && (
-                      <Challenge
-                        options={options}
-                        onSelect={onSelect}
-                        status={status}
-                        selectedOption={selectedOption}
-                        disabled={pending}
-                        type={challenge.type}
-                      />
-                    )}
-                  </div>
-                </div>
+                <AudioChallenge
+                  audioUrl={challenge.audio ?? undefined}
+                  callToAction={challenge.callToAction}
+                  options={options}
+                  onSelect={onSelect}
+                  selectedOption={selectedOption}
+                  status={status}
+                  disabled={pending}
+                  type={challenge.type}
+                />
               ) : (
                 <Challenge
                   options={options}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useKey, useMedia } from "react-use";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle, RotateCw, Home as HomeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -37,7 +37,6 @@ export const Footer = ({
       }}
     >
       <div className="max-w-[1140px] h-full mx-auto flex items-center px-6 lg:px-10 relative">
-        {/* Messages - left aligned, fixed width so does not push button */}
         {(status === "correct" || status === "wrong") && (
           <div
             className={cn(
@@ -52,42 +51,40 @@ export const Footer = ({
             {status === "correct" && (
               <>
                 <CheckCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
-                Good Job!
+                {!isMobile && "Good Job!"}
               </>
             )}
             {status === "wrong" && (
               <>
                 <XCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
-                Try Again!
+                {!isMobile && "Try Again!"}
               </>
             )}
           </div>
         )}
 
-        {/* Check button */}
+        {/* Completed buttons with Practice left and Home right */}
         {status === "completed" ? (
-          <div
-            className={cn(
-              "flex space-x-4",
-              isMobile
-                ? "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                : "ml-auto"
-            )}
-          >
+          <div className="flex justify-between items-center w-full max-w-[400px] mx-auto">
+            {/* Practice Again on far left */}
             <Button
               variant="default"
-              className="cursor-pointer"
+              className="cursor-pointer flex items-center justify-center gap-2"
               size={isMobile ? "sm" : "lg"}
               onClick={() => (window.location.href = `/lesson/${lessonId}`)}
             >
+              <RotateCw className="w-5 h-5" />
               Practice Again
             </Button>
+
+            {/* Home on far right */}
             <Button
               variant="secondary"
-              className="cursor-pointer"
+              className="cursor-pointer flex items-center justify-center gap-2"
               size={isMobile ? "sm" : "lg"}
               onClick={() => (window.location.href = "/learn")}
             >
+              <HomeIcon className="w-5 h-5" />
               Home
             </Button>
           </div>
@@ -103,7 +100,7 @@ export const Footer = ({
               disabled={disabled}
               className="cursor-pointer"
               onClick={onCheck}
-              size={isMobile ? "lg" : "lg"} // always large for better tap
+              size={isMobile ? "lg" : "lg"}
               variant="secondary"
             >
               Check
