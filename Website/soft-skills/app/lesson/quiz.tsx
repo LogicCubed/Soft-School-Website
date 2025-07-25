@@ -15,6 +15,7 @@ import { useLoading } from "@/store/loadingStore";
 import { Explanation } from "./explanation";
 import { VideoChallenge } from "../../components/challenge-types/video-challenge";
 import { AudioChallenge } from "@/components/challenge-types/audio-challenge";
+import { MultiSelect } from "@/components/challenge-types/multi-select-challenge";
 
 type Props = {
   initialPercentage: number;
@@ -34,40 +35,51 @@ export const Quiz = ({
   initialLessonId,
   initialLessonChallenges,
 }: Props) => {
+  // Track window dimensions
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
+  // Initialize window size on mount
   useEffect(() => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
   }, []);
 
+  // Disable loading spinner on load
   useEffect(() => {
     const { setLoading } = useLoading.getState();
     setLoading(false);
   }, []);
 
+  // Destructure width and height from window size
   const { width, height } = windowSize;
   const router = useRouter();
 
+  // Load correct/incorrect sounds
   const [correctAudio, , correctControls] = useAudio({ src: "/sounds/correct.wav" });
   const [incorrectAudio, , incorrectControls] = useAudio({ src: "/sounds/incorrect.wav" });
 
+  // Handle React transitions
   const [pending, startTransition] = useTransition();
 
+  // Track lesson state
   const [lessonId] = useState(initialLessonId);
   const [percentage, setPercentage] = useState(() => (initialPercentage === 100 ? 0 : initialPercentage));
   const [challenges] = useState(initialLessonChallenges);
 
+  // Determine starting challenge index
   const [activeIndex, setActiveIndex] = useState(() => {
     const uncompletedIndex = challenges.findIndex((challenge) => !challenge.completed);
     return uncompletedIndex === -1 ? 0 : uncompletedIndex;
   });
 
+  // Track selected answer and correctness state
   const [selectedOption, setSelectedOption] = useState<number>();
   const [status, setStatus] = useState<"correct" | "wrong" | "none">("none");
 
+  // Get current challenge and its options
   const challenge = challenges[activeIndex];
   const options = challenge?.challengeOptions ?? [];
 
+  // Handle content transitions between questions
   const [showContent, setShowContent] = useState(true);
   const onNext = () => {
     setShowContent(false);
@@ -77,14 +89,17 @@ export const Quiz = ({
     }, 300);
   };
 
+  // Track performance stats
   const [attempted, setAttempted] = useState(0);
   const [correct, setCorrect] = useState(0);
   const accuracy = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
+  // Timer state
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [isLessonComplete, setIsLessonComplete] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Update user activity on completion
   const [hasUpdatedLastActivity, setHasUpdatedLastActivity] = useState(false);
   useEffect(() => {
     if (isLessonComplete && !hasUpdatedLastActivity) {
@@ -95,6 +110,7 @@ export const Quiz = ({
     }
   }, [isLessonComplete, hasUpdatedLastActivity]);
 
+  // Start elapsed time tracking
   useEffect(() => {
     const start = Date.now();
 
@@ -107,12 +123,14 @@ export const Quiz = ({
     return () => clearInterval(interval);
   }, []);
 
+  // Stop timer when lesson is done
   useEffect(() => {
     if (isLessonComplete && timerRef.current) {
       clearInterval(timerRef.current);
     }
   }, [isLessonComplete]);
 
+  // Format ms into mm:ss
   const formatTime = (ms: number) => {
     const totalSeconds = Math.floor(ms / 1000);
     const minutes = Math.floor(totalSeconds / 60);
@@ -120,12 +138,14 @@ export const Quiz = ({
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
+  // Mark lesson complete if no more challenges
   useEffect(() => {
     if (!challenge) {
       setIsLessonComplete(true);
     }
   }, [challenge]);
 
+  // Handle single-select answer
   const onSelect = (id: number) => {
     if (status === "wrong") {
       setStatus("none");
@@ -133,11 +153,21 @@ export const Quiz = ({
     setSelectedOption(id);
   };
 
+  // TODO: Optimize Multi-Select states
+  // Multi-select state
+  const [selectedMulti, setSelectedMulti] = useState<number[]>([]);
   const [isChecking, setIsChecking] = useState(false);
 
-  // Track Streak Count
+  // Check if challenge is multi-select
+  const isMultiSelect = challenge?.type === "MULTI_SELECT";
+
+  // Disable continue button unless an option is selected
+  const isDisabled = pending || (isMultiSelect ? selectedMulti.length === 0 : !selectedOption);
+
+  // Track correct streak for rewards, streaks, etc
   const [correctStreak, setCorrectStreak] = useState(0);
 
+  // Submit for single-select
   const onContinue = () => {
     if (!selectedOption || isChecking) return;
 
@@ -164,6 +194,7 @@ export const Quiz = ({
           setTimeout(() => {
             setStatus("none");
             setSelectedOption(undefined);
+            setSelectedMulti([]);
             onNext();
             setIsChecking(false);
           }, 2000);
@@ -179,6 +210,45 @@ export const Quiz = ({
       });
     }
   };
+
+  // Update selection in multi-select
+  const onMultiSelectChange = (newSelectedIds: number[]) => {
+  if (status === "wrong") {
+    setStatus("none");
+  }
+  setSelectedMulti(newSelectedIds);
+};
+
+  // Submit multi-select answer
+  const handleMultiSelectSubmit = (selectedIds: number[]) => {
+  const correctOptionIds = options.filter(o => o.correct).map(o => o.id);
+  const isCorrect =
+    selectedIds.length === correctOptionIds.length &&
+    selectedIds.every(id => correctOptionIds.includes(id));
+
+  setAttempted(prev => prev + 1);
+
+  if (isCorrect) {
+    startTransition(() => {
+      upsertChallengeProgress(challenge.id).then(() => {
+        correctControls.play();
+        setStatus("correct");
+        setCorrect(prev => prev + 1);
+        setPercentage(prev => prev + 100 / challenges.length);
+        setCorrectStreak(prev => prev + 1);
+
+        setTimeout(() => {
+          setStatus("none");
+          onNext();
+        }, 2000);
+      });
+    });
+  } else {
+    incorrectControls.play();
+    setStatus("wrong");
+    setCorrectStreak(0);
+  }
+};
 
   if (!challenge) {
     return (
@@ -221,7 +291,8 @@ export const Quiz = ({
           <div className="flex flex-col gap-y-12 w-full">
             <h1 className="text-lg lg:text-3xl text-center lg:text-left font-bold text-neutral-700 mt-5 lg:mt-0">{title}</h1>
 
-            {challenge.type !== "VIDEO" && challenge.type !== "AUDIO" && (
+            {/* TODO: Make this more efficient: call to action should be defined in each component anyway */}
+            {challenge.type !== "VIDEO" && challenge.type !== "AUDIO" && challenge.type !=="MULTI_SELECT" && (
               <div>
                 <div className="text-gray-600 text-xl">{challenge.callToAction}</div>
               </div>
@@ -250,6 +321,15 @@ export const Quiz = ({
                   disabled={pending}
                   type={challenge.type}
                 />
+              ) : challenge.type === "MULTI_SELECT" ? (
+                <MultiSelect
+                  question={challenge.question}
+                  callToAction={challenge.callToAction}
+                  options={options}
+                  selectedIds={selectedMulti}
+                  onChange={onMultiSelectChange}
+                  status={status}
+                />
               ) : (
                 <Challenge
                   options={options}
@@ -264,7 +344,11 @@ export const Quiz = ({
           </div>
         </div>
       </div>
-      <Footer disabled={pending || !selectedOption} status={status} onCheck={onContinue} />
+      <Footer
+  disabled={isDisabled}
+  status={status}
+  onCheck={isMultiSelect ? () => handleMultiSelectSubmit(selectedMulti) : onContinue}
+/>
     </>
   );
 };

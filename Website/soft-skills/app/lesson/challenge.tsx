@@ -7,6 +7,7 @@ type Props = {
     onSelect: (id: number) => void;
     status: "correct" | "wrong" | "none";
     selectedOption?: number;
+    selectedIds?: number[];          // <-- add selectedIds for multi-select
     disabled?: boolean;
     type: typeof challenges.$inferSelect["type"];
     callToAction?: string;
@@ -17,6 +18,7 @@ export const Challenge = ({
     onSelect,
     status,
     selectedOption,
+    selectedIds = [],
     type,
     callToAction,
 }: Props) => {
@@ -30,7 +32,7 @@ export const Challenge = ({
             <div
               className={cn(
                 "grid gap-2",
-                (type === "SELECT" || type === "VIDEO" || type === "AUDIO") && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]"
+                (type === "SELECT" || type === "VIDEO" || type === "AUDIO" || type === "MULTI_SELECT") && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]"
               )}
             >
               {options.map((option, i) => (
@@ -39,10 +41,16 @@ export const Challenge = ({
                   id={option.id}
                   text={option.text}
                   shortcut={`${i + 1}`}
-                  selected={selectedOption === option.id}
+                  selected={
+                    type === "MULTI_SELECT"
+                    ? selectedIds.includes(option.id)
+                    : selectedOption === option.id
+                  }
                   onClick={() => onSelect(option.id)}
                   status={status}
                   type={type}
+                  selectedIds={selectedIds}
+                  correctIds={options.filter(o => o.correct).map(o => o.id)}
                 />
               ))}
             </div>
