@@ -219,6 +219,165 @@ const main = async () => {
       },
     ]);
 
+    // Challenges for Unit 1, Lesson 2
+await db.insert(schema.challenges).values([
+  {
+    id: 6,
+    lessonId: 2,
+    type: "MULTI_SELECT",
+    order: 1,
+    question:
+      "Your peer says, “I feel like I never get to talk during group discussions. No one listens to me.”",
+    callToAction: "Select all the things you could say to make them feel heard.",
+  },
+  {
+    id: 7,
+    lessonId: 2,
+    type: "SELECT",
+    order: 2,
+    question:
+      "Someone says: “Why do people always ignore what I say?”",
+    callToAction: "What's the most supportive response?",
+  },
+  {
+    id: 8,
+    lessonId: 2,
+    type: "SELECT",
+    order: 3,
+    question:
+      "Your classmate says, “No one seems to care when I’m having a hard time.”",
+    callToAction: "Which response shows empathy?",
+  },
+  {
+    id: 9,
+    lessonId: 2,
+    type: "SELECT",
+    order: 4,
+    question:
+      "A teammate says: “I don’t think anyone notices the work I do in the group.”",
+    callToAction: "What could you say to support them?",
+  },
+  {
+    id: 10,
+    lessonId: 2,
+    type: "SELECT",
+    order: 5,
+    question:
+      "Your classmate says, “I feel embarrassed when I speak and people laugh.”",
+    callToAction: "What is the best way to respond?",
+  },
+]);
+
+// ChallengeOptions for lesson 2
+
+await db.insert(schema.challengeOptions).values([
+  // Challenge 6
+  {
+    challengeId: 6,
+    correct: true,
+    text: "I’m sorry you feel ignored. I’ll make sure to ask for your opinion next time.",
+    explanation: "Shows support and intention to include them.",
+  },
+  {
+    challengeId: 6,
+    correct: true,
+    text: "Let’s talk to the group together about taking turns to speak.",
+    explanation: "Offers a direct solution to the issue.",
+  },
+  {
+    challengeId: 6,
+    correct: false,
+    text: "Maybe your ideas aren’t interesting enough.",
+    explanation: "This is dismissive and hurtful.",
+  },
+  {
+    challengeId: 6,
+    correct: false,
+    text: "Just speak louder next time so they have to listen.",
+    explanation: "This doesn't address the underlying issue of respect.",
+  },
+
+  // Challenge 7
+  {
+    challengeId: 7,
+    correct: true,
+    text: "I’m sorry you’re feeling this way. I’m here to listen.",
+    explanation: "Acknowledges their feelings and offers support.",
+  },
+  {
+    challengeId: 7,
+    correct: false,
+    text: "That’s just how people are. Don’t take it personally.",
+    explanation: "Invalidates the concern.",
+  },
+  {
+    challengeId: 7,
+    correct: false,
+    text: "Maybe you need to speak more clearly.",
+    explanation: "Blames the person rather than showing empathy.",
+  },
+
+  // Challenge 8
+  {
+    challengeId: 8,
+    correct: true,
+    text: "That sounds really hard. I’m here if you want to talk.",
+    explanation: "Provides comfort and presence.",
+  },
+  {
+    challengeId: 8,
+    correct: false,
+    text: "Well, everyone has problems. Try not to think about it.",
+    explanation: "Dismisses their feelings.",
+  },
+  {
+    challengeId: 8,
+    correct: false,
+    text: "Maybe you're just being dramatic.",
+    explanation: "Insensitive and invalidating.",
+  },
+
+  // Challenge 9
+  {
+    challengeId: 9,
+    correct: true,
+    text: "I’ve noticed your work and it really helps the team!",
+    explanation: "Acknowledges and appreciates their contribution.",
+  },
+  {
+    challengeId: 9,
+    correct: false,
+    text: "Well, if it’s important, people will notice eventually.",
+    explanation: "Passive and doesn’t address their need for affirmation.",
+  },
+  {
+    challengeId: 9,
+    correct: false,
+    text: "You shouldn’t expect praise for doing your part.",
+    explanation: "Cold and dismissive.",
+  },
+
+  // Challenge 10
+  {
+    challengeId: 10,
+    correct: true,
+    text: "You don’t deserve to be laughed at. I thought what you said made sense.",
+    explanation: "Affirms and supports them.",
+  },
+  {
+    challengeId: 10,
+    correct: false,
+    text: "Don’t be so sensitive, it’s just a joke.",
+    explanation: "Minimizes their embarrassment.",
+  },
+  {
+    challengeId: 10,
+    correct: false,
+    text: "That happens to everyone. Just ignore it.",
+    explanation: "Doesn’t help them feel seen or supported.",
+  },
+]);
+
     console.log("Seeding finished");
   } catch (error) {
     console.error(error);

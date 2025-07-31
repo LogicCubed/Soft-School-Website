@@ -16,6 +16,7 @@ import { Explanation } from "./explanation";
 import { VideoChallenge } from "../../components/challenge-types/video-challenge";
 import { AudioChallenge } from "@/components/challenge-types/audio-challenge";
 import { MultiSelect } from "@/components/challenge-types/multi-select-challenge";
+import { SelectChallenge } from "@/components/challenge-types/select-challenge";
 
 type Props = {
   initialPercentage: number;
@@ -82,12 +83,18 @@ export const Quiz = ({
   // Handle content transitions between questions
   const [showContent, setShowContent] = useState(true);
   const onNext = () => {
-    setShowContent(false);
-    setTimeout(() => {
-      setActiveIndex((current) => current + 1);
-      setShowContent(true);
-    }, 300);
-  };
+  setShowContent(false);
+  setTimeout(() => {
+    setActiveIndex(current => {
+      if (current + 1 >= challenges.length) {
+        // Allow exiting challenge loop
+        return challenges.length; // will make `challenge` undefined
+      }
+      return current + 1;
+    });
+    setShowContent(true);
+  }, 300);
+};
 
   // Track performance stats
   const [attempted, setAttempted] = useState(0);
@@ -288,18 +295,19 @@ export const Quiz = ({
           </div>
 
           {/* Challenge content */}
-          <div className="flex flex-col gap-y-12 w-full">
+          <div className="flex flex-col gap-y-6 w-full">
             <h1 className="text-lg lg:text-3xl text-center lg:text-left font-bold text-neutral-700 mt-5 lg:mt-0">{title}</h1>
-
-            {/* TODO: Make this more efficient: call to action should be defined in each component anyway */}
-            {challenge.type !== "VIDEO" && challenge.type !== "AUDIO" && challenge.type !=="MULTI_SELECT" && (
-              <div>
-                <div className="text-gray-600 text-xl">{challenge.callToAction}</div>
-              </div>
-            )}
-
-            <div>
-              {challenge.type === "VIDEO" ? (
+          <div>
+              {challenge.type === "SELECT" ? (
+                <SelectChallenge
+                  callToAction={challenge.callToAction}
+                  options={options}
+                  selectedOption={selectedOption}
+                  onSelect={onSelect}
+                  status={status}
+                  disabled={pending}
+                />
+              ) : challenge.type === "VIDEO" ? (
                 <VideoChallenge
                   videoUrl={challenge.videoUrl}
                   callToAction={challenge.callToAction}
@@ -323,14 +331,15 @@ export const Quiz = ({
                 />
               ) : challenge.type === "MULTI_SELECT" ? (
                 <MultiSelect
-                  question={challenge.question}
                   callToAction={challenge.callToAction}
                   options={options}
                   selectedIds={selectedMulti}
                   onChange={onMultiSelectChange}
                   status={status}
+                  type={challenge.type}
                 />
               ) : (
+                // Fallback Option
                 <Challenge
                   options={options}
                   onSelect={onSelect}
@@ -345,10 +354,10 @@ export const Quiz = ({
         </div>
       </div>
       <Footer
-  disabled={isDisabled}
-  status={status}
-  onCheck={isMultiSelect ? () => handleMultiSelectSubmit(selectedMulti) : onContinue}
-/>
+        disabled={isDisabled}
+        status={status}
+        onCheck={isMultiSelect ? () => handleMultiSelectSubmit(selectedMulti) : onContinue}
+      />
     </>
   );
 };

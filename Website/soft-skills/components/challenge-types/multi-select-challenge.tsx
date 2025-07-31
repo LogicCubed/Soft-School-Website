@@ -1,5 +1,6 @@
 
 import { Challenge } from "@/app/lesson/challenge";
+import { challenges } from "@/db/schema";
 
 type Option = {
   id: number;
@@ -10,16 +11,15 @@ type Option = {
 };
 
 type Props = {
-  question: string;
   callToAction?: string;
   options: Option[];
   selectedIds: number[];
   onChange: (ids: number[]) => void;
   status: "correct" | "wrong" | "none";
+  type: typeof challenges.$inferSelect["type"];
 };
 
 export const MultiSelect = ({
-  question,
   callToAction,
   options,
   selectedIds,
@@ -40,7 +40,7 @@ export const MultiSelect = ({
 
   return (
     <div>
-        <div className="text-gray-600 text-xl mb-6 text-center">{callToAction}</div>
+        <div className="text-gray-600 text-xl mb-6">{callToAction}</div>
         <Challenge
             options={options}
             onSelect={handleSelect}
