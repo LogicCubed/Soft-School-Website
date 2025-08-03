@@ -19,7 +19,7 @@ type Props = {
   type: typeof challenges.$inferSelect["type"];
 };
 
-export const MultiSelect = ({
+export const MultiSelectChallenge = ({
   callToAction,
   options,
   selectedIds,

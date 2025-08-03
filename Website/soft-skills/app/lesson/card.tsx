@@ -84,18 +84,17 @@ export const Card = ({
   })();
 
   const checkboxColorClass = (() => {
-    if (!isSelected) return "text-sky-500"; // blue when not selected (better than gray)
+    if (!isSelected) return "text-sky-500";
 
     if (!isMulti) {
       if (status === "correct") return "text-green-500";
       if (status === "wrong") return "text-rose-500";
-      return "text-sky-500"; // selected but no status
+      return "text-sky-500";
     }
 
-    // Multi-select colors
     if (status === "correct") {
       if (isCorrectAnswer) return "text-green-500";
-      return "text-sky-500"; // fallback blue
+      return "text-sky-500";
     }
     if (status === "wrong") {
       if (isCorrectAnswer) return "text-yellow-500";

@@ -1,11 +1,19 @@
+import { defineConfig } from "drizzle-kit";
 import "dotenv/config";
-import {defineConfig} from "drizzle-kit"
+import { URL } from "url";
+
+const dbUrl = new URL(process.env.DATABASE_URL!);
 
 export default defineConfig({
-    dialect: "postgresql",
-    schema: "./db/schema.ts",
-    dbCredentials: {
-        url: process.env.DATABASE_URL!,
-
-    },
-})
+  schema: "./db/schema.ts",
+  out: "./drizzle",
+  dialect: "postgresql",
+  dbCredentials: {
+    host: dbUrl.hostname,
+    port: Number(dbUrl.port) || 5432,
+    user: dbUrl.username,
+    password: dbUrl.password,
+    database: dbUrl.pathname.slice(1),
+    ssl: "require",
+  },
+});

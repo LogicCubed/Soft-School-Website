@@ -22,7 +22,8 @@ export const Explanation = ({
       ? "/softy-assets/softysad.svg"
       : "/softy-assets/softyhappy.svg";
 
-  const showExplanationBox = status === "correct" || status === "wrong";
+  const showExplanationBox =
+    (status === "correct" || status === "wrong") && explanation;
 
   const showStreakMessage =
     status === "correct" &&

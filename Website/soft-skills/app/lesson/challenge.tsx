@@ -7,7 +7,7 @@ type Props = {
     onSelect: (id: number) => void;
     status: "correct" | "wrong" | "none";
     selectedOption?: number;
-    selectedIds?: number[];          // <-- add selectedIds for multi-select
+    selectedIds?: number[];
     disabled?: boolean;
     type: typeof challenges.$inferSelect["type"];
     callToAction?: string;

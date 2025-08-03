@@ -15,8 +15,9 @@ import { useLoading } from "@/store/loadingStore";
 import { Explanation } from "./explanation";
 import { VideoChallenge } from "../../components/challenge-types/video-challenge";
 import { AudioChallenge } from "@/components/challenge-types/audio-challenge";
-import { MultiSelect } from "@/components/challenge-types/multi-select-challenge";
+import { MultiSelectChallenge } from "@/components/challenge-types/multi-select-challenge";
 import { SelectChallenge } from "@/components/challenge-types/select-challenge";
+import { TrueFalseChallenge } from "@/components/challenge-types/true-false-challenge";
 
 type Props = {
   initialPercentage: number;
@@ -330,13 +331,21 @@ export const Quiz = ({
                   type={challenge.type}
                 />
               ) : challenge.type === "MULTI_SELECT" ? (
-                <MultiSelect
+                <MultiSelectChallenge
                   callToAction={challenge.callToAction}
                   options={options}
                   selectedIds={selectedMulti}
                   onChange={onMultiSelectChange}
                   status={status}
                   type={challenge.type}
+                />
+              ) : challenge.type === "TRUE_FALSE" ? (
+                <TrueFalseChallenge
+                  selectedOption={selectedOption}
+                  onSelect={onSelect}
+                  disabled={pending}
+                  status={status}
+                  options={options}
                 />
               ) : (
                 // Fallback Option

@@ -28,7 +28,6 @@ export const SelectChallenge = ({
   onSelect,
   status,
   disabled = false,
-  type = "SELECT",
 }: Props) => {
   return (
     <div>
