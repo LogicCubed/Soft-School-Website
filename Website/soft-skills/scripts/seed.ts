@@ -57,11 +57,11 @@ await db.insert(schema.challenges).values([
   {
     id: 1,
     lessonId: 1,
-    type: "SELECT",
+    type: "SORT",
     order: 1,
     question:
-      "Your friend Alex says: I'm really stressed about the group project. I feel like I'm doing all the work and no one else is helping.",
-    callToAction: "What should you tell Alex?",
+      "Your friend Alex is stressed about a group project.",
+    callToAction: "Drag and drop the options into the correct categories.",
   },
   {
     id: 2,
@@ -119,24 +119,30 @@ await db.insert(schema.challenges).values([
 ]);
 
 await db.insert(schema.challengeOptions).values([
-  // Challenge 1
+  // Challenge 1 (SORT)
   {
     challengeId: 1,
     correct: true,
     text: "That sounds really frustrating. Do you want help talking to the group?",
-    explanation: "That is a good way to initiate a solution!",
+    explanation: "Helpful: supports Alex and offers help.",
   },
   {
     challengeId: 1,
     correct: false,
     text: "You always complain about everything.",
-    explanation: "This is not very helpful to Alex.",
+    explanation: "Unhelpful: dismisses Alex's feelings.",
   },
   {
     challengeId: 1,
     correct: false,
     text: "You're probably just overreacting. It's not a big deal.",
-    explanation: "You are minimizing Alex's feelings.",
+    explanation: "Unhelpful: minimizes Alex's feelings.",
+  },
+  {
+    challengeId: 1,
+    correct: true,
+    text: "Let's figure out how to share the workload together.",
+    explanation: "Helpful: encourages teamwork and problem-solving.",
   },
 
   // Challenge 2

@@ -18,6 +18,7 @@ import { AudioChallenge } from "@/components/challenge-types/audio-challenge";
 import { MultiSelectChallenge } from "@/components/challenge-types/multi-select-challenge";
 import { SelectChallenge } from "@/components/challenge-types/select-challenge";
 import { TrueFalseChallenge } from "@/components/challenge-types/true-false-challenge";
+import { Sort } from "@/components/challenge-types/sort";
 
 type Props = {
   initialPercentage: number;
@@ -161,6 +162,46 @@ export const Quiz = ({
     setSelectedOption(id);
   };
 
+  // TODO: Optimize Sort States
+
+  const [allSorted, setAllSorted] = useState(false);
+  const [sortAssignments, setSortAssignments] = useState<{ [key: number]: "A" | "B" | "unassigned" }>({});
+
+  const onCheckSort = () => {
+  // Check correctness by comparing sortAssignments with option.correct
+  // Let's say all correct options belong to container A, and incorrect to B
+  // Or adapt to your logic
+
+  const isCorrect = options.every((option) => {
+    const assigned = sortAssignments[option.id] ?? "unassigned";
+    // If correct is true, expect assigned to "A"
+    // If correct is false, expect assigned to "B"
+    if (option.correct && assigned !== "A") return false;
+    if (!option.correct && assigned !== "B") return false;
+    return true;
+  });
+
+  if (isCorrect) {
+    correctControls.play();
+    setStatus("correct");
+    setAttempted((prev) => prev + 1);
+    setCorrect((prev) => prev + 1);
+    setPercentage((prev) => prev + 100 / challenges.length);
+    setCorrectStreak((prev) => prev + 1);
+
+    setTimeout(() => {
+      setStatus("none");
+      onNext();
+      setSortAssignments({}); // Reset sort for next question
+    }, 2000);
+  } else {
+    incorrectControls.play();
+    setStatus("wrong");
+    setAttempted((prev) => prev + 1);
+    setCorrectStreak(0);
+  }
+};
+
   // TODO: Optimize Multi-Select states
   // Multi-select state
   const [selectedMulti, setSelectedMulti] = useState<number[]>([]);
@@ -170,7 +211,13 @@ export const Quiz = ({
   const isMultiSelect = challenge?.type === "MULTI_SELECT";
 
   // Disable continue button unless an option is selected
-  const isDisabled = pending || (isMultiSelect ? selectedMulti.length === 0 : !selectedOption);
+  const isSort = challenge?.type === "SORT";
+
+  const isDisabled = pending || (
+    isSort ? !allSorted : 
+    isMultiSelect ? selectedMulti.length === 0 : 
+    !selectedOption
+  );
 
   // Track correct streak for rewards, streaks, etc
   const [correctStreak, setCorrectStreak] = useState(0);
@@ -291,9 +338,12 @@ export const Quiz = ({
           className={`transition-opacity duration-300 flex flex-col lg:flex-row gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"} max-w-[900px] px-4 lg:pl-12 mx-auto`}
         >
           {/* Explanation box */}
-          <div className="hidden lg:flex w-[160px] flex-shrink-0 justify-center items-center lg:ml-[-4rem] lg:translate-x-[-125px]">
-            <Explanation explanation={selectedExplanation} status={status} streakCount={correctStreak} streakThreshold={2} />
-          </div>
+          {/* TODO: Explanations will be rendered in the respective challenge elements, so this is temporary */}
+          {challenge.type !== "MULTI_SELECT" && challenge.type !== "TRUE_FALSE" && challenge.type !== "SORT" && (
+            <div className="hidden lg:flex w-[160px] flex-shrink-0 justify-center items-center lg:ml-[-4rem] lg:translate-x-[-125px]">
+              <Explanation explanation={selectedExplanation} status={status} streakCount={correctStreak} streakThreshold={2} />
+            </div>
+          )}
 
           {/* Challenge content */}
           <div className="flex flex-col gap-y-6 w-full">
@@ -347,6 +397,14 @@ export const Quiz = ({
                   status={status}
                   options={options}
                 />
+              ) : challenge.type === "SORT" ? (
+                <Sort
+                  callToAction={challenge.callToAction}
+                  options={options}
+                  onSortChange={setSortAssignments}
+                  disabled={pending}
+                  onAllAssignedChange={setAllSorted}
+                />
               ) : (
                 // Fallback Option
                 <Challenge
@@ -365,7 +423,13 @@ export const Quiz = ({
       <Footer
         disabled={isDisabled}
         status={status}
-        onCheck={isMultiSelect ? () => handleMultiSelectSubmit(selectedMulti) : onContinue}
+        onCheck={
+          challenge.type === "SORT"
+          ? onCheckSort
+          : isMultiSelect
+          ? () => handleMultiSelectSubmit(selectedMulti)
+          : onContinue
+        }
       />
     </>
   );

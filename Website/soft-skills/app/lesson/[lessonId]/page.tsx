@@ -39,9 +39,11 @@ type CleanChallenge = Omit<typeof challenges.$inferSelect, "videoUrl"> & {
   videoUrl?: string;
 };
 
-const cleanedChallenges: CleanChallenge[] = lesson.challenges.map(({ challengeProgress: _, videoUrl, ...rest }) => ({
+const cleanedChallenges: CleanChallenge[] = lesson.challenges.map(({ challengeProgress, videoUrl, ...rest }) => ({
   ...rest,
   videoUrl: videoUrl === null ? undefined : videoUrl,
+  completed: challengeProgress.some((p) => p.completed),
+  challengeOptions: rest.challengeOptions,
 }));
 
 return (

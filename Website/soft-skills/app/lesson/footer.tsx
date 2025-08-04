@@ -63,32 +63,33 @@ export const Footer = ({
           </div>
         )}
 
-        {/* Completed buttons with Practice left and Home right */}
         {status === "completed" ? (
-          <div className="flex justify-between items-center w-full max-w-[400px] mx-auto">
-            {/* Practice Again on far left */}
-            <Button
-              variant="default"
-              className="cursor-pointer flex items-center justify-center gap-2"
-              size={isMobile ? "sm" : "lg"}
-              onClick={() => (window.location.href = `/lesson/${lessonId}`)}
-            >
-              <RotateCw className="w-5 h-5" />
-              Practice Again
-            </Button>
+  <>
+    <div className="absolute left-6">
+      <Button
+        variant="default"
+        className="cursor-pointer flex items-center justify-center gap-2"
+        size={isMobile ? "sm" : "lg"}
+        onClick={() => (window.location.href = `/lesson/${lessonId}`)}
+      >
+        <RotateCw className="w-5 h-5" />
+        Practice Again
+      </Button>
+    </div>
 
-            {/* Home on far right */}
-            <Button
-              variant="secondary"
-              className="cursor-pointer flex items-center justify-center gap-2"
-              size={isMobile ? "sm" : "lg"}
-              onClick={() => (window.location.href = "/learn")}
-            >
-              <HomeIcon className="w-5 h-5" />
-              Home
-            </Button>
-          </div>
-        ) : (
+    <div className="absolute right-6">
+      <Button
+        variant="secondary"
+        className="cursor-pointer flex items-center justify-center gap-2"
+        size={isMobile ? "sm" : "lg"}
+        onClick={() => (window.location.href = "/learn")}
+      >
+        <HomeIcon className="w-5 h-5" />
+        Home
+      </Button>
+    </div>
+  </>
+) : (
           <div
             className={cn(
               isMobile
