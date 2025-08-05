@@ -39,16 +39,17 @@ export const MultiSelectChallenge = ({
   };
 
   return (
-    <div>
-        <div className="text-gray-600 text-xl mb-6">{callToAction}</div>
-        <Challenge
-            options={options}
-            onSelect={handleSelect}
-            status={status}
-            selectedIds={selectedIds}
-            type="MULTI_SELECT"
-            callToAction={undefined}
-        />
-    </div>
-  );
+  <div className="w-full max-w-[900px] mx-auto px-4">
+    <div className="text-gray-600 text-xl mb-6">{callToAction}</div>
+    <Challenge
+      options={options}
+      onSelect={handleSelect}
+      status={status}
+      selectedIds={selectedIds}
+      type="MULTI_SELECT"
+      callToAction={undefined}
+    />
+  </div>
+);
+
 };

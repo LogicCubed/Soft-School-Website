@@ -168,36 +168,34 @@ export const Quiz = ({
   const [sortAssignments, setSortAssignments] = useState<{ [key: number]: "A" | "B" | "unassigned" }>({});
 
   const onCheckSort = () => {
-  // Check correctness by comparing sortAssignments with option.correct
-  // Let's say all correct options belong to container A, and incorrect to B
-  // Or adapt to your logic
-
   const isCorrect = options.every((option) => {
     const assigned = sortAssignments[option.id] ?? "unassigned";
-    // If correct is true, expect assigned to "A"
-    // If correct is false, expect assigned to "B"
     if (option.correct && assigned !== "A") return false;
     if (!option.correct && assigned !== "B") return false;
     return true;
   });
 
-  if (isCorrect) {
-    correctControls.play();
-    setStatus("correct");
-    setAttempted((prev) => prev + 1);
-    setCorrect((prev) => prev + 1);
-    setPercentage((prev) => prev + 100 / challenges.length);
-    setCorrectStreak((prev) => prev + 1);
+  setAttempted((prev) => prev + 1);
 
-    setTimeout(() => {
-      setStatus("none");
-      onNext();
-      setSortAssignments({}); // Reset sort for next question
-    }, 2000);
+  if (isCorrect) {
+    startTransition(() => {
+      upsertChallengeProgress(challenge.id).then(() => {
+        correctControls.play();
+        setStatus("correct");
+        setCorrect((prev) => prev + 1);
+        setPercentage((prev) => prev + 100 / challenges.length);
+        setCorrectStreak((prev) => prev + 1);
+
+        setTimeout(() => {
+          setStatus("none");
+          onNext();
+          setSortAssignments({});
+        }, 2000);
+      });
+    });
   } else {
     incorrectControls.play();
     setStatus("wrong");
-    setAttempted((prev) => prev + 1);
     setCorrectStreak(0);
   }
 };
@@ -312,7 +310,7 @@ export const Quiz = ({
         <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full px-4">
           <Image src="/softy-assets/softyhappy.svg" alt="Finish" className="hidden lg:block" height={100} width={100} />
           <Image src="/softy-assets/softyhappy.svg" alt="Finish" className="block lg:hidden" height={50} width={50} />
-          <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
+          <h1 className="text-xl lg:text-3xl font-bold text-sky-400">
             Great Job! <br />
             You&apos;ve completed this lesson!
           </h1>
@@ -339,7 +337,7 @@ export const Quiz = ({
         >
           {/* Explanation box */}
           {/* TODO: Explanations will be rendered in the respective challenge elements, so this is temporary */}
-          {challenge.type !== "MULTI_SELECT" && challenge.type !== "TRUE_FALSE" && challenge.type !== "SORT" && (
+          {challenge.type !== "AUDIO" && challenge.type !== "MULTI_SELECT" && challenge.type !== "TRUE_FALSE" && challenge.type !== "SORT" && (
             <div className="hidden lg:flex w-[160px] flex-shrink-0 justify-center items-center lg:ml-[-4rem] lg:translate-x-[-125px]">
               <Explanation explanation={selectedExplanation} status={status} streakCount={correctStreak} streakThreshold={2} />
             </div>

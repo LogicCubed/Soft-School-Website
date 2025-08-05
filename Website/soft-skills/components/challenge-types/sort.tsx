@@ -113,10 +113,12 @@ export const Sort = ({
     <div>
       {callToAction && <div className="mb-4 text-lg text-gray-700">{callToAction}</div>}
 
-      <div className="flex gap-6 w-full max-w-[1000px] mx-auto">
+      <div className="flex flex-col md:flex-row gap-6 w-full max-w-[1000px] mx-auto
+                      max-h-[70vh] md:max-h-[300px] overflow-y-auto md:overflow-visible">
         {/* Pool */}
         <div
-          className="flex-[1.5] h-[300px] overflow-y-auto border p-4 rounded bg-gray-50 flex-shrink-0"
+          className="flex-[1.5] border p-4 rounded bg-gray-50 flex-shrink-0
+                     max-h-[200px] md:max-h-none md:h-[300px] overflow-y-auto"
           onDrop={(e) => onDrop(e, "unassigned")}
           onDragOver={onDragOver}
         >
@@ -126,7 +128,8 @@ export const Sort = ({
 
         {/* Container A */}
         <div
-          className="flex-1 h-[300px] overflow-y-auto border p-4 rounded bg-white flex-shrink-0"
+          className="flex-1 border p-4 rounded bg-white flex-shrink-0
+                     max-h-[200px] md:max-h-none md:h-[300px] overflow-y-auto"
           onDrop={(e) => onDrop(e, "A")}
           onDragOver={onDragOver}
         >
@@ -136,7 +139,8 @@ export const Sort = ({
 
         {/* Container B */}
         <div
-          className="flex-1 h-[300px] overflow-y-auto border p-4 rounded bg-white flex-shrink-0"
+          className="flex-1 border p-4 rounded bg-white flex-shrink-0
+                     max-h-[200px] md:max-h-none md:h-[300px] overflow-y-auto"
           onDrop={(e) => onDrop(e, "B")}
           onDragOver={onDragOver}
         >

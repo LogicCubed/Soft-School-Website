@@ -25,7 +25,7 @@ export const UnitBanner = ({
           variant="secondary"
           className="hidden xl:flex border-2 border-b-4 active:border-b-2 cursor-pointer"
         >
-          <NotebookText className="mr-2" />
+          <NotebookText className="mr-2"/>
           Continue
         </Button>
       </Link>

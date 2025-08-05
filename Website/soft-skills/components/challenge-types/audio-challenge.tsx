@@ -42,7 +42,10 @@ export const AudioChallenge = ({
                 }
                 }}
             >
-                <Volume2Icon className="w-24 h-24" />
+                <Volume2Icon
+                    style={{ width: "5rem", height: "5rem" }}
+                    strokeWidth={2}
+                />
             </Button>
         </div>
         <div className="text-gray-600 text-xl mb-6 text-center">{callToAction}</div>

@@ -15,8 +15,9 @@ export const Header = ({
             <X
                 onClick={open}
                 className="text-slate-500 hover:opacity-75 transition cursor-pointer"
+                strokeWidth={4}
             />
-            <Progress value={percentage} />
+            <Progress value={percentage} className="h-4" />
         </header>
     );
 };

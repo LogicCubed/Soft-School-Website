@@ -50,13 +50,13 @@ export const Footer = ({
           >
             {status === "correct" && (
               <>
-                <CheckCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
+                <CheckCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" strokeWidth={3}/>
                 {!isMobile && "Good Job!"}
               </>
             )}
             {status === "wrong" && (
               <>
-                <XCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" />
+                <XCircle className="h-6 w-6 lg:h-10 lg:w-10 mr-4" strokeWidth={3}/>
                 {!isMobile && "Try Again!"}
               </>
             )}
@@ -69,10 +69,9 @@ export const Footer = ({
       <Button
         variant="default"
         className="cursor-pointer flex items-center justify-center gap-2"
-        size={isMobile ? "sm" : "lg"}
         onClick={() => (window.location.href = `/lesson/${lessonId}`)}
       >
-        <RotateCw className="w-5 h-5" />
+        <RotateCw className="w-8 h-8" strokeWidth={3}/>
         Practice Again
       </Button>
     </div>
@@ -81,10 +80,9 @@ export const Footer = ({
       <Button
         variant="secondary"
         className="cursor-pointer flex items-center justify-center gap-2"
-        size={isMobile ? "sm" : "lg"}
         onClick={() => (window.location.href = "/learn")}
       >
-        <HomeIcon className="w-5 h-5" />
+        <HomeIcon className="w-8 h-8" strokeWidth={3}/>
         Home
       </Button>
     </div>

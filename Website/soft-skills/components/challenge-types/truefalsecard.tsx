@@ -4,7 +4,7 @@ import { useCallback } from "react";
 
 type Props = {
   id: number;
-  text: string;  // "True" or "False"
+  text: string;
   selected: boolean;
   disabled?: boolean;
   status?: "correct" | "wrong" | "none";
@@ -37,7 +37,6 @@ export const TrueFalseCard = ({
     return "text-neutral-600";
   })();
 
-  // Icon color fixed by text, no change on selected
   const iconColorClass = text === "True" ? "text-green-500" : "text-rose-500";
 
   return (
