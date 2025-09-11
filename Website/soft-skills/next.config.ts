@@ -26,6 +26,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  images: {
+    domains: ['piorsprnhakffirwcjxy.supabase.co'],
+  },
 };
 
 export default nextConfig;

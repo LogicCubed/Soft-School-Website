@@ -1,6 +1,7 @@
 "use client";
 
-import { useKey, useMedia } from "react-use";
+import { useEffect, useState } from "react";
+import { useKey } from "react-use";
 import { CheckCircle, XCircle, RotateCw, Home as HomeIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,19 @@ export const Footer = ({
   lessonId,
 }: Props) => {
   useKey("Enter", onCheck, {}, [onCheck]);
-  const isMobile = useMedia("(max-width: 1024px)");
+
+  const [isClient, setIsClient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const checkMobile = () => setIsMobile(window.innerWidth <= 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (!isClient) return null; // avoid hydration mismatch
 
   return (
     <footer
@@ -30,11 +43,6 @@ export const Footer = ({
         status === "wrong" && "border-transparent bg-rose-100",
         (status === "none" || status === "completed") && "bg-transparent border-gray-200"
       )}
-      style={{
-        transitionProperty: "background-color, border-color",
-        transitionDuration: "500ms",
-        transitionTimingFunction: "ease-in-out",
-      }}
     >
       <div className="max-w-[1140px] h-full mx-auto flex items-center px-6 lg:px-10 relative">
         {(status === "correct" || status === "wrong") && (
@@ -64,30 +72,30 @@ export const Footer = ({
         )}
 
         {status === "completed" ? (
-  <>
-    <div className="absolute left-6">
-      <Button
-        variant="default"
-        className="cursor-pointer flex items-center justify-center gap-2"
-        onClick={() => (window.location.href = `/lesson/${lessonId}`)}
-      >
-        <RotateCw className="w-8 h-8" strokeWidth={3}/>
-        Practice Again
-      </Button>
-    </div>
+          <>
+            <div className="absolute left-6">
+              <Button
+                variant="default"
+                className="cursor-pointer flex items-center justify-center gap-2"
+                onClick={() => (window.location.href = `/lesson/${lessonId}`)}
+              >
+                <RotateCw className="w-8 h-8" strokeWidth={3}/>
+                Practice Again
+              </Button>
+            </div>
 
-    <div className="absolute right-6">
-      <Button
-        variant="secondary"
-        className="cursor-pointer flex items-center justify-center gap-2"
-        onClick={() => (window.location.href = "/learn")}
-      >
-        <HomeIcon className="w-8 h-8" strokeWidth={3}/>
-        Home
-      </Button>
-    </div>
-  </>
-) : (
+            <div className="absolute right-6">
+              <Button
+                variant="secondary"
+                className="cursor-pointer flex items-center justify-center gap-2"
+                onClick={() => (window.location.href = "/learn")}
+              >
+                <HomeIcon className="w-8 h-8" strokeWidth={3}/>
+                Home
+              </Button>
+            </div>
+          </>
+        ) : (
           <div
             className={cn(
               isMobile
@@ -99,7 +107,7 @@ export const Footer = ({
               disabled={disabled}
               className="cursor-pointer"
               onClick={onCheck}
-              size={isMobile ? "lg" : "lg"}
+              size="lg"
               variant="secondary"
             >
               Check

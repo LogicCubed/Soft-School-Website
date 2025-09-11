@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useCreateCourseModal } from "@/store/admin-modals/use-create-course-modal";
 import { createCourse } from "@/actions/course";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
 
 export const CreateCourseModal = () => {
   const router = useRouter();
@@ -32,16 +33,35 @@ export const CreateCourseModal = () => {
     fileInputRef.current?.click();
   };
 
-  // Handles the Creation of a new Course
   const handleCreate = async () => {
     if (!title || !image) return;
 
-    // TODO: Replace this with actual upload logic for the file to get the image URL
-    const imageUrl = "/softy-assets/softyhappy.svg";
+    try {
+      const filePath = `courses/${Date.now()}-${image.name}`;
 
-    await createCourse({ title, imageSrc: imageUrl });
-    closeCreateCourseModal();
-    router.refresh();
+      const { error: uploadError } = await supabase.storage
+        .from("course-images")
+        .upload(filePath, image);
+
+      if (uploadError) {
+        console.error("Upload failed:", uploadError.message);
+        return;
+      }
+
+      const { data } = supabase.storage
+        .from("course-images")
+        .getPublicUrl(filePath);
+
+      const imageUrl = data.publicUrl;
+
+      await createCourse({ title, imageSrc: imageUrl });
+
+      closeCreateCourseModal();
+      router.refresh();
+
+    } catch (err) {
+    console.error("Error creating course:", err);
+    }
   };
 
   useEffect(() => setIsClient(true), []);
@@ -91,6 +111,18 @@ export const CreateCourseModal = () => {
           }}
           className="hidden"
         />
+
+        {image && (
+  <div className="mb-4 flex justify-center">
+    <Image
+      src={URL.createObjectURL(image)}
+      alt="Preview"
+      width={120}
+      height={120}
+      className="rounded"
+    />
+  </div>
+)}
 
         {/* Custom button to trigger file input */}
         <button

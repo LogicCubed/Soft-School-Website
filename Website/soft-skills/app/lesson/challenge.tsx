@@ -31,9 +31,10 @@ export const Challenge = ({
 
             <div
               className={cn(
-                "grid gap-2",
-                (type === "SELECT" || type === "VIDEO" || type === "AUDIO" || type === "MULTI_SELECT") && "grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]"
-              )}
+    "grid gap-2",
+    (type === "SELECT" || type === "VIDEO" || type === "AUDIO" || type === "MULTI_SELECT") &&
+      "grid-cols-[repeat(auto-fit,minmax(250px,1fr))]"
+  )}
             >
               {options.map((option, i) => (
                 <Card
