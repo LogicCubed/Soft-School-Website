@@ -1,7 +1,5 @@
 "use client";
 
-import React, { CSSProperties } from "react";
-
 import { Check, Crown, Star, Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +24,6 @@ export const LessonButton = ({
   totalCount,
   locked,
   current,
-  percentage,
 }: Props) => {
   const router = useRouter();
   const setLoading = useLoading((s) => s.setLoading);

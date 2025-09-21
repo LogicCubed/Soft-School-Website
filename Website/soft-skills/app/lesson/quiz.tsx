@@ -19,6 +19,7 @@ import { MultiSelectChallenge } from "@/components/challenge-types/multi-select-
 import { SelectChallenge } from "@/components/challenge-types/select-challenge";
 import { TrueFalseChallenge } from "@/components/challenge-types/true-false-challenge";
 import { Sort } from "@/components/challenge-types/sort";
+import { VideoQuizChallenge } from "@/components/challenge-types/video-quiz-challenge";
 
 type Props = {
   initialPercentage: number;
@@ -358,6 +359,17 @@ export const Quiz = ({
                 />
               ) : challenge.type === "VIDEO" ? (
                 <VideoChallenge
+                  videoUrl={challenge.videoUrl}
+                  callToAction={challenge.callToAction}
+                  options={options}
+                  onSelect={onSelect}
+                  selectedOption={selectedOption}
+                  status={status}
+                  disabled={pending}
+                  type={challenge.type}
+                />
+              ) : challenge.type === "VIDEO_QUIZ" ? (
+                <VideoQuizChallenge
                   videoUrl={challenge.videoUrl}
                   callToAction={challenge.callToAction}
                   options={options}

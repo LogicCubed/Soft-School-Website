@@ -51,6 +51,7 @@ export const challengesEnum = pgEnum("type", [
     "MULTI_SELECT",
     "TRUE_FALSE",
     "SORT",
+    "VIDEO_QUIZ",
 ]);
 
 export const challenges = pgTable("challenges", {
@@ -122,3 +123,60 @@ export const userProgressRelations = relations(userProgress, ({ one }) =>
         references: [courses.id],
     }),
 }))
+
+// VIDEO QUIZ STUFF
+// Sub-questions that appear at timestamps inside a VIDEO_QUIZ challenge
+export const videoQuizQuestions = pgTable("video_quiz_questions", {
+    id: serial("id").primaryKey(),
+    challengeId: integer("challenge_id")
+        .references(() => challenges.id, { onDelete: "cascade" })
+        .notNull(),
+    timestamp: integer("timestamp").notNull(), // in seconds, where the question pops up
+    question: text("question").notNull(),
+    callToAction: text("call_to_action").notNull(),
+    order: integer("order").notNull(), // order within the video quiz
+});
+
+// Options for each video quiz question
+export const videoQuizOptions = pgTable("video_quiz_options", {
+    id: serial("id").primaryKey(),
+    videoQuizQuestionId: integer("video_quiz_question_id")
+        .references(() => videoQuizQuestions.id, { onDelete: "cascade" })
+        .notNull(),
+    text: text("text").notNull(),
+    correct: boolean("correct").notNull(),
+    explanation: text("explanation").notNull(),
+});
+
+// Track user progress per sub-question in VIDEO_QUIZ
+export const videoQuizProgress = pgTable("video_quiz_progress", {
+    id: serial("id").primaryKey(),
+    userId: text("user_id").notNull(),
+    videoQuizQuestionId: integer("video_quiz_question_id")
+        .references(() => videoQuizQuestions.id, { onDelete: "cascade" })
+        .notNull(),
+    completed: boolean("completed").notNull().default(false),
+});
+
+export const videoQuizQuestionsRelations = relations(videoQuizQuestions, ({ one, many }) => ({
+    challenge: one(challenges, {
+        fields: [videoQuizQuestions.challengeId],
+        references: [challenges.id],
+    }),
+    options: many(videoQuizOptions),
+    progress: many(videoQuizProgress),
+}));
+
+export const videoQuizOptionsRelations = relations(videoQuizOptions, ({ one }) => ({
+    question: one(videoQuizQuestions, {
+        fields: [videoQuizOptions.videoQuizQuestionId],
+        references: [videoQuizQuestions.id],
+    }),
+}));
+
+export const videoQuizProgressRelations = relations(videoQuizProgress, ({ one }) => ({
+    question: one(videoQuizQuestions, {
+        fields: [videoQuizProgress.videoQuizQuestionId],
+        references: [videoQuizQuestions.id],
+    }),
+}));

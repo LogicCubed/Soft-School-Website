@@ -11,10 +11,10 @@ type Props = {
   selectedOption?: number;
   status: "correct" | "wrong" | "none";
   disabled?: boolean;
-  type: "VIDEO";
+  type: "VIDEO_QUIZ";
 };
 
-export const VideoChallenge = ({
+export const VideoQuizChallenge = ({
   videoUrl,
   callToAction,
   options,
@@ -28,7 +28,6 @@ export const VideoChallenge = ({
 
   return (
     <div>
-      <div className="text-gray-600 text-xl mb-6">{callToAction}</div>
       <video
         controls
         autoPlay
@@ -37,6 +36,7 @@ export const VideoChallenge = ({
         src={videoUrl}
         onEnded={() => setVideoEnded(true)}
       />
+      <div className="text-gray-600 text-xl mb-6 text-center">{callToAction}</div>
       <div
         className={`transition-opacity duration-500 ${
           videoEnded ? "opacity-100" : "opacity-0 pointer-events-none"

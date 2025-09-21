@@ -1,19 +1,22 @@
 "use client";
 
-import React from "react";
-import { useTransition } from "react";
+import React, { useTransition } from "react";
 import { Circle, CheckCircle } from "lucide-react";
 import { OptionTextInput } from "@/components/admin-components/admin-edit/edit-answer";
 import { NewOptionInput } from "@/components/admin-components/admin-create/add-option";
 import { ExplanationTextInput } from "@/components/admin-components/admin-create/explanation-button";
 import { DeleteAnswerButton } from "@/components/admin-components/admin-delete/delete-answer-button";
+import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit-question";
+import { CallToActionTextInput } from "@/components/admin-components/admin-edit/edit-calltoaction";
 import { useEditing } from "../admin-context/editing-context";
+import VideoUpload from "../admin-create/video-upload";
 
 interface VideoTypeQuestionProps {
   challenge: {
     id: number;
     question: string;
     callToAction: string;
+    videoSrc?: string | null;
     challengeOptions: {
       id: number;
       text: string;
@@ -28,13 +31,13 @@ export function VideoTypeQuestion({ challenge }: VideoTypeQuestionProps) {
   const {
     pendingDeletedOptions,
     updateCorrectAnswer,
-    getMergedCorrectAnswer
+    getMergedCorrectAnswer,
+    updateVideoForChallenge,
   } = useEditing();
 
-  // Determine the merged correct option id (includes pending changes)
   const mergedCorrectOptionId = getMergedCorrectAnswer(
     challenge.id,
-    challenge.challengeOptions.find(o => o.correct)?.id ?? -1
+    challenge.challengeOptions.find((o) => o.correct)?.id ?? -1
   );
 
   const handleSetCorrect = (optionId: number) => {
@@ -43,11 +46,31 @@ export function VideoTypeQuestion({ challenge }: VideoTypeQuestionProps) {
 
   return (
     <>
+      <div className="flex flex-col gap-2 mt-4">
+        <VideoUpload
+          videoSrc={challenge.videoSrc}
+          onUpload={(url) => {
+            updateVideoForChallenge(challenge.id, url);
+          }}
+        />
+      </div>
+
+      <div className="mt-5 flex flex-col gap-2">
+        <QuestionTextInput
+          initialText={challenge.question}
+          questionId={challenge.id}
+        />
+        <CallToActionTextInput
+          initialText={challenge.callToAction}
+          questionId={challenge.id}
+        />
+      </div>
+
       <div className="relative mt-5">
         {challenge.challengeOptions
           .slice()
           .sort((a, b) => a.id - b.id)
-          .filter(option => !pendingDeletedOptions.has(option.id))
+          .filter((option) => !pendingDeletedOptions.has(option.id))
           .map((option) => (
             <div
               key={option.id}
