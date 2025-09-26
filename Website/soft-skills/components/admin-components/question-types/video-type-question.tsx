@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useTransition } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import { Circle, CheckCircle } from "lucide-react";
 import { OptionTextInput } from "@/components/admin-components/admin-edit/edit-answer";
 import { NewOptionInput } from "@/components/admin-components/admin-create/add-option";
 import { ExplanationTextInput } from "@/components/admin-components/admin-create/explanation-button";
 import { DeleteAnswerButton } from "@/components/admin-components/admin-delete/delete-answer-button";
-import { QuestionTextInput } from "@/components/admin-components/admin-edit/edit-question";
 import { CallToActionTextInput } from "@/components/admin-components/admin-edit/edit-calltoaction";
 import { useEditing } from "../admin-context/editing-context";
 import VideoUpload from "../admin-create/video-upload";
@@ -16,7 +15,7 @@ interface VideoTypeQuestionProps {
     id: number;
     question: string;
     callToAction: string;
-    videoSrc?: string | null;
+    videoUrl?: string | null;
     challengeOptions: {
       id: number;
       text: string;
@@ -28,6 +27,8 @@ interface VideoTypeQuestionProps {
 
 export function VideoTypeQuestion({ challenge }: VideoTypeQuestionProps) {
   const [isPending] = useTransition();
+  const [currentVideo, setCurrentVideo] = useState<string | null>(challenge.videoUrl ?? null);
+
   const {
     pendingDeletedOptions,
     updateCorrectAnswer,
@@ -40,30 +41,53 @@ export function VideoTypeQuestion({ challenge }: VideoTypeQuestionProps) {
     challenge.challengeOptions.find((o) => o.correct)?.id ?? -1
   );
 
+  useEffect(() => {
+    async function fetchVideo() {
+      const res = await fetch(`/api/challenges/${challenge.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setCurrentVideo(data.videoUrl ?? null);
+      }
+    }
+    fetchVideo();
+  }, [challenge.id]);
+
+  const handleVideoUpload = async (url: string) => {
+    setCurrentVideo(url);
+    updateVideoForChallenge(challenge.id, url);
+
+    await fetch(`/api/challenges/${challenge.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ videoUrl: url }),
+    });
+  };
+
   const handleSetCorrect = (optionId: number) => {
     updateCorrectAnswer(challenge.id, optionId);
   };
 
   return (
     <>
-      <div className="flex flex-col gap-2 mt-4">
-        <VideoUpload
-          videoSrc={challenge.videoSrc}
-          onUpload={(url) => {
-            updateVideoForChallenge(challenge.id, url);
-          }}
-        />
+      <div className="flex flex-col gap-2 mt-4 w-full items-center">
+        <div className="flex justify-center w-full max-w-md">
+          <VideoUpload videoSrc={currentVideo} onUpload={handleVideoUpload} />
+        </div>
+
+        {currentVideo && currentVideo.trim() !== "" && (
+          <div className="flex justify-center w-full max-w-md mt-2">
+            <video
+              key={currentVideo}
+              src={currentVideo}
+              controls
+              className="rounded-lg max-h-[300px] w-full"
+            />
+          </div>
+        )}
       </div>
 
       <div className="mt-5 flex flex-col gap-2">
-        <QuestionTextInput
-          initialText={challenge.question}
-          questionId={challenge.id}
-        />
-        <CallToActionTextInput
-          initialText={challenge.callToAction}
-          questionId={challenge.id}
-        />
+        <CallToActionTextInput initialText={challenge.callToAction} questionId={challenge.id} />
       </div>
 
       <div className="relative mt-5">
@@ -89,15 +113,9 @@ export function VideoTypeQuestion({ challenge }: VideoTypeQuestionProps) {
                     <Circle className="text-gray-300" />
                   )}
                 </button>
-                <OptionTextInput
-                  initialText={option.text}
-                  optionId={option.id}
-                />
+                <OptionTextInput initialText={option.text} optionId={option.id} />
                 <div className="ml-5">
-                  <ExplanationTextInput
-                    initialExplanation={option.explanation ?? ""}
-                    answerId={option.id}
-                  />
+                  <ExplanationTextInput initialExplanation={option.explanation ?? ""} answerId={option.id} />
                 </div>
               </div>
 

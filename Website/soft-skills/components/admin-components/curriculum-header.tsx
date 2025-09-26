@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import clsx from "clsx";
 import { Button } from "../ui/button";
 import { useEditing } from "./admin-context/editing-context";
+import { toast, Toaster } from "sonner";
 
 interface CurriculumHeaderProps {
   title: string;
@@ -15,11 +16,22 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
   const router = useRouter();
 
   const isOnMainPage = pathname === "/admin/curriculum";
-
   const { hasPendingChanges, submitChanges } = useEditing();
+
+  const handleSaveChanges = async () => {
+    await submitChanges();
+    toast.success("Changes Saved!", {
+      className:
+        "bg-sky-500 text-white font-semibold rounded-lg shadow-lg px-4 py-2",
+      duration: 3000,
+      position: "bottom-right",
+    });
+  };
 
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-300">
+      <Toaster position="bottom-right" />
+
       <div className="flex items-center">
         <Button
           variant="primary"
@@ -40,7 +52,7 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
 
       <Button
         variant="ghost"
-        onClick={submitChanges}
+        onClick={handleSaveChanges}
         disabled={!hasPendingChanges}
         className={clsx(
           "font-semibold",

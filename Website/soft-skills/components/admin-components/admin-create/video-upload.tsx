@@ -2,6 +2,9 @@
 
 import { useRef, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { Button } from "@/components/ui/button";
+import clsx from "clsx";
+import { toast } from "sonner";
 
 interface VideoUploadProps {
   videoSrc?: string | null;
@@ -12,7 +15,7 @@ export default function VideoUpload({ videoSrc, onUpload }: VideoUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [video, setVideo] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [uploadedUrl, setUploadedUrl] = useState<string | null>(videoSrc || null);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
 
   const handleFileButtonClick = () => {
     fileInputRef.current?.click();
@@ -24,34 +27,58 @@ export default function VideoUpload({ videoSrc, onUpload }: VideoUploadProps) {
     const selectedVideo = e.target.files[0];
     setVideo(selectedVideo);
     setUploading(true);
+    setUploadProgress(0);
 
     try {
       const filePath = `lesson-videos/${Date.now()}-${selectedVideo.name}`;
-      const { error: uploadError } = await supabase.storage
+
+      const { data, error } = await supabase.storage
         .from("lesson-videos")
-        .upload(filePath, selectedVideo);
+        .createSignedUploadUrl(filePath);
 
-      if (uploadError) {
-        console.error("Upload failed:", uploadError.message);
-        return;
-      }
+      if (error) throw new Error(error.message);
 
-      const { data } = supabase.storage
+      const { signedUrl } = data;
+
+      await new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("PUT", signedUrl);
+
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const percent = Math.round((event.loaded / event.total) * 100);
+            setUploadProgress(percent);
+          }
+        };
+
+        xhr.onload = () => {
+          if (xhr.status === 200) resolve();
+          else reject(new Error(`Upload failed: ${xhr.status}`));
+        };
+
+        xhr.onerror = () => reject(new Error("Upload failed: network error"));
+
+        xhr.send(selectedVideo);
+      });
+
+      const { data: publicData } = supabase.storage
         .from("lesson-videos")
         .getPublicUrl(filePath);
 
-      const videoUrl = data.publicUrl;
-      setUploadedUrl(videoUrl);
+      const videoUrl = publicData.publicUrl;
       onUpload(videoUrl);
+      toast.success("Video Uploaded!");
     } catch (err) {
       console.error("Error uploading video:", err);
+      toast.error("Failed to Upload Video");
     } finally {
       setUploading(false);
+      setUploadProgress(0);
     }
   };
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center w-full">
       <input
         ref={fileInputRef}
         type="file"
@@ -60,28 +87,33 @@ export default function VideoUpload({ videoSrc, onUpload }: VideoUploadProps) {
         className="hidden"
       />
 
-      <button
-        type="button"
-        onClick={handleFileButtonClick}
-        className="px-4 py-2 rounded border border-gray-300 hover:bg-gray-100 transition cursor-pointer w-max"
-        disabled={uploading}
-      >
-        {video ? `Selected: ${video.name}` : "Choose Video"}
-      </button>
+      <div className="flex justify-center w-full">
+        <Button
+          variant="ghost"
+          onClick={handleFileButtonClick}
+          disabled={uploading}
+          className={clsx(
+            "font-semibold px-6 py-2",
+            uploading
+              ? "bg-gray-200 text-gray-500 font-extrabold cursor-not-allowed"
+              : "bg-sky-500 hover:bg-sky-600 text-white font-extrabold cursor-pointer"
+          )}
+        >
+          {video
+            ? `Selected: ${video.name}`
+            : videoSrc
+            ? "Change Video"
+            : "Upload Video"}
+        </Button>
+      </div>
 
-      {uploadedUrl && (
-        <div className="text-sm text-gray-600 break-all text-center">
-          Uploaded: {uploadedUrl}
+      {uploading && (
+        <div className="w-2/3 mt-2 bg-gray-200 rounded h-2 overflow-hidden">
+          <div
+            className="bg-sky-500 h-2 transition-all duration-200"
+            style={{ width: `${uploadProgress}%` }}
+          />
         </div>
-      )}
-
-      {uploadedUrl && (
-        <video
-          key={uploadedUrl}
-          src={uploadedUrl}
-          controls
-          className="rounded-lg max-h-[300px] mt-2"
-        />
       )}
     </div>
   );

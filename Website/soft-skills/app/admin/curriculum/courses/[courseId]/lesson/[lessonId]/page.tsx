@@ -79,20 +79,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
                 )}
 
                 {challenge.type === "VIDEO" && (
-                  <>
-                  {challenge.videoUrl ? (
-                    <div>
-                      <video
-                        src={challenge.videoUrl}
-                        controls
-                        className="mt-2 max-w-[400px] rounded mx-auto"
-                      />
-                      <VideoTypeQuestion challenge={challenge}/>
-                    </div>
-                  ) : (
-                    <p>UPLOAD VIDEO!</p>
-                  )}
-                  </>
+                  <VideoTypeQuestion challenge={challenge}/>
                 )}
 
                 {challenge.type === "AUDIO" && (

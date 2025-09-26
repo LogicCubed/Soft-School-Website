@@ -17,7 +17,7 @@ type AdminCourseManagerProps = {
 
 export const AdminCourseManager = ({ initialCourses }: AdminCourseManagerProps) => {
   const { openCreateCourseModal } = useCreateCourseModal();
-  const { pendingCourseDeletes } = useEditing();  // <-- use editing context here
+  const { pendingCourseDeletes } = useEditing();
 
   const [visibleCourses, setVisibleCourses] = useState<Course[]>(initialCourses);
 
