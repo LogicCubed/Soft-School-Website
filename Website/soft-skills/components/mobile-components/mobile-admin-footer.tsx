@@ -1,10 +1,17 @@
 "use client";
 
-import { ClerkLoading, ClerkLoaded, UserButton } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
+import { ClerkLoading, UserButton } from "@clerk/nextjs";
 import { Loader } from "lucide-react";
 import { MobileFooterItem } from "./mobile-footer-item";
 
 export const MobileAdminFooter = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 lg:hidden">
       <div className="flex items-center h-16 px-2">
@@ -19,12 +26,7 @@ export const MobileAdminFooter = () => {
         </div>
 
         <div className="flex flex-1 justify-center">
-          <ClerkLoading>
-            <Loader className="h-6 w-6 text-muted-foreground animate-spin" />
-          </ClerkLoading>
-          <ClerkLoaded>
-            <UserButton />
-          </ClerkLoaded>
+          {isClient ? <UserButton /> : <Loader className="h-6 w-6 text-muted-foreground animate-spin" />}
         </div>
       </div>
     </nav>

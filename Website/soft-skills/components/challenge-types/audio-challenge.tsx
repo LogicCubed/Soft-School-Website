@@ -31,6 +31,7 @@ export const AudioChallenge = ({
 
   return (
     <div>
+        <div className="text-gray-600 text-xl mb-6 text-center">{callToAction}</div>
         <div className="flex justify-center mb-6">
             <Button
                 size="lg"
@@ -48,7 +49,6 @@ export const AudioChallenge = ({
                 />
             </Button>
         </div>
-        <div className="text-gray-600 text-xl mb-6 text-center">{callToAction}</div>
         <audio
             ref={audioRef}
             src={audioUrl}

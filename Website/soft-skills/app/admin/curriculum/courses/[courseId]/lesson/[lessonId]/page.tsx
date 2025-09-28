@@ -12,6 +12,7 @@ import { SelectTypeQuestion } from "@/components/admin-components/question-types
 import { EditingProvider } from "@/components/admin-components/admin-context/editing-context";
 import { AudioTypeQuestion } from "@/components/admin-components/question-types/audio-type-question";
 import { VideoTypeQuestion } from "@/components/admin-components/question-types/video-type-question";
+import { TrueFalseTypeQuestion } from "@/components/admin-components/question-types/true-false-type-question";
 
 interface EditLessonPageProps {
   params: Promise<{ lessonId: string }>;
@@ -84,6 +85,10 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
 
                 {challenge.type === "AUDIO" && (
                   <AudioTypeQuestion challenge={challenge}/>
+                )}
+
+                {challenge.type === "TRUE_FALSE" && (
+                  <TrueFalseTypeQuestion challenge={challenge}/>
                 )}
               </div>
               <div className="w-[98%] border-t border-gray-300 mx-auto mb-5 mt-5" />

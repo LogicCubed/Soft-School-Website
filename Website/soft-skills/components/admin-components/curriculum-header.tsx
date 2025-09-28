@@ -29,10 +29,11 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 border-b border-gray-300">
+    <div className="relative flex items-center justify-center p-4 border-b border-gray-300">
       <Toaster position="bottom-right" />
 
-      <div className="flex items-center">
+      {/* Back button on far left */}
+      <div className="absolute left-4">
         <Button
           variant="primary"
           size="icon"
@@ -47,22 +48,27 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
         >
           <ArrowLeft className="w-5 h-5 text-white" />
         </Button>
-        <h1 className="text-2xl font-extrabold text-sky-400 ml-5">{title}</h1>
       </div>
 
-      <Button
-        variant="ghost"
-        onClick={handleSaveChanges}
-        disabled={!hasPendingChanges}
-        className={clsx(
-          "font-semibold",
-          hasPendingChanges
-            ? "bg-green-400 hover:bg-green-500 text-white font-extrabold cursor-pointer"
-            : "bg-gray-200 text-gray-500 font-extrabold"
-        )}
-      >
-        Save Changes
-      </Button>
+      {/* Title centered */}
+      <h1 className="text-2xl font-extrabold text-sky-400">{title}</h1>
+
+      {/* Save Changes on far right */}
+      <div className="absolute right-4">
+        <Button
+          variant="ghost"
+          onClick={handleSaveChanges}
+          disabled={!hasPendingChanges}
+          className={clsx(
+            "font-semibold",
+            hasPendingChanges
+              ? "bg-green-400 hover:bg-green-500 text-white font-extrabold cursor-pointer"
+              : "bg-gray-200 text-gray-500 font-extrabold"
+          )}
+        >
+          Save Changes
+        </Button>
+      </div>
     </div>
   );
 }

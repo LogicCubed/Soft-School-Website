@@ -2,6 +2,7 @@
 
 import * as Select from '@radix-ui/react-select';
 import {
+  Check,
   ChevronDownIcon,
   ChevronUpIcon,
   CircleDotIcon,
@@ -18,6 +19,7 @@ const questionTypes = [
   { value: "SELECT", label: "SELECT", icon: <CircleDotIcon className="w-4 h-4 mr-2" /> },
   { value: "VIDEO", label: "VIDEO", icon: <VideoIcon className="w-4 h-4 mr-2" /> },
   { value: "AUDIO", label: "AUDIO", icon: <Volume2Icon className="w-4 h-4 mr-2" /> },
+  { value: "TRUE_FALSE", label: "TRUE FALSE", icon: <Check className="w-4 h-4 mr-2" /> },
 ];
 
 export function QuestionType({ defaultValue, onValueChange }: QuestionTypeProps) {

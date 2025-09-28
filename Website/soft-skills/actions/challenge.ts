@@ -24,3 +24,24 @@ export async function updateChallengeVideo(challengeId: number, videoUrl: string
     };
   }
 }
+
+export async function updateChallengeAudio(challengeId: number, audioUrl: string) {
+  try {
+    const [updatedChallenge] = await db
+      .update(challenges)
+      .set({ audio: audioUrl })
+      .where(eq(challenges.id, challengeId))
+      .returning();
+
+    return {
+      success: true,
+      data: updatedChallenge,
+    };
+  } catch (error) {
+    console.error("Error updating challenge audio:", error);
+    return {
+      success: false,
+      error: "Failed to update challenge audio",
+    };
+  }
+}

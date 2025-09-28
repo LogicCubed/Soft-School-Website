@@ -9,7 +9,7 @@ import {
   updateOptionExplanation as apiUpdateOptionExplanation,
 } from "@/actions/answer";
 import { usePathname, useRouter } from "next/navigation";
-import { updateChallengeVideo as apiUpdateChallengeVideo } from "@/actions/challenge";
+import { updateChallengeVideo as apiUpdateChallengeVideo, updateChallengeAudio as apiUpdateChallengeAudio } from "@/actions/challenge";
 
 interface EditingContextValue {
   pendingQuestionEdits: Record<number, string>;
@@ -36,6 +36,9 @@ interface EditingContextValue {
   pendingVideoEdits: Record<number, string>;
   updateVideoForChallenge: (challengeId: number, videoUrl: string) => void;
 
+  pendingAudioEdits: Record<number, string>;
+  updateAudioForChallenge: (challengeId: number, audioUrl: string) => void;
+
   hasPendingChanges: boolean;
   submitChanges: () => Promise<void>;
 
@@ -44,6 +47,7 @@ interface EditingContextValue {
   getMergedCorrectAnswer: (challengeId: number, originalOptionId: number) => number;
   getMergedExplanation: (optionId: number, originalExplanation: string) => string;
   getMergedVideoSrc: (challengeId: number, originalVideo: string | null) => string | null;
+  getMergedAudioSrc: (challengeId: number, originalAudio: string | null) => string | null;
 }
 
 const EditingContext = createContext<EditingContextValue | undefined>(undefined);
@@ -57,6 +61,7 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
   const [pendingCorrectAnswerEdits, setPendingCorrectAnswerEdits] = useState<Record<number, number>>({});
   const [pendingExplanationEdits, setPendingExplanationEdits] = useState<Record<number, string>>({});
   const [pendingVideoEdits, setPendingVideoEdits] = useState<Record<number, string>>({});
+  const [pendingAudioEdits, setPendingAudioEdits] = useState<Record<number, string>>({});
 
   const router = useRouter();
   const pathname = usePathname();
@@ -115,6 +120,10 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     setPendingVideoEdits((prev) => ({ ...prev, [challengeId]: videoUrl }));
   }
 
+  function updateAudioForChallenge(challengeId: number, audioUrl: string) {
+    setPendingAudioEdits((prev) => ({ ...prev, [challengeId]: audioUrl }));
+  }
+
   const hasPendingChanges = useMemo(() => {
     return (
       Object.keys(pendingQuestionEdits).length > 0 ||
@@ -124,7 +133,8 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
       pendingCourseDeletes.size > 0 ||
       Object.keys(pendingCorrectAnswerEdits).length > 0 ||
       Object.keys(pendingExplanationEdits).length > 0 ||
-      Object.keys(pendingVideoEdits).length > 0
+      Object.keys(pendingVideoEdits).length > 0 ||
+      Object.keys(pendingAudioEdits).length > 0
     );
   }, [
     pendingQuestionEdits,
@@ -135,6 +145,7 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     pendingCorrectAnswerEdits,
     pendingExplanationEdits,
     pendingVideoEdits,
+    pendingAudioEdits,
   ]);
 
   async function submitChanges() {
@@ -166,6 +177,10 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
       await apiUpdateChallengeVideo(Number(challengeIdStr), videoUrl);
     }
 
+    for (const [challengeIdStr, audioUrl] of Object.entries(pendingAudioEdits)) {
+      await apiUpdateChallengeAudio(Number(challengeIdStr), audioUrl);
+    }
+
     setPendingCourseDeletes(new Set());
     setPendingQuestionEdits({});
     setPendingOptionEdits({});
@@ -174,6 +189,7 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     setPendingCorrectAnswerEdits({});
     setPendingExplanationEdits({});
     setPendingVideoEdits({});
+    setPendingAudioEdits({});
 
     router.replace(pathname);
   }
@@ -195,6 +211,8 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     updateExplanation,
     pendingVideoEdits,
     updateVideoForChallenge,
+    pendingAudioEdits,
+    updateAudioForChallenge,
     hasPendingChanges,
     submitChanges,
     getMergedQuestionText: (q, o) => pendingQuestionEdits[q] ?? o,
@@ -202,6 +220,7 @@ export function EditingProvider({ children }: { children: React.ReactNode }) {
     getMergedCorrectAnswer: (cId, oId) => pendingCorrectAnswerEdits[cId] ?? oId,
     getMergedExplanation: (oId, ex) => pendingExplanationEdits[oId] ?? ex,
     getMergedVideoSrc: (cId, orig) => pendingVideoEdits[cId] ?? orig,
+    getMergedAudioSrc: (cId, orig) => pendingAudioEdits[cId] ?? orig,
   };
 
   return <EditingContext.Provider value={value}>{children}</EditingContext.Provider>;
