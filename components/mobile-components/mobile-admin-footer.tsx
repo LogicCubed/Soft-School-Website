@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ClerkLoading, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { Loader } from "lucide-react";
 import { MobileFooterItem } from "./mobile-footer-item";
 
