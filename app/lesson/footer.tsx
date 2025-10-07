@@ -33,7 +33,7 @@ export const Footer = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  if (!isClient) return null; // avoid hydration mismatch
+  if (!isClient) return null;
 
   return (
     <footer
@@ -99,7 +99,7 @@ export const Footer = ({
           <div
             className={cn(
               isMobile
-                ? "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                ? "flex justify-center items-center w-full py-4"
                 : "ml-auto"
             )}
           >

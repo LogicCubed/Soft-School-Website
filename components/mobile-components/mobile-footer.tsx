@@ -1,8 +1,6 @@
 "use client";
 
 import { useIsAdmin } from "@/hooks/useIsAdmin";
-import { ClerkLoading, ClerkLoaded, UserButton } from "@clerk/nextjs";
-import { Loader } from "lucide-react";
 import { MobileFooterItem } from "./mobile-footer-item";
 
 export const MobileFooter = () => {
@@ -29,15 +27,6 @@ export const MobileFooter = () => {
             <MobileFooterItem href="/admin/dashboard" iconSrc="/admin.svg" label="Admin" />
           </div>
         )}
-
-        <div className="flex flex-1 justify-center">
-          <ClerkLoading>
-            <Loader className="h-6 w-6 text-muted-foreground animate-spin" />
-          </ClerkLoading>
-          <ClerkLoaded>
-            <UserButton />
-          </ClerkLoaded>
-        </div>
       </div>
     </nav>
   );

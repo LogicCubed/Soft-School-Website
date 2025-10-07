@@ -332,7 +332,7 @@ export const Quiz = ({
       {incorrectAudio}
       {correctAudio}
       <Header percentage={percentage} />
-      <div className="flex-1 flex justify-center px-4">
+      <div className="flex-1 flex justify-center px-4 pb-[80px] lg:pb-0">
         <div
           className={`transition-opacity duration-300 flex flex-col lg:flex-row gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"} max-w-[900px] px-4 lg:pl-12 mx-auto`}
         >
@@ -346,7 +346,7 @@ export const Quiz = ({
 
           {/* Challenge content */}
           <div className="flex flex-col gap-y-6 w-full">
-            <h1 className="text-lg lg:text-3xl text-center lg:text-left font-bold text-neutral-700 mt-5 lg:mt-0">{title}</h1>
+            <h1 className="text-lg lg:text-3xl text-left font-bold text-neutral-700 mt-5 lg:mt-10">{title}</h1>
           <div>
               {challenge.type === "SELECT" ? (
                 <SelectChallenge
@@ -441,6 +441,19 @@ export const Quiz = ({
           : onContinue
         }
       />
+      <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white shadow-md">
+        <Footer
+          disabled={isDisabled}
+          status={status}
+          onCheck={
+            challenge.type === "SORT"
+              ? onCheckSort
+              : isMultiSelect
+              ? () => handleMultiSelectSubmit(selectedMulti)
+              : onContinue
+          }
+        />
+      </div>
     </>
   );
 };

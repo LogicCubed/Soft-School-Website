@@ -21,7 +21,7 @@ export function BackToTop() {
   };
 
   return (
-    <div className="sticky bottom-10 w-full flex justify-end pr-4 z-50">
+    <div className="sticky bottom-20 w-full flex justify-end pr-4 z-50">
       <Button
         variant="primary"
         onClick={scrollToTop}
