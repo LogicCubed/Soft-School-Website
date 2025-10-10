@@ -8,22 +8,25 @@ const UserProfilePage = async () => {
   const imageSrc = userProgressData?.userImageSrc ?? "/profile.svg";
 
   return (
-    <div className="flex flex-row-reverse gap-[48px] px-6">
+    <div className="flex flex-col lg:flex-row-reverse lg:gap-[48px] px-4 sm:px-6 lg:px-6">
       <FeedWrapper>
-        <div className="w-full flex flex-col items-center">
-          <Avatar className="w-24 h-24">
+        <div className="w-full flex flex-col items-center text-center">
+          <Avatar className="w-24 h-24 mb-4">
             <AvatarImage
               className="object-cover"
               src={imageSrc}
             />
           </Avatar>
-          <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
+
+          <h1 className="font-bold text-neutral-800 text-2xl my-2 lg:my-6">
             User Profile
           </h1>
-          <p className="text-muted-foreground text-center text-lg mb-6">
+
+          <p className="text-muted-foreground text-lg mb-4 lg:mb-6">
             View and Edit your User Profile!
           </p>
-          <div>
+
+          <div className="w-full">
             <Profile stats={userProgressData} />
           </div>
         </div>

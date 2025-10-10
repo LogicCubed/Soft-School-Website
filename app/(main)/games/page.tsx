@@ -1,20 +1,28 @@
 "use client";
 
-import { Carousel } from "@/components/games/carousel";
+import { GameButton } from "@/components/games/game-button";
 
 export default function Page() {
-  const games = [
-    { id: 1, imageSrc: "/games/game.png", label: "Game 1" },
-    { id: 2, imageSrc: "/games/game.png", label: "Game 2" },
-    { id: 3, imageSrc: "/games/game.png", label: "Game 3" },
-    { id: 4, imageSrc: "/games/game.png", label: "Game 4" },
-  ];
+  // TODO: Create database & game upload feature from admin dashboard
+  // Temporary Game Display
+  const game = {
+    id: 1,
+    imageSrc: "/games/game.png",
+    label: "LOCKED",
+    locked: true,
+  };
 
   return (
-    <>
-      <div>
-        <Carousel title="Conflict Resolution" games={games} />
-      </div>
-    </>
+    <div className="flex flex-col items-center px-4 sm:px-6 lg:px-10 mt-8">
+      <h1 className="mb-6 text-3xl sm:text-4xl font-extrabold text-sky-400 text-center">
+        Conflict Resolution Games
+      </h1>
+
+      <GameButton
+        imageSrc={game.imageSrc}
+        label={game.label}
+        locked={game.locked}
+      />
+    </div>
   );
 }

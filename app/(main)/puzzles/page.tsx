@@ -3,7 +3,7 @@ import { PuzzleCard } from "@/components/puzzle-card";
 export default function PuzzlesPage() {
   return (
     <div className="p-6">
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-col items-center space-y-4 mb-20">
         <PuzzleCard
           title="Quicktime"
           description="Select the right responses quickly under pressure."

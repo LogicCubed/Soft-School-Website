@@ -10,16 +10,16 @@ type PuzzleCardProps = {
 
 export function PuzzleCard({ title, description, href }: PuzzleCardProps) {
   return (
-    <div className="mt-1 w-[500px] rounded-xl bg-[#2dd4bf] p-5 text-white flex items-center justify-between border-2 border-b-[6px] border-teal-500">
-      <div className="space-y-2.5">
-        <h3 className="text-2xl font-bold">{title}</h3>
-        <p className="text-lg font-semibold">{description}</p>
+    <div className="mt-2 w-full max-w-[500px] rounded-xl bg-[#2dd4bf] p-5 text-white flex flex-col sm:flex-row sm:items-center sm:justify-between border-2 border-b-[6px] border-teal-500 mx-auto">
+      <div className="space-y-2.5 text-center sm:text-left">
+        <h3 className="text-xl sm:text-2xl font-bold break-words">{title}</h3>
+        <p className="text-base sm:text-lg font-semibold">{description}</p>
       </div>
-      <Link href={href}>
+      <Link href={href} className="mt-4 sm:mt-0 flex justify-center sm:block">
         <Button
           size="lg"
           variant="secondary"
-          className="hidden xl:flex border-2 border-b-4 active:border-b-2 cursor-pointer"
+          className="border-2 border-b-4 active:border-b-2 cursor-pointer w-full sm:w-auto"
         >
           <Gamepad2 className="mr-2" />
           PLAY
