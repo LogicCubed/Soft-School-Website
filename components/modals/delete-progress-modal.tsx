@@ -37,7 +37,7 @@ export const DeleteProgressModal = () => {
                             width={80}
                         />
                     </div>
-                    <DialogTitle className="text-center font-bold text-2xl">
+                    <DialogTitle className="text-center font-bold text-2xl text-sky-500">
                         Wait!
                     </DialogTitle>
                     <DialogDescription className="text-center text-base">

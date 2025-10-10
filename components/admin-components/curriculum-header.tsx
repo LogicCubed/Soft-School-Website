@@ -29,11 +29,11 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
   };
 
   return (
-    <div className="relative flex items-center justify-center p-4 border-b border-gray-300">
+    <div className="relative flex items-center justify-center px-4 py-2 sm:p-4 border-b border-gray-300">
       <Toaster position="bottom-right" />
 
-      {/* Back button on far left */}
-      <div className="absolute left-4">
+      {/* Back Button */}
+      <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2">
         <Button
           variant="primary"
           size="icon"
@@ -42,7 +42,7 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
           }}
           disabled={isOnMainPage}
           className={clsx(
-            "rounded-full w-10 h-10 flex items-center justify-center transition cursor-pointer text-white",
+            "rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition cursor-pointer text-white",
             isOnMainPage ? "text-gray-400 cursor-not-allowed" : "text-gray-700"
           )}
         >
@@ -50,11 +50,13 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
         </Button>
       </div>
 
-      {/* Title centered */}
-      <h1 className="text-2xl font-extrabold text-sky-400">{title}</h1>
+      {/* Title */}
+      <h1 className="text-xl sm:text-2xl font-extrabold text-sky-400 text-center">
+        {title}
+      </h1>
 
-      {/* Save Changes on far right */}
-      <div className="absolute right-4">
+      {/* Save Button (desktop) */}
+      <div className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 hidden sm:block">
         <Button
           variant="ghost"
           onClick={handleSaveChanges}
@@ -67,6 +69,24 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
           )}
         >
           Save Changes
+        </Button>
+      </div>
+
+      {/* Save Button (mobile) */}
+      <div className="absolute right-3 top-1/2 -translate-y-1/2 sm:hidden">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSaveChanges}
+          disabled={!hasPendingChanges}
+          className={clsx(
+            "text-sm px-3 py-1 font-semibold",
+            hasPendingChanges
+              ? "bg-green-400 hover:bg-green-500 text-white font-extrabold cursor-pointer"
+              : "bg-gray-200 text-gray-500 font-extrabold"
+          )}
+        >
+          Save
         </Button>
       </div>
     </div>

@@ -22,11 +22,8 @@ export const DeleteCourseModal = () => {
     closeDeleteCourseModal,
     courseIdToDelete,
     courseNameToDelete,
-    // You can keep addPendingDelete if you want, but it's optional now
-    // addPendingDelete,
   } = useDeleteCourseModal();
 
-  // Get markCourseDeleted from editing context
   const { markCourseDeleted } = useEditing();
 
   const [confirmationText, setConfirmationText] = useState("");
@@ -43,18 +40,13 @@ export const DeleteCourseModal = () => {
 
   if (!isClient) return null;
 
-  // Check if typed confirmation matches course name exactly
   const isConfirmed = confirmationText.trim() === courseNameToDelete;
 
   const handleConfirmDelete = () => {
     if (!courseIdToDelete) return;
     if (!isConfirmed) return;
 
-    // Mark course as deleted in editing context (pending deletion)
     markCourseDeleted(courseIdToDelete);
-
-    // Optionally, also add to modal store's pendingDeletes if you want to keep that state in sync
-    // addPendingDelete(courseIdToDelete);
 
     closeDeleteCourseModal();
   };

@@ -39,7 +39,7 @@ export const ExitModal = () => {
                             width={80}
                         />
                     </div>
-                    <DialogTitle className="text-center font-bold text-2xl">
+                    <DialogTitle className="text-center font-bold text-2xl text-sky-500">
                         Wait, don&apos;t go!
                     </DialogTitle>
                     <DialogDescription className="text-center text-base">

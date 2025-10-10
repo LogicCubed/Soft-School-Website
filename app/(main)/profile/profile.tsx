@@ -101,8 +101,8 @@ const Profile = ({ stats }: Props) => {
           */}
 
           <Separator className="mb-4 h-0.5 rounded-full" />
-          <h1 className="text-center font-bold text-rose-500 text-2xl my-6">
-            DANGER ZONE (TEST FEATURES)
+          <h1 className="font-bold text-rose-500 text-2xl my-6">
+            DANGER ZONE
           </h1>
           <Button
             variant="danger"
