@@ -6,18 +6,19 @@ type Props = {
     title: string;
 };
 
-export const Header = ({title}: Props ) => {
+export const Header = ({ title }: Props) => {
     return (
-        <div className="sticky top-0 bg-white pb-3 lg:pt-[28px] lg:mt-[-28px] flex items-center justify-between border-b-2 mb-5 text-neutral-400 lg:z-50">
-            <Link href="/courses">
+        <div className="sticky top-0 bg-[#231e31] pb-3 lg:pt-[28px] flex items-center justify-center border-b-2 border-slate-500 mb-5 text-white lg:z-50">
+            
+            <Link href="/courses" className="absolute left-4">
                 <Button variant="ghost" size="sm" className="cursor-pointer">
-                    <ArrowLeft className="h-5 w-5 stroke-3 text-neutral-400"/>
+                    <ArrowLeft className="h-12 w-12 stroke-4 text-neutral-400"/>
                 </Button>
             </Link>
-            <h1 className="font-bold text-lg">
+
+            <h1 className="font-bold text-lg text-center">
                 {title}
             </h1>
-            <div/>
         </div>
     );
 };

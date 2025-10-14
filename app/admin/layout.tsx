@@ -9,17 +9,17 @@ type Props = {
 
 const MainAdminLayout = ({ children }: Props) => {
   return (
-    <>
+    <div className="flex min-h-screen bg-[#231e31] text-white">
       {/* Sidebar visible only on lg+ */}
       <AdminSidebar className="hidden lg:flex" />
 
-      <main className="lg:pl-[256px] h-full pt-[50px] lg:pt-0">
-        <div className="max-w-[1056px] mx-auto pt-6 h-full">{children}</div>
+      <main className="lg:pl-[256px] pt-[50px] lg:pt-0 flex-1">
+        <div className="max-w-[1056px] mx-auto pt-6">{children}</div>
       </main>
 
       {/* Mobile Admin Footer visible only below lg */}
       <MobileAdminFooter />
-    </>
+    </div>
   );
 };
 

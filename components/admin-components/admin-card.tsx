@@ -17,7 +17,7 @@ export const AdminCard = ({ id, title, imageSrc, isPendingDelete }: AdminCardPro
   const router = useRouter();
 
   const handleClick = () => {
-    if (isPendingDelete) return; // Prevent navigating to a deleted course
+    if (isPendingDelete) return;
     router.push(`/admin/curriculum/courses/${id}`);
   };
 
@@ -25,8 +25,8 @@ export const AdminCard = ({ id, title, imageSrc, isPendingDelete }: AdminCardPro
     <div
       onClick={handleClick}
       className={clsx(
-        "group relative cursor-pointer border rounded-xl p-3 flex flex-col items-center transition",
-        isPendingDelete ? "opacity-50 cursor-not-allowed bg-gray-100" : "hover:bg-neutral-100"
+        "relative cursor-pointer border-2 border-b-6 border-gray-400 rounded-xl bg-gray-100 hover:bg-gray-200 flex flex-col items-center justify-between p-3 pb-6 min-h-[217px] min-w-[200px] transition",
+        isPendingDelete && "opacity-50 cursor-not-allowed"
       )}
     >
       <Image
@@ -36,15 +36,10 @@ export const AdminCard = ({ id, title, imageSrc, isPendingDelete }: AdminCardPro
         height={150}
         className="rounded-lg object-cover"
       />
-      <h2 className="mt-5 mb-5 font-bold text-neutral-700 text-center">{title}</h2>
-      <div className={clsx(
-        "gap-2",
-        isPendingDelete ? "flex" : "hidden group-hover:flex"
-      )}>
+      <h2 className="mt-3 text-xl font-bold text-neutral-700 text-center">{title}</h2>
+      <div className="flex gap-2 mt-2">
         <DeleteCourseButton courseId={id} courseName={title} />
-        {!isPendingDelete && (
-          <EditCourseButton courseId={id} />
-        )}
+        {!isPendingDelete && <EditCourseButton courseId={id} />}
       </div>
     </div>
   );

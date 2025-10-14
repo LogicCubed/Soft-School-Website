@@ -29,26 +29,22 @@ export function CurriculumHeader({ title }: CurriculumHeaderProps) {
   };
 
   return (
-    <div className="relative flex items-center justify-center px-4 py-2 sm:p-4 border-b border-gray-300">
+    <div className="relative flex items-center justify-center px-4 py-2 sm:p-4 border-b-2 border-slate-500">
       <Toaster position="bottom-right" />
 
       {/* Back Button */}
-      <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2">
-        <Button
-          variant="primary"
-          size="icon"
-          onClick={() => {
-            if (!isOnMainPage) router.back();
-          }}
-          disabled={isOnMainPage}
-          className={clsx(
-            "rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition cursor-pointer text-white",
-            isOnMainPage ? "text-gray-400 cursor-not-allowed" : "text-gray-700"
-          )}
-        >
-          <ArrowLeft className="w-5 h-5 text-white" />
-        </Button>
-      </div>
+      {!isOnMainPage && (
+        <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2">
+          <Button
+            variant="primary"
+            size="icon"
+            onClick={() => router.back()}
+            className="rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition cursor-pointer text-white"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </Button>
+        </div>
+      )}
 
       {/* Title */}
       <h1 className="text-xl sm:text-2xl font-extrabold text-sky-400 text-center">

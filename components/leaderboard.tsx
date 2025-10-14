@@ -5,7 +5,7 @@ const Leaderboard = async () => {
   const leaderboard = await getTopTenUsers();
 
   return (
-    <div className="mt-1 w-full rounded-xl bg-indigo-400 p-5 text-white border-2 border-b-[6px] border-indigo-500">
+    <div className="mt-1 w-full rounded-xl bg-indigo-500 p-5 text-white border-2 border-b-[6px] border-indigo-600">
       <div className="space-y-2.5">
         <h3 className="text-2xl font-bold">Leaderboard</h3>
         <p className="text-lg font-semibold">Top learners this week:</p>

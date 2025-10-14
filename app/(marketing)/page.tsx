@@ -15,8 +15,8 @@ export default function Home() {
             <Image src="/softy-assets/softylogin.svg" fill alt="Logo"/>
           </div>
           <div className="flex flex-col items-center gap-y-8">
-            <h1 className="text-xl lg:text-3xl font-bold text-neutral-600 max-w-[480px] text-center">
-              Learn, Practice, and Master your Soft Skills
+            <h1 className="text-xl lg:text-4xl font-bold text-sky-500 max-w-[480px] text-center">
+              Build, Apply, and Refine Your Soft Skills
             </h1>
             <div className="flex flex-col items-center gap-y-3 max-w-[330px] w-full">
               <ClerkLoading>
@@ -49,18 +49,33 @@ export default function Home() {
       </div>
 
       <Middle />
+
       <div className="mt-20 mb-20">
         <Section
-            title="Engaging Modules"
-            description="Learn soft skills through interactive modules that blend real-life scenarios with practical exercises. Each lesson is crafted to build confidence, boost communication, and help you grow—one step at a time."
-            imageSrc="/softy-assets/softyglasses.svg"
+          title="Engaging Modules"
+          description="Learn soft skills through interactive modules that blend real-life scenarios with practical exercises. Each lesson is crafted to build confidence, boost communication, and help you grow—one step at a time."
+          imageSrc="/softy-assets/softyglasses.svg"
         />
         <Section
-            title="Games"
-            description="Put your skills to the test with fun, replayable games designed to reinforce what you've learned. Every challenge sharpens your thinking, builds habits, and keeps you coming back for more!"
-            imageSrc="/softy-assets/softygaming.svg"
-            reverse
+          title="Games"
+          description="Put your skills to the test with fun, replayable games designed to reinforce what you've learned. Every challenge sharpens your thinking, builds habits, and keeps you coming back for more!"
+          imageSrc="/softy-assets/softygaming.svg"
+          reverse
         />
+        <div className="mt-20 gap-5 flex items-center justify-center">
+            <img
+              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+              alt="Download on the App Store"
+              width={270}
+              height={80}
+            />
+            <img
+              src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+              alt="Get it on Google Play"
+              width={340}
+              height={80}
+            />
+        </div>
       </div>
     </div>
   );

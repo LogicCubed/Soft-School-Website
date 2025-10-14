@@ -65,7 +65,7 @@ export default async function EditLessonPage({ params }: EditLessonPageProps) {
           {lesson.challenges.map((challenge, idx) => (
             <div
               key={challenge.id}
-              className="group relative border border-gray-300 rounded-lg p-4 shadow-sm mb-5 mt-5 flex flex-col"
+              className="group relative border border-gray-500 bg-white text-black rounded-lg p-4 shadow-sm mb-5 mt-5 flex flex-col"
             >
               <div className="hidden group-hover:block absolute top-2 left-1/2 transform -translate-x-1/2">
                 <GripHorizontal className="text-gray-400 w-5 h-5 cursor-grab" />

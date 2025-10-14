@@ -54,7 +54,7 @@ export const LoadingScreen = () => {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-sky-400 transition-opacity duration-500 ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
@@ -65,7 +65,7 @@ export const LoadingScreen = () => {
         height={100}
         className="animate-bounce mb-4"
       />
-      <div className="text-2xl font-bold text-sky-400">
+      <div className="text-2xl font-bold text-white">
         {randomQuote}
       </div>
     </div>
