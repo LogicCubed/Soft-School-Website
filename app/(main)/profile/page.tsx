@@ -11,20 +11,16 @@ const UserProfilePage = async () => {
     <div className="flex flex-col lg:flex-row-reverse lg:gap-[48px] px-4 sm:px-6 lg:px-6">
       <FeedWrapper>
         <div className="w-full flex flex-col items-center text-center">
-          <Avatar className="w-24 h-24 mb-4">
+          <Avatar className="w-24 h-24 mb-2">
             <AvatarImage
               className="object-cover"
               src={imageSrc}
             />
           </Avatar>
 
-          <h1 className="font-bold text-neutral-800 text-2xl my-2 lg:my-6">
+          <h1 className="mb-6 text-3xl sm:text-4xl font-extrabold text-sky-400 text-center">
             User Profile
           </h1>
-
-          <p className="text-muted-foreground text-lg mb-4 lg:mb-6">
-            View and Edit your User Profile!
-          </p>
 
           <div className="w-full">
             <Profile stats={userProgressData} />

@@ -14,8 +14,8 @@ export const UserPoints = async ({
     return (
         <div className="flex items-center justify-between gap-x-2 w-full">
             <Link href="/shop" className="ml-auto mb-5 mr-3">
-                <Button variant="ghost" className="text-[#ffcc00] cursor-pointer">
-                    <Image src="/points.svg" alt="Points" height={28} width={28} className="mr-2"/>
+                <Button variant="ghost" size="lg" className="text-[#ffcc00] text-3xl cursor-pointer">
+                    <Image src="/points.svg" alt="Points" height={40} width={40}/>
                     {progress?.points}
                 </Button>
             </Link>

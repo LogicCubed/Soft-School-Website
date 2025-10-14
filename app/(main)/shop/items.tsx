@@ -22,7 +22,7 @@ export const Items = ({
 
     return (
         <ul className="w-full">
-            <div className="flex items-center w-full p-4 gap-x-4 border-t-2">
+            <div className="flex items-center w-full p-4 gap-x-4 border-t-2 border-slate-500">
                 <Image
                     src="/softy-assets/softyhappy.svg"
                     alt="Test Item"
@@ -30,7 +30,7 @@ export const Items = ({
                     width={60}
                 />
                 <div className="flex-1">
-                    <p className="text-neutral-700 text-base lg:text-xl font-bold">
+                    <p className="text-white-700 text-xl font-bold">
                         Test Item
                     </p>
                 </div>
@@ -48,7 +48,7 @@ export const Items = ({
                             height={20}
                             width={20}
                         />
-                        <p>
+                        <p className="ml-2">
                             {TEST_ITEM_COST}
                         </p>
                     </div>

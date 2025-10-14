@@ -3,7 +3,8 @@ import { getUserProgress } from "@/db/queries";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { Items } from "./items";
-import { UserPoints } from "@/components/user-points";
+import { UserPoints } from "@/app/(main)/shop/user-points";
+import { Category } from "./category";
 
 const ShopPage = async () => {
     const userProgressData = getUserProgress();
@@ -28,18 +29,33 @@ const ShopPage = async () => {
                         height={90}
                         width={90}
                     />
-                    <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
+                    <h1 className="mb-6 text-3xl sm:text-4xl font-extrabold text-sky-400 text-center">
                         Shop
                     </h1>
-                    <p className="text-muted-foreground text-center text-lg mb-6">
+                    <div className="text-white text-center text-lg mb-6">
                         Purchase cosmetics and more for your avatar!
-                    </p>
-                    <UserPoints
-                        points={userProgress.points}
-                    />
-                    <Items
-                        points={userProgress.points}
-                    />
+                    </div>
+                    <div className="justify-center">
+                        <UserPoints
+                            points={userProgress.points}
+                        />
+                    </div>
+                    <Category title="Power-Ups">
+                        <Items points={userProgress.points} />
+                        <Items points={userProgress.points} />
+                    </Category>
+                    <Category title="Cosmetics">
+                        <Items points={userProgress.points} />
+                        <Items points={userProgress.points} />
+                    </Category>
+                    <Category title="Pets">
+                        <Items points={userProgress.points} />
+                        <Items points={userProgress.points} />
+                    </Category>
+                    <Category title="Themes">
+                        <Items points={userProgress.points} />
+                        <Items points={userProgress.points} />
+                    </Category>
                 </div>
             </FeedWrapper>
         </div>
