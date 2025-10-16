@@ -1,4 +1,4 @@
-import { PuzzleCard } from "@/components/puzzle-card";
+import { PuzzleCard } from "@/app/(main)/puzzles/puzzle-card";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import PuzzleStats from "./puzzlestats";
 import { FeedWrapper } from "@/components/feed-wrapper";

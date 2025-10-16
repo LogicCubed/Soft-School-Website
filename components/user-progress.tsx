@@ -4,6 +4,8 @@ import Image from "next/image";
 import { courses } from "@/db/schema";
 import { getUserProgress } from "@/db/queries";
 import { isAdmin } from "@/lib/admin";
+import { useState } from "react";
+import { UserProgressClient } from "./user-progress-client";
 
 type Props = {
     activeCourse: typeof courses.$inferSelect;
@@ -25,27 +27,12 @@ export const UserProgress = async ({
                     </Button>
                 </Link>
             )}
-            <Link href="/courses">
-                <Button variant="ghost" className="cursor-pointer">
-                    <Image
-                        src={activeCourse.imageSrc}
-                        alt={activeCourse.title}
-                        className="rounded-md border border-transparent"
-                        width={32}
-                        height={32}
-                    />
-                </Button>
-            </Link>
-            <Button variant="ghost" className="text-[#ff9d00] font-extrabold cursor-pointer">
-                <Image src="/streak.svg" alt="Points" height={28} width={28} className="mr-2"/>
-                    3
-            </Button>
-            <Link href="/profile">
-                <Button variant="ghost" className="text-[#ffcc00] font-extrabold cursor-pointer">
-                    <Image src="/points.svg" alt="Points" height={28} width={28} className="mr-2"/>
-                    {progress?.points}
-                </Button>
-            </Link>
+
+            <UserProgressClient
+                activeCourse={progress?.activeCourse!}
+                points={progress?.points || 0}
+                streak={3}
+            />
         </div>
     );
 };

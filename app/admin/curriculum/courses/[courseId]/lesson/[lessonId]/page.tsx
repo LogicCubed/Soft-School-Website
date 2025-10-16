@@ -1,7 +1,6 @@
 import { CreateQuestionButton } from "@/components/admin-components/admin-create/create-question-button";
 import { DeleteQuestionButton } from "@/components/admin-components/admin-delete/delete-question-button";
 import { EllipsisVertical, GripHorizontal } from "lucide-react";
-import { QuestionTypeWrapper } from "@/components/question-type-wrapper";
 import { getLessonByIdForAdmin } from "@/db/queries";
 import { isAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
@@ -13,6 +12,7 @@ import { EditingProvider } from "@/components/admin-components/admin-context/edi
 import { AudioTypeQuestion } from "@/components/admin-components/question-types/audio-type-question";
 import { VideoTypeQuestion } from "@/components/admin-components/question-types/video-type-question";
 import { TrueFalseTypeQuestion } from "@/components/admin-components/question-types/true-false-type-question";
+import { QuestionTypeWrapper } from "@/components/admin-components/question-type-wrapper";
 
 interface EditLessonPageProps {
   params: Promise<{ lessonId: string }>;
