@@ -3,13 +3,6 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ClerkLoading,
-  ClerkLoaded,
-  UserButton,
-} from "@clerk/nextjs";
-
-import { Loader } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
@@ -18,8 +11,6 @@ type Props = {
 };
 
 export const Sidebar = ({ className }: Props) => {
-  const { isAdmin, isLoaded } = useIsAdmin();
-
   return (
     <div className={cn(
       "flex h-full lg:w-[256px] lg:fixed left-0 top-0 px-4 border-r-2 border-slate-500 flex-col",
@@ -39,12 +30,6 @@ export const Sidebar = ({ className }: Props) => {
         <SidebarItem label="Puzzles" href="/puzzles" iconSrc="/puzzle.svg" />
         <SidebarItem label="Games" href="/games" iconSrc="/games.svg" />
         <SidebarItem label="Shop" href="/shop" iconSrc="/shop.svg" />
-
-        {/* ONLY APPEARS IF THE USER IS AN ADMIN */}
-        {isLoaded && isAdmin && (
-          <SidebarItem label="Admin" href="/admin/dashboard" iconSrc="/admin.svg" />
-        )}
-
         <SidebarItem label="Profile" href="/profile" iconSrc="/profile.svg" />
       </div>
       <div className="flex flex-col mb-4">

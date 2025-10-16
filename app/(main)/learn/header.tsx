@@ -16,7 +16,7 @@ export const Header = ({ title }: Props) => {
                 </Button>
             </Link>
 
-            <h1 className="font-bold text-lg text-center">
+            <h1 className="text-3xl font-extrabold text-sky-400 text-center">
                 {title}
             </h1>
         </div>

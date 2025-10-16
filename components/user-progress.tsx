@@ -36,12 +36,10 @@ export const UserProgress = async ({
                     />
                 </Button>
             </Link>
-            <Link href="/shop">
-                <Button variant="ghost" className="text-[#ff9d00] font-extrabold cursor-pointer">
-                    <Image src="/streak.svg" alt="Points" height={28} width={28} className="mr-2"/>
+            <Button variant="ghost" className="text-[#ff9d00] font-extrabold cursor-pointer">
+                <Image src="/streak.svg" alt="Points" height={28} width={28} className="mr-2"/>
                     3
-                </Button>
-            </Link>
+            </Button>
             <Link href="/profile">
                 <Button variant="ghost" className="text-[#ffcc00] font-extrabold cursor-pointer">
                     <Image src="/points.svg" alt="Points" height={28} width={28} className="mr-2"/>
