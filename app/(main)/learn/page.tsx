@@ -8,12 +8,12 @@ import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } fro
 import { Header } from "./header";
 import { Unit } from "./unit";
 import { lessons, units as unitsSchema } from "@/db/schema";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Computer } from "lucide-react";
 import { BackToTop } from "@/components/ui/back-to-top";
 import Leaderboard from "@/components/leaderboard";
 import Friends from "@/components/friends";
+import { UnitVisual } from "./unit-visual";
+import AIHelper from "@/components/ai-helper";
 
 const LearnPage = async () => {
     const userProgressData = getUserProgress();
@@ -48,26 +48,7 @@ const LearnPage = async () => {
                     activeCourse={userProgress.activeCourse}
                     points={userProgress.points}
                 />
-                <div className="mt-1 w-full rounded-xl bg-[#2dd4bf] p-5 text-white flex items-center justify-between border-2 border-b-[6px] border-teal-500">
-                    <div className="space-y-2.5">
-                        <h3 className="text-2xl font-bold">
-                            AI Helper
-                        </h3>
-                        <p className="text-lg font-semibold">
-                            Sharpen your soft skills!
-                        </p>
-                    </div>
-                    <Link href="/ai-helper">
-                            <Button
-                                size="lg"
-                                variant="secondary"
-                                className="hidden xl:flex border-2 border-b-4 active:border-b-2 cursor-pointer"
-                            >
-                                <Computer className="mr-2"/>
-                                START
-                            </Button>
-                    </Link>
-                </div>
+                <AIHelper/>
                 <Friends/>
                 <Leaderboard/>
                 <div className="mt-4 w-full flex justify-center">
@@ -82,7 +63,13 @@ const LearnPage = async () => {
             <FeedWrapper>
                 <Header title={userProgress.activeCourse.title} />
                 {units.map((unit) => (
-                    <div key={unit.id} className="mb-10 mt-20">
+                    <div key={unit.id} className="mb-10">
+                        <div className="absolute left-0 top-[410px]">
+                            <UnitVisual 
+                                imageSrc={`/characters/hux.svg`} 
+                                alt={unit.title} 
+                            />
+                        </div>
                         <Unit
                             id={unit.id}
                             order={unit.order}

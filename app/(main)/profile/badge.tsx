@@ -10,7 +10,7 @@ type Props = {
 
 export const Badge = ({}: Props) => {
     return (
-        <div className="border-2 rounded-xl border-b-6 border-[#298e76] bg-[#3dbd9f] px-6 mb-6 w-full max-w-[600px] flex flex-col sm:flex-row items-center sm:items-center cursor-pointer">
+        <div className="border-2 rounded-xl border-b-6 border-[#298e76] bg-[#3dbd9f] px-6 mb-6 w-full max-w-[600px] flex flex-col sm:flex-row items-center sm:items-center">
             <div className="flex-shrink-0 flex items-center">
                 <Image
                     src="/softy-assets/softyhappy.svg"

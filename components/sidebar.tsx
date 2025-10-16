@@ -47,14 +47,8 @@ export const Sidebar = ({ className }: Props) => {
 
         <SidebarItem label="Profile" href="/profile" iconSrc="/profile.svg" />
       </div>
-
-      <div className="p-4">
-        <ClerkLoading>
-          <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
-        </ClerkLoading>
-        <ClerkLoaded>
-          <UserButton />
-        </ClerkLoaded>
+      <div className="flex flex-col mb-4">
+        <SidebarItem label="Settings" href="/settings" iconSrc="/settings.svg" />
       </div>
     </div>
   );
