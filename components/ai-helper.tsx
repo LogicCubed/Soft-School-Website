@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const AIHelper = async () => {
   return (
-    <div className="mt-1 w-full rounded-xl bg-[#2dd4bf] p-5 text-white flex items-center justify-between border-2 border-b-[6px] border-teal-500">
+    <div className="mt-1 w-full rounded-xl bg-[#2dd4bf] border-teal-600 p-5 text-white flex items-center justify-between border-2 border-b-[6px]">
         <div className="space-y-2.5">
             <h3 className="text-2xl font-bold">
                 AI Helper

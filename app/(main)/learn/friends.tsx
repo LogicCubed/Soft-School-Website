@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 
 const Friends = async () => {
   return (
-    <div className="mt-1 w-full rounded-xl bg-green-400 p-5 text-white flex flex-col border-2 border-b-[6px] border-green-500">
+    <div className="mt-1 w-full rounded-xl bg-green-400 border-green-600 p-5 text-white flex flex-col border-2 border-b-[6px]">
       <div className="space-y-2.5">
         <h3 className="text-2xl font-bold">Friends</h3>
         <p className="text-lg font-semibold">Make learning a team effort!</p>
@@ -17,7 +17,7 @@ const Friends = async () => {
             />
             <p className="font-semibold ml-2">Find Friends</p>
           </div>
-          <ChevronRight className="w-6 h-6" strokeWidth={3} />
+          <ChevronRight className="w-6 h-6" strokeWidth={4} />
         </div>
       </div>
     </div>

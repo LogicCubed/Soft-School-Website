@@ -27,7 +27,11 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
-    domains: ['piorsprnhakffirwcjxy.supabase.co'],
+    domains: [
+      'piorsprnhakffirwcjxy.supabase.co',
+      'developer.apple.com',
+      'play.google.com'
+    ],
   },
 };
 

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type UnitVisualProps = {
     imageSrc: string;
     alt?: string;
@@ -6,10 +8,12 @@ type UnitVisualProps = {
 export const UnitVisual = ({ imageSrc, alt }: UnitVisualProps) => {
     return (
         <div className="mr-6 w-32 flex-shrink-0">
-            <img
+            <Image
                 src={imageSrc}
                 alt={alt || "Unit image"}
-                className="w-full h-auto rounded-lg"
+                className="rounded-lg"
+                width={128}
+                height={128}
             />
         </div>
     );

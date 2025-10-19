@@ -13,7 +13,7 @@ export const UnitBanner = ({
 }: Props) => {
   return (
     <div
-      className="w-full rounded-xl bg-sky-400 p-5 text-white flex items-center justify-between border-2 border-b-[6px] border-sky-500"
+      className="w-full rounded-xl bg-sky-400 border-sky-600 p-5 text-white flex items-center justify-between border-2 border-b-[6px]"
     >
       <div className="space-y-2.5">
         <h3 className="text-2xl font-bold">{title}</h3>

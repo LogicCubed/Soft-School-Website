@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FooterColumns } from "./footercolumns";
 
 export const Footer = () => {
@@ -39,7 +40,7 @@ export const Footer = () => {
   return (
     <footer className="relative bg-sky-400">
       <div className="absolute top-0 left-0 w-full -translate-y-2/3 -z-10">
-        <img src="/wave.svg" alt="Wave" className="w-full h-auto" />
+        <Image src="/wave.svg" alt="Wave" className="w-full h-auto" width={1920} height={300} />
       </div>
 
       <FooterColumns columns={footerData} />

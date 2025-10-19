@@ -57,7 +57,8 @@ const LearnPage = async () => {
                 <Header title={userProgress.activeCourse.title} />
                 {units.map((unit) => (
                     <div key={unit.id} className="mb-10">
-                        <div className="absolute left-10 top-[410px]">
+                        {/*TODO: Make UnitVisual customizable & responsive*/}
+                        <div className="absolute left-10 hidden sm:block top-[410px]">
                             <UnitVisual 
                                 imageSrc={`/hux_podium.svg`} 
                                 alt={unit.title} 
