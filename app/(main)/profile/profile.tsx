@@ -1,16 +1,14 @@
 "use client";
 
 import { FeedWrapper } from '@/components/feed-wrapper';
-import { Separator } from '@/app/(main)/profile/separator';
+import { Separator } from '@/components/ui/separator';
 import { useUser } from '@clerk/clerk-react';
-import { Button } from '@/components/ui/button';
 import { Statistic } from './statistic';
-import { useDeleteProgressModal } from '@/store/use-delete-progress-modal';
 import { InferModel } from "drizzle-orm";
 import { userProgress } from "@/db/schema";
 import { Copy } from 'lucide-react';
 import { useState } from 'react';
-import { Badge } from './badge';
+import { Badges } from './badges';
 
 type Props = {
   stats: InferModel<typeof userProgress> | null;
@@ -18,7 +16,6 @@ type Props = {
 
 const Profile = ({ stats }: Props) => {
   const { user } = useUser();
-  const { openDeleteProgressModal } = useDeleteProgressModal();
 
   const [copied, setCopied] = useState(false);
 
@@ -88,25 +85,8 @@ const Profile = ({ stats }: Props) => {
 
           <Separator className="mb-2 h-0.5 rounded-full b-slate-500" />
 
-          <h1 className="text-center sm:text-left font-bold text-white text-2xl my-6">
-            Badges
-          </h1>
-          <div className="flex flex-wrap gap-3 justify-center sm:justify-start">
-            <Badge name="Test" icon="/characters/hux.svg" />
-          </div>
+          <Badges/>
 
-          <Separator className="mb-4 h-0.5 rounded-full b-slate-500" />
-
-          <h1 className="font-bold text-rose-500 text-2xl my-6 text-center sm:text-left">
-            DANGER ZONE
-          </h1>
-          <Button
-            variant="danger"
-            className="cursor-pointer mb-10 sm:mb-5 self-center sm:self-start ml-4"
-            onClick={openDeleteProgressModal}
-          >
-            RESET PROGRESS
-          </Button>
         </div>
       </FeedWrapper>
     </div>

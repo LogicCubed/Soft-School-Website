@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import { useLoading } from "@/store/loadingStore";
 import Image from "next/image";
+import LessonTooltip from "./lesson-tooltip";
 
 type Props = {
   id: number;
@@ -84,6 +85,9 @@ if (current) {
 }
 
   return (
+    <LessonTooltip
+      locked={locked}
+    >
     <Button
       variant={locked ? "locked" : "secondary"}
       className={cn(
@@ -104,5 +108,6 @@ if (current) {
         />
       )}
     </Button>
+</LessonTooltip>
   );
 };

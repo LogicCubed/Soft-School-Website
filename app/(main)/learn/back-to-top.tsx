@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "../../../components/ui/button";
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);

@@ -8,12 +8,12 @@ import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } fro
 import { Header } from "./header";
 import { Unit } from "./unit";
 import { lessons, units as unitsSchema } from "@/db/schema";
-import Link from "next/link";
-import { BackToTop } from "@/components/ui/back-to-top";
+import { BackToTop } from "@/app/(main)/learn/back-to-top";
 import Leaderboard from "@/app/(main)/learn/leaderboard";
 import Friends from "@/app/(main)/learn/friends";
 import { UnitVisual } from "./unit-visual";
 import AIHelper from "@/components/ai-helper";
+import { StickyFooter } from "@/components/sticky-footer";
 
 const LearnPage = async () => {
     const userProgressData = getUserProgress();
@@ -51,25 +51,15 @@ const LearnPage = async () => {
                 <AIHelper/>
                 <Friends/>
                 <Leaderboard/>
-                <div className="mt-4 w-full flex flex-col items-center">
-                    <div className="flex flex-wrap gap-x-6 text-sm font-bold text-neutral-300">
-                        <Link href="/about-us" className="hover:text-sky-400 transition-colors">About Us</Link>
-                        <Link href="/course-catalogue" className="hover:text-sky-400 transition-colors">Courses</Link>
-                        <Link href="/terms" className="hover:text-sky-400 transition-colors">Terms</Link>
-                        <Link href="/privacy" className="hover:text-sky-400 transition-colors">Privacy</Link>
-                    </div>
-                    <p className="text-xs font-bold text-neutral-400 mt-4 text-center">
-                        © {new Date().getFullYear()} Soft School. All rights reserved.
-                    </p>
-                </div>
+                <StickyFooter/>
             </StickyWrapper>
             <FeedWrapper>
                 <Header title={userProgress.activeCourse.title} />
                 {units.map((unit) => (
                     <div key={unit.id} className="mb-10">
-                        <div className="absolute left-8 top-[410px]">
+                        <div className="absolute left-10 top-[410px]">
                             <UnitVisual 
-                                imageSrc={`/characters/hux.svg`} 
+                                imageSrc={`/hux_podium.svg`} 
                                 alt={unit.title} 
                             />
                         </div>

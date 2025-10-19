@@ -22,7 +22,7 @@ const ShopPage = async () => {
     return (
         <div className="flex flex-row-reverse gap-[48px] px-6">
             <FeedWrapper>
-                <div className="w-full flex flex-col items-center">
+                <div className="w-full flex flex-col items-center mb-10">
                     <Image
                         src="/shop.svg"
                         alt="Shop"

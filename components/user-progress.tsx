@@ -4,7 +4,6 @@ import Image from "next/image";
 import { courses } from "@/db/schema";
 import { getUserProgress } from "@/db/queries";
 import { isAdmin } from "@/lib/admin";
-import { useState } from "react";
 import { UserProgressClient } from "./user-progress-client";
 
 type Props = {
@@ -12,9 +11,7 @@ type Props = {
     points: number;
 }
 
-export const UserProgress = async ({
-    activeCourse,
-}: Props) => {
+export const UserProgress = async ({}: Props) => {
     const progress = await getUserProgress();
     const admin = await isAdmin();
 
@@ -28,11 +25,13 @@ export const UserProgress = async ({
                 </Link>
             )}
 
-            <UserProgressClient
-                activeCourse={progress?.activeCourse!}
-                points={progress?.points || 0}
-                streak={3}
-            />
+            {progress?.activeCourse && (
+                <UserProgressClient
+                    activeCourse={progress.activeCourse}
+                    points={progress.points ?? 0}
+                    streak={3}
+                />
+            )}
         </div>
     );
 };

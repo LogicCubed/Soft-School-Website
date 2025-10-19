@@ -5,6 +5,7 @@ import GameStats from "./gamestats";
 import { UserProgress } from "@/components/user-progress";
 import { getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
+import { StickyFooter } from "@/components/sticky-footer";
 
 export default async function GamesPage() {
   const userProgress = await getUserProgress();
@@ -30,6 +31,7 @@ export default async function GamesPage() {
           points={userProgress.points}
         />
         <GameStats/>
+        <StickyFooter/>
       </StickyWrapper>
       <FeedWrapper>
         <h1 className="mb-6 text-3xl sm:text-4xl font-extrabold text-sky-400 text-center">
