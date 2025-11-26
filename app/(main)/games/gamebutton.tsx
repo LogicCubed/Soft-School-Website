@@ -1,22 +1,35 @@
-"use client";
+'use client'
 
 import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Lock } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   imageSrc: string;
   label?: string;
-  onClick?: () => void;
   locked?: boolean;
+  gameId?: string;
+  onClick?: () => void;
 };
 
-export const GameButton = ({ imageSrc, label, onClick, locked = true }: Props) => {
+export const GameButton = ({ imageSrc, label, locked = true, gameId, onClick }: Props) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (locked) return;
+    if (onClick) {
+      onClick();
+    } else if (gameId) {
+      router.push(`/games/${gameId}`);
+    }
+  };
+
   return (
     <button
-      onClick={locked ? undefined : onClick}
-      disabled={locked}
+      onClick={handleClick}
+      disabled={locked && !onClick}
       className={cn(
         "relative rounded-2xl overflow-hidden border-4 border-sky-400 w-[320px] h-[180px] transition-transform duration-200",
         locked

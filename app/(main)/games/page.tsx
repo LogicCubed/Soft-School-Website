@@ -1,11 +1,11 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
-import { GameButton } from "@/components/games/game-button";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import GameStats from "./gamestats";
 import { UserProgress } from "@/components/user-progress";
 import { getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
 import { StickyFooter } from "@/components/sticky-footer";
+import { GameButton } from "./gamebutton";
 
 export default async function GamesPage() {
   const userProgress = await getUserProgress();
@@ -38,11 +38,18 @@ export default async function GamesPage() {
           {userProgress.activeCourse.title} Games
         </h1>
         <div className="w-full border-b-2 border-slate-500 mb-6" />
-        <div className="flex justify-center w-full">
+        <div className="flex justify-center w-full gap-4">
+          {/*TODO: Link game locked status to user progress*/}
           <GameButton
             imageSrc={game.imageSrc}
             label={game.label}
             locked={game.locked}
+          />
+          <GameButton
+            imageSrc="/games/game.png"
+            label="PLAY"
+            locked={false}
+            gameId="gameA"
           />
         </div>
       </FeedWrapper>
