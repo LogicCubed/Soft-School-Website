@@ -1,4 +1,4 @@
 Welcome to Soft School!
 
-Documentation may be found here:
-https://docs.google.com/document/d/17xZ3BbhDv-xjp0NaOEeaJ7zIW1vtpMnNYPecTrVgJrY/edit?tab=t.0
+Soft School is a platform dedicated towards the teaching of social skills (formally recognized as "Soft Skills") to the youth, in an effort to take back deficits caused by screens world-wide.
+Through interactive lessons, gamified features, and AI-powered simulations, we plan to successfully teach future generations better skills such as Conflict Resolution, Teamwork, and Problem Solving.
