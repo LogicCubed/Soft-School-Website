@@ -1,11 +1,15 @@
 import * as Phaser from 'phaser'
 
 export default class UIScene extends Phaser.Scene {
+  clickSound!: Phaser.Sound.BaseSound
+
   constructor() {
-    super({ key: 'ui', active: true })
+    super('ui')
   }
 
   create() {
+    this.clickSound = this.sound.add('click')
+
     const margin = 50
     const radius = 36
 
@@ -24,5 +28,9 @@ export default class UIScene extends Phaser.Scene {
         this.scale.startFullscreen()
       }
     })
+  }
+
+  playClick() {
+      this.clickSound.play({ volume: 0.5 })
   }
 }

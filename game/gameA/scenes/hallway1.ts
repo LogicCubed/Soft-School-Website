@@ -1,4 +1,6 @@
 import * as Phaser from 'phaser'
+import UIScene from './uiscene'
+import { ArrowButton } from '../core/utils'
 
 export default class Hallway1 extends Phaser.Scene {
   constructor() {
@@ -11,18 +13,17 @@ export default class Hallway1 extends Phaser.Scene {
 
   create() {
     const bg = this.add.image(this.scale.width/2, this.scale.height/2, 'hallway1')
-    bg.setDisplaySize(this.scale.width, this.scale.height)
+      bg.setDisplaySize(this.scale.width, this.scale.height)
 
-    const backToOutside = this.add.circle(960, 1008, 54, 0xffffff)
-    backToOutside.setInteractive({ useHandCursor: true })
-    backToOutside.on('pointerdown', () => {
-      this.scene.start('school-front')
-    })
+    const uiScene = this.scene.get('ui') as UIScene
 
-    const toClassroom1 = this.add.circle(1480, 450, 54, 0xffffff)
-    toClassroom1.setInteractive({ useHandCursor: true })
-    toClassroom1.on('pointerdown', () => {
-      this.scene.start('classroom1')
-    })
+    ArrowButton(this, 960, 1008, 90, uiScene, 'school-front')
+
+    ArrowButton(this, 960, 450, -90, uiScene, 'playground')
+
+    ArrowButton(this, 1480, 450, 0, uiScene, 'classroom1')
+
+    ArrowButton(this, 440, 450, 180, uiScene, 'classroom2')
+
   }
 }

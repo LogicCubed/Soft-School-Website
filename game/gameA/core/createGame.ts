@@ -1,8 +1,11 @@
-import Phaser from 'phaser'
+import * as Phaser from 'phaser'
 import OutsideSchool from '../scenes/outsideschool'
 import Hallway1 from '../scenes/hallway1'
 import Classroom1 from '../scenes/classroom1'
 import UIScene from '../scenes/uiscene'
+import BootScene from '../scenes/bootscene'
+import Classroom2 from '../scenes/classroom2'
+import Playground from '../scenes/playground'
 
 export function createGame(parent: string) {
   return new Phaser.Game({
@@ -19,6 +22,6 @@ export function createGame(parent: string) {
       height: 1080
     },
 
-    scene: [OutsideSchool, Hallway1, Classroom1, UIScene],
+    scene: [BootScene, UIScene, OutsideSchool, Hallway1, Classroom1, Classroom2, Playground],
   })
 }

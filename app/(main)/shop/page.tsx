@@ -2,9 +2,9 @@ import { FeedWrapper } from "@/components/feed-wrapper";
 import { getUserProgress } from "@/db/queries";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { Items } from "./items";
 import { UserPoints } from "@/app/(main)/shop/user-points";
 import { Category } from "./category";
+import { Item } from "./items";
 
 const ShopPage = async () => {
     const userProgressData = getUserProgress();
@@ -41,20 +41,68 @@ const ShopPage = async () => {
                         />
                     </div>
                     <Category title="Power-Ups">
-                        <Items points={userProgress.points} />
-                        <Items points={userProgress.points} />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
                     </Category>
                     <Category title="Cosmetics">
-                        <Items points={userProgress.points} />
-                        <Items points={userProgress.points} />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
                     </Category>
                     <Category title="Pets">
-                        <Items points={userProgress.points} />
-                        <Items points={userProgress.points} />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
                     </Category>
                     <Category title="Themes">
-                        <Items points={userProgress.points} />
-                        <Items points={userProgress.points} />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
+                        <Item
+                            points={100}
+                            name="Test Item"
+                            cost={20}
+                            imageSrc="/softy-assets/softyhappy.svg"
+                            description="Temporary Description"
+                        />
                     </Category>
                 </div>
             </FeedWrapper>
