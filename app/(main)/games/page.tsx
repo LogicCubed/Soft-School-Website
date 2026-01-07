@@ -41,15 +41,15 @@ export default async function GamesPage() {
         <div className="flex justify-center w-full gap-4">
           {/*TODO: Link game locked status to user progress*/}
           <GameButton
-            imageSrc={game.imageSrc}
-            label={game.label}
-            locked={game.locked}
-          />
-          <GameButton
             imageSrc="/games/game.png"
             label="PLAY"
             locked={false}
             gameId="gameA"
+          />
+          <GameButton
+            imageSrc={game.imageSrc}
+            label={game.label}
+            locked={game.locked}
           />
         </div>
       </FeedWrapper>

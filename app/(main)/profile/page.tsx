@@ -2,6 +2,9 @@ import { FeedWrapper } from "@/components/feed-wrapper";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Profile from "./profile";
 import { getUserProgress } from "@/db/queries";
+import { StickyWrapper } from "@/components/sticky-wrapper";
+import { StickyFooter } from "@/components/sticky-footer";
+import Customization from "./customization";
 
 const UserProfilePage = async () => {
   const userProgressData = (await getUserProgress()) ?? null;
@@ -9,6 +12,10 @@ const UserProfilePage = async () => {
 
   return (
     <div className="flex flex-col lg:flex-row-reverse lg:gap-[48px] px-4 sm:px-6 lg:px-6">
+      <StickyWrapper>
+        <Customization/>
+        <StickyFooter/>
+      </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center text-center">
           <Avatar className="w-24 h-24 mb-2">

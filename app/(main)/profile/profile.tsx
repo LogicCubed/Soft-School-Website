@@ -70,7 +70,7 @@ const Profile = ({ stats }: Props) => {
             Statistics
           </h1>
 
-          <div className="flex flex-col sm:flex-row sm:flex-wrap w-full gap-4 sm:gap-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             <Statistic
               icon="/points.svg"
               stat={stats ? stats.points.toString() : "-"}

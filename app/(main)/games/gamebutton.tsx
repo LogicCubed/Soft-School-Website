@@ -43,9 +43,22 @@ export const GameButton = ({ imageSrc, label, locked = true, gameId, onClick }: 
         fill
         className="object-cover"
       />
+
       {locked && (
-        <div className="absolute top-2 right-2 bg-black bg-opacity-70 rounded-full p-1 z-20">
-          <Lock className="w-6 h-6 text-white" />
+      <div className="absolute group top-2 right-2 z-30">
+        <Image
+          src="/icons/info.png"
+          alt="info"
+          height={24}
+          width={24}
+          className="cursor-pointer"
+        />
+      </div>
+      )}
+
+      {locked && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 z-20">
+          <Lock className="w-16 h-16 text-white" strokeWidth={3} />
         </div>
       )}
       {label && (

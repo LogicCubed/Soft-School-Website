@@ -17,7 +17,7 @@ export const Badges = () => {
       </div>
 
       <div className="flex flex-wrap gap-3 justify-center sm:justify-start mt-6">
-        <div className="w-1/2">
+        <div className="w-full">
             <Badge name="Test" icon="/characters/hux.svg" />
         </div>
       </div>
