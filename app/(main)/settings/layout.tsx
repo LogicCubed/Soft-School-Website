@@ -1,8 +1,8 @@
-// app/settings/layout.tsx
 import { ReactNode } from "react";
 import { StickyWrapper } from "@/components/sticky-wrapper";
-import Account from "./account";
-import Support from "./support";
+import Account from "../../../components/settings/account";
+import Support from "../../../components/settings/support";
+import LogoutButton from "../../../components/settings/logout-button";
 
 type Props = {
   children: ReactNode;
@@ -15,6 +15,7 @@ export default function SettingsLayout({ children }: Props) {
         <StickyWrapper>
             <Account />
             <Support />
+            <LogoutButton />
         </StickyWrapper>
       </div>
       <main className="flex-1">{children}</main>
