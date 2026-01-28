@@ -1,5 +1,5 @@
 
-import { Challenge } from "@/app/lesson/challenge";
+import { Challenge } from "@/components/lesson-components/challenge";
 import { challenges } from "@/db/schema";
 
 type Option = {

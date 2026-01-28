@@ -5,14 +5,14 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import { UserProgress } from "@/components/user-progress";
 import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } from "@/db/queries";
 
-import { Header } from "./header";
-import { Unit } from "./unit";
+import { Header } from "../../../components/learn-components/header";
+import { Unit } from "../../../components/learn-components/unit";
 import { lessons, units as unitsSchema } from "@/db/schema";
-import { BackToTop } from "@/app/(main)/learn/back-to-top";
-import Leaderboard from "@/app/(main)/learn/leaderboard";
-import Friends from "@/app/(main)/learn/friends";
-import { UnitVisual } from "./unit-visual";
-import AIHelper from "@/components/ai-helper";
+import { BackToTop } from "@/components/learn-components/back-to-top";
+import Leaderboard from "@/components/learn-components/leaderboard";
+import Friends from "@/components/learn-components/friends";
+import { UnitVisual } from "../../../components/learn-components/unit-visual";
+import AIHelper from "@/components/widgets/ai-helper";
 import { StickyFooter } from "@/components/sticky-footer";
 
 const LearnPage = async () => {

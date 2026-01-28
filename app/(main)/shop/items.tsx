@@ -42,8 +42,11 @@ export const Item = ({ points, name, cost, imageSrc, description }: ItemProps) =
                             width={24}
                             className="cursor-pointer"
                         />
-                        <div className="absolute top-1/2 left-full ml-4 transform -translate-y-1/2 bg-slate-700 text-white text-left px-4 py-2 rounded opacity-0 group-hover:opacity-100 transition-opacity min-w-[160px] max-w-[300px] break-words">
-                            <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-12 border-b-12 border-r-12 border-t-transparent border-b-transparent border-r-slate-700" />
+                        <div className="absolute top-1/2 left-full ml-4 transform -translate-y-1/2
+                                        border-4 bg-slate-700 border-slate-500 text-white text-left font-semibold
+                                        px-4 py-2 z-50 rounded opacity-0 group-hover:opacity-100 transition-opacity
+                                        min-w-[160px] max-w-[300px] break-words">
+                            <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 w-0 h-0 z-0 border-t-12 border-b-12 border-r-12 border-t-transparent border-b-transparent border-r-slate-500" />
                             {description}
                         </div>
                     </div>
@@ -53,7 +56,7 @@ export const Item = ({ points, name, cost, imageSrc, description }: ItemProps) =
                     disabled={
                         pending
                         || points < cost}
-                    className="cursor-pointer"
+                    className="cursor-pointer text-white text-xl bg-green-500 border-green-800 hover:bg-green-400"
                 >
                     <div className="flex items-center">
                         <Image
@@ -63,7 +66,7 @@ export const Item = ({ points, name, cost, imageSrc, description }: ItemProps) =
                             width={20}
                         />
                         <p className="ml-2">
-                            {cost}
+                            {cost} BUY
                         </p>
                     </div>
                 </Button>

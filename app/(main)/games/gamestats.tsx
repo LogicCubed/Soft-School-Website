@@ -8,11 +8,6 @@ const GameStats = async () => {
           <span className="text-lg font-bold text-neutral-200">Games Completed:</span>
           <span className="text-lg font-bold text-white">0</span>
         </div>
-
-        <div className="flex justify-between">
-          <span className="text-lg font-bold text-neutral-200">Current Streak:</span>
-          <span className="text-lg font-bold text-white">0</span>
-        </div>
       </div>
     </div>
   );

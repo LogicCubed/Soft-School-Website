@@ -8,9 +8,9 @@ type Props = {
   id: number;
   text: string;
   shortcut: string;
-  selected?: boolean;          // for single select
-  selectedIds?: number[];      // for multi-select
-  correctIds?: number[];       // for multi-select
+  selected?: boolean; // for single select
+  selectedIds?: number[]; // for multi-select
+  correctIds?: number[]; // for multi-select
   onClick: () => void;
   disabled?: boolean;
   status?: "correct" | "wrong" | "none";

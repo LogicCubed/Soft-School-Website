@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Challenge } from "../../app/lesson/challenge";
+import { Challenge } from "../lesson-components/challenge";
 
 type Props = {
   videoUrl?: string;

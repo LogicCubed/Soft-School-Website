@@ -43,14 +43,14 @@ const ShopPage = async () => {
                     <Category title="Power-Ups">
                         <Item
                             points={100}
-                            name="Test Item"
+                            name="Streak Freeze"
                             cost={20}
-                            imageSrc="/softy-assets/softyhappy.svg"
-                            description="Temporary Description"
+                            imageSrc="/shop/streak_freeze.png"
+                            description="Freezes your precious streak for 24 hours!"
                         />
                         <Item
                             points={100}
-                            name="Test Item"
+                            name="XP Boost"
                             cost={20}
                             imageSrc="/softy-assets/softyhappy.svg"
                             description="Temporary Description"

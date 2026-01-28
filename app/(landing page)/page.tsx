@@ -62,6 +62,8 @@ export default function Home() {
           imageSrc="/softy-assets/softygaming.svg"
           reverse
         />
+        {/* TODO: Would be really great if we could officially showcase this, wouldn't it? */}
+        {/*
         <div className="mt-20 gap-5 flex items-center justify-center">
             <Image
               src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
@@ -76,6 +78,7 @@ export default function Home() {
               height={80}
             />
         </div>
+        */}
       </div>
     </div>
   );

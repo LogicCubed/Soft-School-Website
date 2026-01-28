@@ -1,6 +1,6 @@
 import { getLesson, getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
-import { Quiz } from "./quiz";
+import { Quiz } from "../../components/lesson-components/quiz";
 
 type ChallengeType = Omit<
   typeof import("@/db/schema").challenges.$inferSelect,

@@ -1,6 +1,6 @@
 import { getLesson, getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
-import { Quiz } from "../quiz";
+import { Quiz } from "../../../components/lesson-components/quiz";
 import { challengeOptions, challenges } from "@/db/schema";
 
 type Props = {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import StreakCalendar from "./streak-calendar";
+import StreakCalendar from "./widgets/streak-calendar";
 
 type Props = {
   activeCourse: {

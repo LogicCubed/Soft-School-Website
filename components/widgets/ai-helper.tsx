@@ -1,5 +1,5 @@
 import { Computer } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import Link from "next/link";
 
 const AIHelper = async () => {

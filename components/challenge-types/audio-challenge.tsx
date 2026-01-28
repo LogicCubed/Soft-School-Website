@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Challenge } from "../../app/lesson/challenge";
+import { Challenge } from "../lesson-components/challenge";
 import { Button } from "@/components/ui/button";
 import { Volume2Icon } from "lucide-react";
 

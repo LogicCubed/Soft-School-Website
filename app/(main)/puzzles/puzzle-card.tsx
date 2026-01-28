@@ -21,7 +21,7 @@ export function PuzzleCard({ title, description, href }: PuzzleCardProps) {
           variant="secondary"
           className="border-2 border-b-4 active:border-b-2 cursor-pointer w-full sm:w-auto"
         >
-          <Gamepad2 className="mr-2" />
+          <Gamepad2 />
           PLAY
         </Button>
       </Link>

@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
 import { useLoading } from "@/store/loadingStore";
 import { Explanation } from "./explanation";
-import { VideoChallenge } from "../../components/challenge-types/video-challenge";
+import { VideoChallenge } from "../challenge-types/video-challenge";
 import { AudioChallenge } from "@/components/challenge-types/audio-challenge";
 import { MultiSelectChallenge } from "@/components/challenge-types/multi-select-challenge";
 import { SelectChallenge } from "@/components/challenge-types/select-challenge";
