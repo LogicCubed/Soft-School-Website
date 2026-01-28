@@ -1,4 +1,4 @@
-import Section from "@/app/(marketing)/section";
+import Section from "@/app/(landing page)/section";
 import { Button } from "@/components/ui/button";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Loader } from "lucide-react";
