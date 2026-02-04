@@ -56,7 +56,7 @@ export const Item = ({ points, name, cost, imageSrc, description }: ItemProps) =
                     disabled={
                         pending
                         || points < cost}
-                    className="cursor-pointer text-white text-xl bg-green-500 border-green-800 hover:bg-green-400"
+                    className="cursor-pointer text-white text-xl bg-green-400 border-green-700 hover:bg-[#52ea89]"
                 >
                     <div className="flex items-center">
                         <Image
