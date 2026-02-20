@@ -6,9 +6,9 @@ import { eq } from "drizzle-orm";
 
 export async function GET(
   _req: Request,
-  context: { params: Promise<{ courseId: string }> }
+  { params }: { params: { courseId: string } }
 ) {
-  const { courseId } = await context.params;
+  const { courseId } = params;
 
   if (!isAdmin()) {
     return new NextResponse("Unauthorized", { status: 403 });
@@ -28,9 +28,9 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  context: { params: Promise<{ courseId: string }> }
+  { params }: { params: { courseId: string } }
 ) {
-  const { courseId } = await context.params;
+  const { courseId } = params;
 
   if (!isAdmin()) {
     return new NextResponse("Unauthorized", { status: 403 });
@@ -54,9 +54,9 @@ export async function PUT(
 
 export async function DELETE(
   _req: Request,
-  context: { params: Promise<{ courseId: string }> }
+  { params }: { params: { courseId: string } }
 ) {
-  const { courseId } = await context.params;
+  const { courseId } = params;
 
   if (!isAdmin()) {
     return new NextResponse("Unauthorized", { status: 403 });
