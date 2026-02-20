@@ -7,19 +7,19 @@ export const MobileFooter = () => {
     <nav className="fixed bottom-0 left-0 right-0 bg-[#231e31] border-t border-slate-500 z-50 lg:hidden">
       <div className="flex items-center h-16 px-2">
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/learn" iconSrc="/learn.svg" label="Learn" />
+          <MobileFooterItem href="/learn" iconSrc="/icons/learn.svg" label="Learn" />
         </div>
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/puzzles" iconSrc="/puzzle.svg" label="Puzzles" />
+          <MobileFooterItem href="/puzzles" iconSrc="/icons/puzzle.svg" label="Puzzles" />
         </div>
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/games" iconSrc="/games.svg" label="Games" />
+          <MobileFooterItem href="/games" iconSrc="/icons/games.svg" label="Games" />
         </div>
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/shop" iconSrc="/shop.svg" label="Shop" />
+          <MobileFooterItem href="/shop" iconSrc="/icons/shop.svg" label="Shop" />
         </div>
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/profile" iconSrc="/profile.svg" label="Profile" />
+          <MobileFooterItem href="/profile" iconSrc="/icons/profile.svg" label="Profile" />
         </div>
       </div>
     </nav>

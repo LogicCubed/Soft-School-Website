@@ -19,10 +19,10 @@ const main = async () => {
     await db.delete(schema.challengeProgress);
 
     await db.insert(schema.courses).values([
-      { id: 1, title: "Conflict Resolution", imageSrc: "/conflictresolution.svg" },
-      { id: 2, title: "Problem Solving", imageSrc: "/problemsolving.svg" },
-      { id: 3, title: "Teamwork", imageSrc: "/teamwork.svg" },
-      { id: 4, title: "Speaking", imageSrc: "/speaking.svg" },
+      { id: 1, title: "Conflict Resolution", imageSrc: "/courses/conflictresolution.svg" },
+      { id: 2, title: "Problem Solving", imageSrc: "/courses/problemsolving.svg" },
+      { id: 3, title: "Teamwork", imageSrc: "/courses/teamwork.svg" },
+      { id: 4, title: "Speaking", imageSrc: "/courses/speaking.svg" },
     ]);
 
     await db.insert(schema.units).values([

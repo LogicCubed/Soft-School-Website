@@ -22,7 +22,7 @@ export const ResultCard = ({ value, accuracy, time }: Props) => {
         >
           <Image
             alt="Icon"
-            src="/points.svg"
+            src="/icons/points.svg"
             height={20}
             width={20}
             className="mr-1.5 sm:h-[24px] sm:w-[24px] md:h-[30px] md:w-[30px]"
@@ -43,7 +43,7 @@ export const ResultCard = ({ value, accuracy, time }: Props) => {
         >
           <Image
             alt="Icon"
-            src="/accuracy.svg"
+            src="/icons/accuracy.svg"
             height={20}
             width={20}
             className="mr-1.5 sm:h-[24px] sm:w-[24px] md:h-[30px] md:w-[30px]"

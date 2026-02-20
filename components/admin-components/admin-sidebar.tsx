@@ -32,7 +32,7 @@ export const AdminSidebar = ({ className }: Props ) => {
                     <SidebarItem
                         label="DASHBOARD"
                         href="/admin/dashboard"
-                        iconSrc="/admin.svg"
+                        iconSrc="/icons/admin.svg"
                     />
                     <SidebarItem
                         label="CURRICULUM"
@@ -42,7 +42,7 @@ export const AdminSidebar = ({ className }: Props ) => {
                     <SidebarItem
                         label="SOFT SCHOOL"
                         href="/learn"
-                        iconSrc="/learn.svg"
+                        iconSrc="/icons/learn.svg"
                     />
                 </div>
                 <div className="p-4">

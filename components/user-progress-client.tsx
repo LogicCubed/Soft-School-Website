@@ -45,7 +45,7 @@ export const UserProgressClient = ({ activeCourse, points, streak }: Props) => {
                     className="text-[#ff9d00] font-extrabold text-lg cursor-pointer relative"
                     onClick={() => setShowCalendar(!showCalendar)}
                 >
-                    <Image src="/streak.svg" alt="Points" height={28} width={28} className="mr-2"/>
+                    <Image src="/icons/streak.svg" alt="Points" height={28} width={28} className="mr-2"/>
                     {streak}
                 </Button>
                 <div
@@ -61,7 +61,7 @@ export const UserProgressClient = ({ activeCourse, points, streak }: Props) => {
 
             <Link href="/profile">
                 <Button variant="ghost" className="text-[#ffcc00] font-extrabold text-lg cursor-pointer">
-                    <Image src="/points.svg" alt="Points" height={28} width={28} className="mr-2" />
+                    <Image src="/icons/points.svg" alt="Points" height={28} width={28} className="mr-2" />
                     {points}
                 </Button>
             </Link>

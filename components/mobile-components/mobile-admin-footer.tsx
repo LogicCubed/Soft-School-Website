@@ -16,13 +16,13 @@ export const MobileAdminFooter = () => {
     <nav className="fixed bottom-0 left-0 right-0 bg-[#231e31] border-t border-slate-400 z-50 lg:hidden">
       <div className="flex items-center h-16 px-2">
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/admin/dashboard" iconSrc="/admin.svg" label="Dashboard" />
+          <MobileFooterItem href="/admin/dashboard" iconSrc="/icons/admin.svg" label="Dashboard" />
         </div>
         <div className="flex flex-1 justify-center">
           <MobileFooterItem href="/admin/curriculum" iconSrc="/curriculum.svg" label="Curriculum" />
         </div>
         <div className="flex flex-1 justify-center">
-          <MobileFooterItem href="/learn" iconSrc="/learn.svg" label="Soft School" />
+          <MobileFooterItem href="/learn" iconSrc="/icons/learn.svg" label="Soft School" />
         </div>
 
         <div className="flex flex-1 justify-center">

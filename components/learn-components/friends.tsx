@@ -10,7 +10,7 @@ const Friends = async () => {
         <div className="flex items-center justify-between cursor-pointer mt-2">
           <div className="flex items-center gap-2 font-semibold text-lg">
             <Image
-              src="/magnifyingglass.svg"
+              src="/icons/magnifyingglass.svg"
               alt="Search Icon"
               width={30}
               height={30}

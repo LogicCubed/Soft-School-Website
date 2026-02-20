@@ -45,7 +45,7 @@ export const Item = ({ points, name, cost, imageSrc, description }: ItemProps) =
                         <div className="absolute top-1/2 left-full ml-4 transform -translate-y-1/2
                                         border-4 bg-slate-700 border-slate-500 text-white text-left font-semibold
                                         px-4 py-2 z-50 rounded opacity-0 group-hover:opacity-100 transition-opacity
-                                        min-w-[160px] max-w-[300px] break-words">
+                                        min-w-40 max-w-75 wrap-break-word">
                             <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 w-0 h-0 z-0 border-t-12 border-b-12 border-r-12 border-t-transparent border-b-transparent border-r-slate-500" />
                             {description}
                         </div>
@@ -60,7 +60,7 @@ export const Item = ({ points, name, cost, imageSrc, description }: ItemProps) =
                 >
                     <div className="flex items-center">
                         <Image
-                            src="/points.svg"
+                            src="/icons/points.svg"
                             alt="Points"
                             height={20}
                             width={20}

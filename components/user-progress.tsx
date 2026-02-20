@@ -20,7 +20,7 @@ export const UserProgress = async ({}: Props) => {
             {admin && (
                 <Link href="/admin/dashboard">
                     <Button variant="ghost" className="cursor-pointer">
-                        <Image src="/admin.svg" alt="Admin" height={28} width={28} className="mr-2" />
+                        <Image src="/icons/admin.svg" alt="Admin" height={28} width={28} className="mr-2" />
                     </Button>
                 </Link>
             )}

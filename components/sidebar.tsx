@@ -25,14 +25,14 @@ export const Sidebar = ({ className }: Props) => {
       </Link>
 
       <div className="flex flex-col gap-y-2 flex-1">
-        <SidebarItem label="Learn" href="/learn" iconSrc="/learn.svg" />
-        <SidebarItem label="Puzzles" href="/puzzles" iconSrc="/puzzle.svg" />
-        <SidebarItem label="Games" href="/games" iconSrc="/games.svg" />
-        <SidebarItem label="Shop" href="/shop" iconSrc="/shop.svg" />
-        <SidebarItem label="Profile" href="/profile" iconSrc="/profile.svg" />
+        <SidebarItem label="Learn" href="/learn" iconSrc="/icons/learn.svg" />
+        <SidebarItem label="Puzzles" href="/puzzles" iconSrc="/icons/puzzle.svg" />
+        <SidebarItem label="Games" href="/games" iconSrc="/icons/games.svg" />
+        <SidebarItem label="Shop" href="/shop" iconSrc="/icons/shop.svg" />
+        <SidebarItem label="Profile" href="/profile" iconSrc="/icons/profile.svg" />
       </div>
       <div className="flex flex-col mb-4">
-        <SidebarItem label="Settings" href="/settings" iconSrc="/settings.svg" />
+        <SidebarItem label="Settings" href="/settings" iconSrc="/icons/settings.svg" />
       </div>
     </div>
   );

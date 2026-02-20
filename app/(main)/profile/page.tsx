@@ -9,7 +9,7 @@ import Head from "next/head";
 
 const UserProfilePage = async () => {
   const userProgressData = (await getUserProgress()) ?? null;
-  const imageSrc = userProgressData?.userImageSrc ?? "/profile.svg";
+  const imageSrc = userProgressData?.userImageSrc ?? "/icons/profile.svg";
 
   return (
     <>

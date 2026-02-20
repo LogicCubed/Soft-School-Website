@@ -72,12 +72,12 @@ const Profile = ({ stats }: Props) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             <Statistic
-              icon="/points.svg"
+              icon="/icons/points.svg"
               stat={stats ? stats.points.toString() : "-"}
               caption="Points"
             />
             <Statistic
-              icon="/streak.svg"
+              icon="/icons/streak.svg"
               stat={stats ? stats.currentStreak?.toString() ?? "0" : "-"}
               caption="Current Streak"
             />
