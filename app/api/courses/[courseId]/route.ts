@@ -4,17 +4,8 @@ import { courses } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
 import { eq } from "drizzle-orm";
 
-type RouteContext = {
-  params: {
-    courseId: string;
-  };
-};
-
-export async function GET(
-  _req: NextRequest,
-  { params }: RouteContext
-) {
-  const { courseId } = params;
+export async function GET(_req: NextRequest, context: any) {
+  const { courseId } = context.params;
 
   if (!isAdmin()) {
     return new NextResponse("Unauthorized", { status: 403 });
@@ -32,11 +23,8 @@ export async function GET(
   return NextResponse.json(data);
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: RouteContext
-) {
-  const { courseId } = params;
+export async function PUT(req: NextRequest, context: any) {
+  const { courseId } = context.params;
 
   if (!isAdmin()) {
     return new NextResponse("Unauthorized", { status: 403 });
@@ -58,11 +46,8 @@ export async function PUT(
   return NextResponse.json(data[0]);
 }
 
-export async function DELETE(
-  _req: NextRequest,
-  { params }: RouteContext
-) {
-  const { courseId } = params;
+export async function DELETE(_req: NextRequest, context: any) {
+  const { courseId } = context.params;
 
   if (!isAdmin()) {
     return new NextResponse("Unauthorized", { status: 403 });
