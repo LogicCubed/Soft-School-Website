@@ -1,6 +1,9 @@
-const { app, BrowserWindow, Menu } = require('electron');
-const { ipcMain } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, Menu, ipcMain } = require("electron");
+const { spawn } = require("child_process");
+const path = require("path");
+const waitOn = require("wait-on");
+
+let serverProcess;
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -9,40 +12,47 @@ function createWindow() {
     minWidth: 600,
     minHeight: 400,
     frame: false,
+    icon: path.join(__dirname, "../assets/icon.ico"),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, "preload.js"),
       nodeIntegration: false,
       contextIsolation: true,
     },
   });
 
   Menu.setApplicationMenu(null);
-
-  win.loadURL('http://localhost:3000');
+  win.loadURL("http://localhost:3000");
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(async () => {
+  serverProcess = spawn("npm", ["run", "start"], {
+    shell: true,
+    stdio: "inherit",
+  });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  await waitOn({ resources: ["http://localhost:3000"] });
+
+  createWindow();
 });
 
-app.on('activate', () => {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") app.quit();
+  if (serverProcess) serverProcess.kill();
+});
+
+app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-ipcMain.on('window-minimize', (event) => {
-  const win = BrowserWindow.fromWebContents(event.sender);
-  win.minimize();
+ipcMain.on("window-minimize", (event) => {
+  BrowserWindow.fromWebContents(event.sender).minimize();
 });
 
-ipcMain.on('window-maximize', (event) => {
+ipcMain.on("window-maximize", (event) => {
   const win = BrowserWindow.fromWebContents(event.sender);
-  if (win.isMaximized()) win.unmaximize();
-  else win.maximize();
+  win.isMaximized() ? win.unmaximize() : win.maximize();
 });
 
-ipcMain.on('window-close', (event) => {
-  const win = BrowserWindow.fromWebContents(event.sender);
-  win.close();
+ipcMain.on("window-close", (event) => {
+  BrowserWindow.fromWebContents(event.sender).close();
 });
