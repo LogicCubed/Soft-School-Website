@@ -1,12 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import db from "@/db/drizzle";
 import { courses } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
 import { eq } from "drizzle-orm";
 
+type RouteContext = {
+  params: {
+    courseId: string;
+  };
+};
+
 export async function GET(
-  _req: Request,
-  { params }: { params: { courseId: string } }
+  _req: NextRequest,
+  { params }: RouteContext
 ) {
   const { courseId } = params;
 
@@ -15,7 +21,7 @@ export async function GET(
   }
 
   const id = Number(courseId);
-  if (isNaN(id)) {
+  if (Number.isNaN(id)) {
     return new NextResponse("Invalid ID", { status: 400 });
   }
 
@@ -27,8 +33,8 @@ export async function GET(
 }
 
 export async function PUT(
-  req: Request,
-  { params }: { params: { courseId: string } }
+  req: NextRequest,
+  { params }: RouteContext
 ) {
   const { courseId } = params;
 
@@ -37,7 +43,7 @@ export async function PUT(
   }
 
   const id = Number(courseId);
-  if (isNaN(id)) {
+  if (Number.isNaN(id)) {
     return new NextResponse("Invalid ID", { status: 400 });
   }
 
@@ -53,8 +59,8 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _req: Request,
-  { params }: { params: { courseId: string } }
+  _req: NextRequest,
+  { params }: RouteContext
 ) {
   const { courseId } = params;
 
@@ -63,7 +69,7 @@ export async function DELETE(
   }
 
   const id = Number(courseId);
-  if (isNaN(id)) {
+  if (Number.isNaN(id)) {
     return new NextResponse("Invalid ID", { status: 400 });
   }
 
