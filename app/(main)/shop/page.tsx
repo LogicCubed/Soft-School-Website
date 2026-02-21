@@ -27,7 +27,7 @@ const ShopPage = async () => {
         <meta name="robots" content="index, follow" />
       </Head>
 
-      <div className="flex flex-row-reverse gap-[48px] px-6">
+      <div className="flex flex-row-reverse gap-12 px-6">
         <FeedWrapper>
           <div className="w-full flex flex-col items-center mb-10">
             <header className="flex flex-col items-center mb-6">

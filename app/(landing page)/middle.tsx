@@ -4,7 +4,7 @@ import Image from "next/image";
 export const Middle = () => {
     return (
         <footer className="hidden lg:block h-20 w-screen border-t-2 border-b-2 p-2 mt-20">
-            <div className="max-w-screen-lg mx-auto flex items-center justify-evenly h-full">
+            <div className="max-w-5xl mx-auto flex items-center justify-evenly h-full">
                 <Button size="lg" variant="ghost">
                     <Image src="/courses/speaking.svg" alt="Speaking" height={32} width={40} className="mr-4 rounded-md"/>
                     Speaking

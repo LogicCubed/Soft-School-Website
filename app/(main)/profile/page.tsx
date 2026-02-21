@@ -22,7 +22,7 @@ const UserProfilePage = async () => {
         <meta name="robots" content="index, follow" />
       </Head>
 
-      <div className="flex flex-col lg:flex-row-reverse lg:gap-[48px] px-4 sm:px-6 lg:px-6">
+      <div className="flex flex-col lg:flex-row-reverse lg:gap-12 px-4 sm:px-6 lg:px-6">
         <StickyWrapper>
           <Customization />
           <StickyFooter />

@@ -22,7 +22,7 @@ const CoursesPage = async () => {
         <meta name="robots" content="index, follow" />
       </Head>
 
-      <main className="h-full max-w-[912px] px-3 mx-auto">
+      <main className="h-full max-w-228 px-3 mx-auto">
         <header>
           <h1 className="text-2xl font-bold text-sky-400 text-center sm:text-left mb-4">
             Soft Skills Courses

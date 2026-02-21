@@ -24,7 +24,7 @@ export const SidebarItem = ({
   return (
     <Button
       variant={active ? "sidebarOutline" : "sidebar"}
-      className="justify-start text-white font-extrabold text-1xl h-[52px]"
+      className="justify-start text-white font-extrabold text-1xl h-13"
       asChild
     >
       <Link href={href}>

@@ -32,7 +32,7 @@ const Profile = ({ stats }: Props) => {
     : 'No recent activity';
 
   return (
-    <div className="flex flex-col md:flex-col lg:flex-row-reverse gap-6 lg:gap-[48px] px-3 md:px-6 w-full overflow-x-hidden">
+    <div className="flex flex-col md:flex-col lg:flex-row-reverse gap-6 lg:gap-12 px-3 md:px-6 w-full overflow-x-hidden">
       <FeedWrapper>
         <div className="w-full flex flex-col items-center md:items-center lg:items-start">
           <h1 className="flex flex-wrap items-center gap-2 font-bold text-white text-3xl sm:text-4xl mb-4 sm:mb-6">
