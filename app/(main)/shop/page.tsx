@@ -46,69 +46,76 @@ const ShopPage = async () => {
 
             <Category title="Power-Ups">
               <Item
-                points={100}
+                points={20}
                 name="Streak Freeze"
                 cost={20}
                 imageSrc="/shop/streak_freeze.png"
                 description="Freezes your precious streak for 24 hours!"
               />
               <Item
-                points={100}
+                points={30}
                 name="XP Boost"
-                cost={20}
-                imageSrc="/softy-assets/softyhappy.svg"
-                description="Temporary Description"
+                cost={30}
+                imageSrc="/shop/exp_boost.png"
+                description="Boost your points earned by 2x for 2 hours!"
               />
             </Category>
 
             <Category title="Cosmetics">
               <Item
-                points={100}
-                name="Test Item"
-                cost={20}
-                imageSrc="/softy-assets/softyhappy.svg"
-                description="Temporary Description"
+                points={15}
+                name="Baseball Cap"
+                cost={15}
+                imageSrc="/shop/baseball_cap.png"
+                description="Lookin' cool!"
               />
               <Item
                 points={100}
-                name="Test Item"
-                cost={20}
-                imageSrc="/softy-assets/softyhappy.svg"
-                description="Temporary Description"
+                name="Crown"
+                cost={100}
+                imageSrc="/shop/crown.png"
+                description="You look like royalty!"
               />
             </Category>
 
             <Category title="Pets">
               <Item
                 points={100}
-                name="Test Item"
-                cost={20}
-                imageSrc="/softy-assets/softyhappy.svg"
-                description="Temporary Description"
+                name="Dog"
+                cost={100}
+                imageSrc="/shop/dog.png"
+                description="A loyal companion!"
               />
               <Item
                 points={100}
-                name="Test Item"
-                cost={20}
-                imageSrc="/softy-assets/softyhappy.svg"
-                description="Temporary Description"
+                name="Cat"
+                cost={100}
+                imageSrc="/shop/cat.png"
+                description="Nothing cozier than a cat!"
+              />
+              <Item
+                points={200}
+                name="Dragon"
+                cost={200}
+                imageSrc="/shop/dragon.png"
+                description="The friendliest dragon out there!"
               />
             </Category>
 
             <Category title="Themes">
               <Item
                 points={100}
-                name="Test Item"
-                cost={20}
-                imageSrc="/softy-assets/softyhappy.svg"
-                description="Temporary Description"
+                name="Sports"
+                cost={100}
+                imageSrc="/shop/sports.png"
+                description="Feelin' Athletic?"
               />
               <Item
-                points={100}
-                name="Test Item"
-                cost={20}
-                imageSrc="/softy-assets/softyhappy.svg"
-                description="Temporary Description"
+                points={200}
+                name="Space"
+                cost={200}
+                imageSrc="/shop/spaceship.png"
+                description="Reach for the Stars!"
               />
             </Category>
           </div>
