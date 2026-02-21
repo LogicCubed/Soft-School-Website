@@ -33,7 +33,7 @@ export default async function GamesPage() {
         <meta name="robots" content="index, follow" />
       </Head>
 
-      <div className="flex flex-row-reverse gap-[48px] px-6">
+      <div className="flex flex-row-reverse gap-12 px-6">
         <StickyWrapper>
           <UserProgress
             activeCourse={userProgress.activeCourse}

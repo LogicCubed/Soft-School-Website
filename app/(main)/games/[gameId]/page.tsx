@@ -11,12 +11,25 @@ export default function GamePage() {
 
   return (
     <div
-      id="game-container"
+      style={{
+        flex: 1,               // take all remaining horizontal space beside the sidebar
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        padding: '16px',       // optional spacing around the game
+        boxSizing: 'border-box',
+      }}
+    >
+      <div
+        id="game-container"
         style={{
-          width: '75vw',
-          height: '75vh',
-          margin: 0,
+          width: '75%',
+          height: '75%',
+          maxWidth: '100%',
+          maxHeight: '100%',
         }}
-    />
+      />
+    </div>
   )
 }

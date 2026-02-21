@@ -12,7 +12,7 @@ type Props = {
 export const Sidebar = ({ className }: Props) => {
   return (
     <div className={cn(
-      "flex h-full lg:w-[256px] lg:fixed left-0 top-0 px-4 border-r-2 border-slate-500 flex-col",
+      "flex h-full lg:w-[256px] lg:fixed lg:left-0 lg:top-0 lg:bottom-0 px-4 border-r-2 border-slate-500 flex-col overflow-y-auto",
       className,
     )}>
       <Link href="/learn">

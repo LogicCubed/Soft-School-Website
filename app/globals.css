@@ -9,6 +9,10 @@ body,
   @apply h-full;
 }
 
+html, body {
+  height: 100%;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

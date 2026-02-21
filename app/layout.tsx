@@ -6,6 +6,7 @@ import "./globals.css";
 import { ExitModal } from "@/components/modals/exit-modal";
 import { DeleteProgressModal } from "@/components/modals/delete-progress-modal";
 import { LoadingScreen } from "@/components/loading-screen";
+import { ElectronHeader } from "@/components/electron/electron-header";
 
 const font = Nunito({
   variable: "--font-nunito",
@@ -28,12 +29,32 @@ export default function RootLayout({
       afterSignOutUrl="/"
     >
       <html lang="en">
-        <body className={`${font.variable} antialiased`}>
-          <Toaster/>
-          <ExitModal/>
-          <DeleteProgressModal/>
-          {children}
-          <LoadingScreen />
+        <body
+          className={`${font.variable} antialiased`}
+          style={{
+            margin: 0,
+            padding: 0,
+            height: "100%",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <ElectronHeader />
+
+          <div
+            style={{
+              flex: 1,
+              overflowY: "auto",
+              minHeight: 0,
+            }}
+          >
+            <Toaster />
+            <ExitModal />
+            <DeleteProgressModal />
+            {children}
+            <LoadingScreen />
+          </div>
         </body>
       </html>
     </ClerkProvider>
