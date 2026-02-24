@@ -28,17 +28,17 @@ export const VideoChallenge = ({
 
   return (
     <div>
-      <div className="text-gray-600 text-xl mb-6">{callToAction}</div>
+      <div className="text-center text-gray-600 text-xl mb-4">{callToAction}</div>
       <video
         controls
         autoPlay
         controlsList="nodownload noplaybackrate"
-        className="w-3/4 max-w-[600px] rounded-xl mb-6 mx-auto block"
+        className="w-3/4 max-w-150 rounded-xl mb-4 mx-auto block"
         src={videoUrl}
         onEnded={() => setVideoEnded(true)}
       />
       <div
-        className={`transition-opacity duration-500 ${
+        className={`mb-4 transition-opacity duration-500 ${
           videoEnded ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >

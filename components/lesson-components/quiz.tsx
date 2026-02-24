@@ -331,128 +331,130 @@ export const Quiz = ({
     <>
       {incorrectAudio}
       {correctAudio}
-      <Header percentage={percentage} />
-      <div className="flex-1 flex justify-center px-4 pb-20 lg:pb-0">
-        <div
-          className={`transition-opacity duration-300 flex flex-col lg:flex-row gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"} max-w-225 px-4 lg:pl-12 mx-auto`}
-        >
-          {/* Explanation box */}
-          {/* TODO: Explanations will be rendered in the respective challenge elements, so this is temporary */}
-          {challenge.type !== "AUDIO" && challenge.type !== "MULTI_SELECT" && challenge.type !== "TRUE_FALSE" && challenge.type !== "SORT" && (
-            <div className="hidden lg:flex w-40 shrink-0 justify-center items-center lg:-ml-16 lg:-translate-x-31.25">
-              <Explanation explanation={selectedExplanation} status={status} streakCount={correctStreak} streakThreshold={2} />
-            </div>
-          )}
+      <div className="flex flex-col min-h-screen">
+        <Header percentage={percentage} />
+        <div className="flex-1 flex justify-center px-4 pb-20 lg:pb-0">
+          <div
+            className={`transition-opacity duration-300 flex flex-col lg:flex-row gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"} max-w-225 px-4 lg:pl-12 mx-auto`}
+          >
+            {/* Explanation box */}
+            {/* TODO: Explanations will be rendered in the respective challenge elements, so this is temporary */}
+            {challenge.type !== "AUDIO" && challenge.type !== "MULTI_SELECT" && challenge.type !== "TRUE_FALSE" && challenge.type !== "SORT" && (
+              <div className="hidden lg:flex w-40 shrink-0 justify-center items-center lg:-ml-16 lg:-translate-x-31.25">
+                <Explanation explanation={selectedExplanation} status={status} streakCount={correctStreak} streakThreshold={2} />
+              </div>
+            )}
 
-          {/* Challenge content */}
-          <div className="flex flex-col gap-y-6 w-full">
-            <h1 className="text-lg lg:text-3xl text-left font-bold text-neutral-700 mt-5 lg:mt-10">{title}</h1>
-          <div>
-              {challenge.type === "SELECT" ? (
-                <SelectChallenge
-                  callToAction={challenge.callToAction}
-                  options={options}
-                  selectedOption={selectedOption}
-                  onSelect={onSelect}
-                  status={status}
-                  disabled={pending}
-                />
-              ) : challenge.type === "VIDEO" ? (
-                <VideoChallenge
-                  videoUrl={challenge.videoUrl}
-                  callToAction={challenge.callToAction}
-                  options={options}
-                  onSelect={onSelect}
-                  selectedOption={selectedOption}
-                  status={status}
-                  disabled={pending}
-                  type={challenge.type}
-                />
-              ) : challenge.type === "VIDEO_QUIZ" ? (
-                <VideoQuizChallenge
-                  videoUrl={challenge.videoUrl}
-                  callToAction={challenge.callToAction}
-                  options={options}
-                  onSelect={onSelect}
-                  selectedOption={selectedOption}
-                  status={status}
-                  disabled={pending}
-                  type={challenge.type}
-                />
-              ) : challenge.type === "AUDIO" ? (
-                <AudioChallenge
-                  audioUrl={challenge.audio ?? undefined}
-                  callToAction={challenge.callToAction}
-                  options={options}
-                  onSelect={onSelect}
-                  selectedOption={selectedOption}
-                  status={status}
-                  disabled={pending}
-                  type={challenge.type}
-                />
-              ) : challenge.type === "MULTI_SELECT" ? (
-                <MultiSelectChallenge
-                  callToAction={challenge.callToAction}
-                  options={options}
-                  selectedIds={selectedMulti}
-                  onChange={onMultiSelectChange}
-                  status={status}
-                  type={challenge.type}
-                />
-              ) : challenge.type === "TRUE_FALSE" ? (
-                <TrueFalseChallenge
-                  selectedOption={selectedOption}
-                  onSelect={onSelect}
-                  disabled={pending}
-                  status={status}
-                  options={options}
-                />
-              ) : challenge.type === "SORT" ? (
-                <Sort
-                  callToAction={challenge.callToAction}
-                  options={options}
-                  onSortChange={setSortAssignments}
-                  disabled={pending}
-                  onAllAssignedChange={setAllSorted}
-                />
-              ) : (
-                // Fallback Option
-                <Challenge
-                  options={options}
-                  onSelect={onSelect}
-                  status={status}
-                  selectedOption={selectedOption}
-                  disabled={pending}
-                  type={challenge.type}
-                />
-              )}
+            {/* Challenge content */}
+            <div className="flex flex-col gap-y-6 w-full">
+              <h1 className="text-lg lg:text-3xl text-left font-bold text-neutral-700 mt-5 lg:mt-10">{title}</h1>
+            <div>
+                {challenge.type === "SELECT" ? (
+                  <SelectChallenge
+                    callToAction={challenge.callToAction}
+                    options={options}
+                    selectedOption={selectedOption}
+                    onSelect={onSelect}
+                    status={status}
+                    disabled={pending}
+                  />
+                ) : challenge.type === "VIDEO" ? (
+                  <VideoChallenge
+                    videoUrl={challenge.videoUrl}
+                    callToAction={challenge.callToAction}
+                    options={options}
+                    onSelect={onSelect}
+                    selectedOption={selectedOption}
+                    status={status}
+                    disabled={pending}
+                    type={challenge.type}
+                  />
+                ) : challenge.type === "VIDEO_QUIZ" ? (
+                  <VideoQuizChallenge
+                    videoUrl={challenge.videoUrl}
+                    callToAction={challenge.callToAction}
+                    options={options}
+                    onSelect={onSelect}
+                    selectedOption={selectedOption}
+                    status={status}
+                    disabled={pending}
+                    type={challenge.type}
+                  />
+                ) : challenge.type === "AUDIO" ? (
+                  <AudioChallenge
+                    audioUrl={challenge.audio ?? undefined}
+                    callToAction={challenge.callToAction}
+                    options={options}
+                    onSelect={onSelect}
+                    selectedOption={selectedOption}
+                    status={status}
+                    disabled={pending}
+                    type={challenge.type}
+                  />
+                ) : challenge.type === "MULTI_SELECT" ? (
+                  <MultiSelectChallenge
+                    callToAction={challenge.callToAction}
+                    options={options}
+                    selectedIds={selectedMulti}
+                    onChange={onMultiSelectChange}
+                    status={status}
+                    type={challenge.type}
+                  />
+                ) : challenge.type === "TRUE_FALSE" ? (
+                  <TrueFalseChallenge
+                    selectedOption={selectedOption}
+                    onSelect={onSelect}
+                    disabled={pending}
+                    status={status}
+                    options={options}
+                  />
+                ) : challenge.type === "SORT" ? (
+                  <Sort
+                    callToAction={challenge.callToAction}
+                    options={options}
+                    onSortChange={setSortAssignments}
+                    disabled={pending}
+                    onAllAssignedChange={setAllSorted}
+                  />
+                ) : (
+                  // Fallback Option
+                  <Challenge
+                    options={options}
+                    onSelect={onSelect}
+                    status={status}
+                    selectedOption={selectedOption}
+                    disabled={pending}
+                    type={challenge.type}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <Footer
-        disabled={isDisabled}
-        status={status}
-        onCheck={
-          challenge.type === "SORT"
-          ? onCheckSort
-          : isMultiSelect
-          ? () => handleMultiSelectSubmit(selectedMulti)
-          : onContinue
-        }
-      />
-      <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white shadow-md">
         <Footer
           disabled={isDisabled}
           status={status}
           onCheck={
             challenge.type === "SORT"
-              ? onCheckSort
-              : isMultiSelect
-              ? () => handleMultiSelectSubmit(selectedMulti)
-              : onContinue
+            ? onCheckSort
+            : isMultiSelect
+            ? () => handleMultiSelectSubmit(selectedMulti)
+            : onContinue
           }
         />
+        <div className="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white shadow-md">
+          <Footer
+            disabled={isDisabled}
+            status={status}
+            onCheck={
+              challenge.type === "SORT"
+                ? onCheckSort
+                : isMultiSelect
+                ? () => handleMultiSelectSubmit(selectedMulti)
+                : onContinue
+            }
+          />
+        </div>
       </div>
     </>
   );
