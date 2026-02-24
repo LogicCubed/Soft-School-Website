@@ -332,14 +332,14 @@ export const Quiz = ({
       {incorrectAudio}
       {correctAudio}
       <Header percentage={percentage} />
-      <div className="flex-1 flex justify-center px-4 pb-[80px] lg:pb-0">
+      <div className="flex-1 flex justify-center px-4 pb-20 lg:pb-0">
         <div
-          className={`transition-opacity duration-300 flex flex-col lg:flex-row gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"} max-w-[900px] px-4 lg:pl-12 mx-auto`}
+          className={`transition-opacity duration-300 flex flex-col lg:flex-row gap-10 items-center ${showContent ? "opacity-100" : "opacity-0"} max-w-225 px-4 lg:pl-12 mx-auto`}
         >
           {/* Explanation box */}
           {/* TODO: Explanations will be rendered in the respective challenge elements, so this is temporary */}
           {challenge.type !== "AUDIO" && challenge.type !== "MULTI_SELECT" && challenge.type !== "TRUE_FALSE" && challenge.type !== "SORT" && (
-            <div className="hidden lg:flex w-[160px] flex-shrink-0 justify-center items-center lg:ml-[-4rem] lg:translate-x-[-125px]">
+            <div className="hidden lg:flex w-40 shrink-0 justify-center items-center lg:-ml-16 lg:-translate-x-31.25">
               <Explanation explanation={selectedExplanation} status={status} streakCount={correctStreak} streakThreshold={2} />
             </div>
           )}

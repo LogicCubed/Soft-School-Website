@@ -44,7 +44,7 @@ const ShopPage = async () => {
               <UserPoints points={userProgress.points} />
             </div>
 
-            <Category title="Power-Ups">
+            <Category title="Power-Ups" titleColor="#fcb02b">
               <Item
                 points={20}
                 name="Streak Freeze"
@@ -61,7 +61,7 @@ const ShopPage = async () => {
               />
             </Category>
 
-            <Category title="Cosmetics">
+            <Category title="Cosmetics" titleColor="#f472b6">
               <Item
                 points={15}
                 name="Baseball Cap"
@@ -78,7 +78,7 @@ const ShopPage = async () => {
               />
             </Category>
 
-            <Category title="Pets">
+            <Category title="Pets" titleColor="#34d399">
               <Item
                 points={100}
                 name="Dog"
@@ -102,7 +102,7 @@ const ShopPage = async () => {
               />
             </Category>
 
-            <Category title="Themes">
+            <Category title="Themes" titleColor="#818cf8">
               <Item
                 points={100}
                 name="Sports"
