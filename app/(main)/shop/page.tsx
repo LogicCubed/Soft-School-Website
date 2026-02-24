@@ -32,12 +32,25 @@ const ShopPage = async () => {
           <div className="w-full flex flex-col items-center mb-10">
             <header className="flex flex-col items-center mb-6">
               <Image src="/icons/shop.svg" alt="Shop" height={90} width={90} />
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-sky-400 text-center">
-                Shop
-              </h1>
-              <p className="text-white text-center text-lg">
-                Purchase cosmetics and more for your avatar!
-              </p>
+              <div className="flex items-center gap-2 relative group">
+                <h1 className="text-3xl sm:text-4xl font-extrabold text-sky-400 text-center">
+                  Shop
+                </h1>
+                <Image
+                  src="/icons/info.png"
+                  alt="info"
+                  height={24}
+                  width={24}
+                  className="cursor-pointer translate-y-1"
+                />
+                <div className="absolute top-1/2 left-full ml-4 transform -translate-y-1/2
+                                border-4 bg-slate-700 border-slate-500 text-white text-left font-semibold
+                                px-4 py-2 z-50 rounded opacity-0 group-hover:opacity-100 transition-opacity
+                                min-w-40 max-w-75 wrap-break-word">
+                <div className="absolute -left-3 top-1/2 transform -translate-y-1/2 w-0 h-0 z-0 border-t-12 border-b-12 border-r-12 border-t-transparent border-b-transparent border-r-slate-500" />
+                  You can earn more stars by completing lessons, games, puzzles, and increasing your soft streak!
+                </div>
+              </div>
             </header>
 
             <div className="justify-center mb-6">
@@ -68,6 +81,13 @@ const ShopPage = async () => {
                 cost={15}
                 imageSrc="/shop/baseball_cap.png"
                 description="Lookin' cool!"
+              />
+              <Item
+                points={25}
+                name="Cowboy Hat"
+                cost={25}
+                imageSrc="/shop/cowboy_hat.png"
+                description="Yeehaw!"
               />
               <Item
                 points={100}
