@@ -7,6 +7,7 @@ import { getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
 import { StickyFooter } from "@/components/sticky-footer";
 import Head from "next/head";
+import { Ear, Hand, Zap } from "lucide-react";
 
 export default async function PuzzlesPage() {
   const userProgress = await getUserProgress();
@@ -26,7 +27,7 @@ export default async function PuzzlesPage() {
         <meta name="robots" content="index, follow" />
       </Head>
 
-      <div className="flex flex-row-reverse gap-[48px] px-6">
+      <div className="flex flex-row-reverse gap-12 px-6">
         <StickyWrapper>
           <UserProgress
             activeCourse={userProgress.activeCourse}
@@ -49,16 +50,19 @@ export default async function PuzzlesPage() {
               title="Quicktime"
               description="Select the right responses quickly under pressure."
               href="/puzzles/quicktime"
+              icon={<Zap size={64} strokeWidth={2.5} />}
             />
             <PuzzleCard
               title="Tone Detective"
               description="Identify the speaker’s tone in different conversations."
               href="/puzzles/tone-detective"
+              icon={<Ear size={64} strokeWidth={2.5} className="shrink-0" />}
             />
             <PuzzleCard
               title="Interrupt or Wait?"
               description="Decide when it’s best to speak up or hold back."
               href="/puzzles/interrupt-or-wait"
+              icon={<Hand size={64} strokeWidth={2.5} className="shrink-0" />}
             />
           </main>
         </FeedWrapper>
